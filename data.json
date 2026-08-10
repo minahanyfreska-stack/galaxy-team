@@ -1,0 +1,18 @@
+{
+  "members": [],
+  "posts": [
+    {
+      "id": "welcome",
+      "title": "مرحباً بكم في المجرة 🚀",
+      "body": "استعدوا للتحديات القادمة!",
+      "team": "all",
+      "date": "الآن"
+    }
+  ],
+  "scores": {
+    "jupiter": 1250,
+    "saturn": 1100,
+    "neptune": 980,
+    "uranus": 870
+  }
+}
