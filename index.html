@@ -3,376 +3,255 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Galaxy Teams</title>
-
+  <title>INFINITY</title>
   <link rel="stylesheet" href="style.css">
-
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <!-- QR -->
+  <!-- QR Code -->
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-
   <!-- QR Scanner -->
   <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
-
 <body>
-
 <header>
   <div class="brand">
-    <b>GALAXY TEAMS</b>
+    <b>INFINITY</b>
     <small>SPACE MISSION</small>
   </div>
-
-  <button id="adminOpen">الإدارة</button>
+  <button id="adminOpen">
+    الإدارة
+  </button>
 </header>
-
-
 <main>
-
   <!-- ================= JOIN ================= -->
-
   <section id="join" class="page">
-
-    <div class="hero">
-
-      <div class="badge">
-        🚀 SPACE MISSION
-      </div>
-
-      <h1>GALAXY</h1>
-
-      <h2>اختر طريقك إلى المجرة</h2>
-
-      <p>
-        ادخل باستخدام كود العضو الخاص بك
-      </p>
-
-    </div>
-
-
-    <div class="card join-card">
-
-      <input
-        id="accessCode"
-        type="text"
-        placeholder="اكتب كود الدخول"
-        autocomplete="off"
-      >
-
-      <button
-        id="codeLoginBtn"
-        class="primary"
-      >
-        دخول إلى المجرة 🚀
-      </button>
-
-
-      <button
-        id="scanQRBtn"
-        class="scan-button"
-      >
-        📷 مسح QR Code
-      </button>
-
-      <div
-        id="qrScanner"
-        class="qr-scanner hidden"
-      ></div>
-
-      <p id="scanMsg"></p>
-      <p id="msg"></p>
-
-    </div>
-
-
-    <!-- الكواكب -->
-
-    <div class="section-title">
-      <h2>الفرق</h2>
-      <p>كل فريق له كوكبه الخاص</p>
-    </div>
-
-
-    <div
-      id="teams"
-      class="teams"
-    ></div>
-
+<div class="hero">
+  <div class="badge">
+    🚀 INFINITY MISSION
+  </div>
+  <h1>INFINITY</h1>
+  <h2>اختر طريقك إلى اللانهاية</h2>
+  <p>
+    ادخل باستخدام كود العضو الخاص بك
+  </p>
+</div>
+<div class="card join-card">
+  <input
+    id="accessCode"
+    type="text"
+    placeholder="اكتب كود الدخول"
+    autocomplete="off"
+  >
+  <button
+    id="codeLoginBtn"
+    class="primary"
+  >
+    دخول إلى INFINITY 🚀
+  </button>
+  <button
+    id="scanQRBtn"
+    class="scan-button"
+  >
+    📷 مسح QR Code
+  </button>
+  <div
+    id="qrScanner"
+    class="qr-scanner hidden"
+  ></div>
+  <p id="scanMsg"></p>
+  <p id="msg"></p>
+</div>
+<!-- ================= TEAMS ================= -->
+<div class="section-title">
+  <h2>
+    الفرق
+  </h2>
+  <p>
+    استكشف الكواكب الأربعة
+  </p>
+</div>
+<div
+  id="teams"
+  class="teams"
+></div>
   </section>
-
-
-
   <!-- ================= MEMBER ================= -->
-
   <section
     id="member"
     class="page hidden"
   >
-
-    <div class="member-head">
-
-      <div class="member-photo-box">
-        <img
-          id="memberPhoto"
-          class="member-main-photo"
-          src=""
-          alt="Member"
-        >
-      </div>
-
-      <div class="member-info">
-
-        <small>MISSION MEMBER</small>
-
-        <h1 id="memberName"></h1>
-
-        <p id="memberTeam"></p>
-
-      </div>
-
-      <button id="logout">
-        خروج
-      </button>
-
-    </div>
-
-
-    <div class="grid">
-
-      <div class="card">
-
-        <h2>📡 المنشورات</h2>
-
-        <div id="posts"></div>
-
-      </div>
-
-
-      <div class="card">
-
-        <h2>🏆 ترتيب الفرق</h2>
-
-        <div id="ranking"></div>
-
-      </div>
-
-    </div>
-
+<div class="member-head">
+  <div class="member-photo-box">
+    <img
+      id="memberPhoto"
+      class="member-main-photo"
+      src=""
+      alt="Member"
+    >
+  </div>
+  <div class="member-info">
+    <small>
+      INFINITY MEMBER
+    </small>
+    <h1 id="memberName"></h1>
+    <p id="memberTeam"></p>
+  </div>
+  <button id="logout">
+    خروج
+  </button>
+</div>
+<div class="grid">
+  <!-- POSTS -->
+  <div class="card">
+    <h2>
+      📡 المنشورات
+    </h2>
+    <div id="posts"></div>
+  </div>
+  <!-- RANKING -->
+  <div class="card">
+    <h2>
+      🏆 ترتيب الفرق
+    </h2>
+    <div id="ranking"></div>
+  </div>
+</div>
   </section>
-
-
-
   <!-- ================= ADMIN ================= -->
-
   <section
     id="admin"
     class="page hidden"
   >
-
-    <div class="hero">
-
-      <div class="badge">
-        🛸 CONTROL CENTER
-      </div>
-
-      <h1>ADMIN</h1>
-
-      <p>
-        لوحة التحكم بالمجرة
-      </p>
-
-      <button id="adminLogout">
-        خروج
-      </button>
-
-    </div>
-
-
-    <div class="grid admin-grid">
-
-
-      <!-- إضافة عضو -->
-
-      <div class="card">
-
-        <h2>👨‍🚀 إضافة عضو</h2>
-
-        <input
-          id="newMemberName"
-          type="text"
-          placeholder="اسم العضو"
-        >
-
-
-        <select id="newMemberTeam">
-
-          <option value="">
-            جاري تحميل الفرق...
-          </option>
-
-        </select>
-
-
-        <label class="file-label">
-
-          📷 صورة العضو
-
-          <input
-            id="newMemberPhoto"
-            type="file"
-            accept="image/*"
-          >
-
-        </label>
-
-
-        <button
-          id="addMemberBtn"
-          class="primary"
-        >
-          إضافة العضو
-        </button>
-
-
-        <div id="newMemberResult"></div>
-
-      </div>
-
-
-
-      <!-- إضافة منشور -->
-
-      <div class="card">
-
-        <h2>📢 نشر منشور</h2>
-
-        <input
-          id="postTitle"
-          type="text"
-          placeholder="عنوان المنشور"
-        >
-
-
-        <textarea
-          id="postBody"
-          placeholder="اكتب تفاصيل المنشور..."
-        ></textarea>
-
-
-        <select id="postTeam">
-
-          <option value="all">
-            كل الفرق
-          </option>
-
-        </select>
-
-
-        <label class="file-label">
-
-          🖼️ صورة المنشور
-
-          <input
-            id="postImage"
-            type="file"
-            accept="image/*"
-          >
-
-        </label>
-
-
-        <button
-          id="postBtn"
-          class="primary"
-        >
-          نشر 🚀
-        </button>
-
-      </div>
-
-
-
-      <!-- النقاط -->
-
-      <div class="card">
-
-        <h2>🏆 نقاط الفرق</h2>
-
-        <div id="scores"></div>
-
-      </div>
-
-    </div>
-
-
-
-    <!-- الأعضاء -->
-
-    <div class="card admin-section">
-
-      <h2>👥 الأعضاء</h2>
-
-      <div id="members"></div>
-
-    </div>
-
-
-
-    <!-- المنشورات -->
-
-    <div class="card admin-section">
-
-      <h2>📢 إدارة المنشورات</h2>
-
-      <div id="adminPosts"></div>
-
-    </div>
-
+<div class="hero">
+  <div class="badge">
+    🛸 INFINITY CONTROL
+  </div>
+  <h1>
+    ADMIN
+  </h1>
+  <p>
+    لوحة التحكم في INFINITY
+  </p>
+  <button id="adminLogout">
+    خروج
+  </button>
+</div>
+<div class="grid admin-grid">
+  <!-- ================= ADD MEMBER ================= -->
+  <div class="card">
+    <h2>
+      👨‍🚀 إضافة عضو
+    </h2>
+    <input
+      id="newMemberName"
+      type="text"
+      placeholder="اسم العضو"
+    >
+    <select id="newMemberTeam">
+      <option value="">
+        جاري تحميل الفرق...
+      </option>
+    </select>
+    <label class="file-label">
+      📷 صورة العضو
+      <input
+        id="newMemberPhoto"
+        type="file"
+        accept="image/*"
+      >
+    </label>
+    <button
+      id="addMemberBtn"
+      class="primary"
+    >
+      إضافة العضو
+    </button>
+    <div id="newMemberResult"></div>
+  </div>
+  <!-- ================= ADD POST ================= -->
+  <div class="card">
+    <h2>
+      📢 نشر منشور
+    </h2>
+    <input
+      id="postTitle"
+      type="text"
+      placeholder="عنوان المنشور"
+    >
+    <textarea
+      id="postBody"
+      placeholder="اكتب تفاصيل المنشور..."
+    ></textarea>
+    <select id="postTeam">
+      <option value="all">
+        كل الفرق
+      </option>
+    </select>
+    <label class="file-label">
+      🖼️ صورة المنشور
+      <input
+        id="postImage"
+        type="file"
+        accept="image/*"
+      >
+    </label>
+    <button
+      id="postBtn"
+      class="primary"
+    >
+      نشر 🚀
+    </button>
+  </div>
+  <!-- ================= SCORES ================= -->
+  <div class="card">
+    <h2>
+      🏆 نقاط الفرق
+    </h2>
+    <div id="scores"></div>
+  </div>
+</div>
+<!-- ================= MEMBERS ================= -->
+<div class="card admin-section">
+  <h2>
+    👥 أعضاء INFINITY
+  </h2>
+  <div id="members"></div>
+</div>
+<!-- ================= POSTS ================= -->
+<div class="card admin-section">
+  <h2>
+    📢 إدارة المنشورات
+  </h2>
+  <div id="adminPosts"></div>
+</div>
   </section>
-
 </main>
-
-
-
-<!-- ================= LOGIN MODAL ================= -->
-
+<!-- ================= ADMIN LOGIN ================= -->
 <div
   id="loginModal"
   class="modal hidden"
 >
-
   <div class="card">
-
-    <h2>🔐 دخول الإدارة</h2>
-
-    <input
-      id="adminPass"
-      type="password"
-      placeholder="كلمة المرور"
-    >
-
-    <button
-      id="loginBtn"
-      class="primary"
-    >
-      دخول
-    </button>
-
-    <button id="closeModal">
-      إلغاء
-    </button>
-
-    <p id="loginMsg"></p>
-
+<h2>
+  🔐 دخول إدارة INFINITY
+</h2>
+<input
+  id="adminPass"
+  type="password"
+  placeholder="كلمة المرور"
+>
+<button
+  id="loginBtn"
+  class="primary"
+>
+  دخول
+</button>
+<button id="closeModal">
+  إلغاء
+</button>
+<p id="loginMsg"></p>
   </div>
-
 </div>
-
-
 <script src="app.js"></script>
-
 </body>
 </html>
