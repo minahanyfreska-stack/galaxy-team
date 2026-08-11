@@ -1,1586 +1,1090 @@
-/* =========================================================
-INFINITY — REAL SPACE UI
-========================================================= */
-
 * {
-    box-sizing: border-box;
-    }
+  box-sizing: border-box;
+}
 
 html {
-scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 :root {
-–space-black: #02030a;
-–space-deep: #050817;
-–space-blue: #07152c;
-–ice: #8de8ff;
-–cyan: #35d9ff;
-–violet: #9b7cff;
-–purple: #6d4cff;
-–white: #ffffff;
-–glass: rgba(7, 12, 30, 0.68);
-–glass-light: rgba(255,255,255,0.055);
-–border: rgba(150, 210, 255, 0.18);
+  --bg: #02040b;
+  --card: rgba(8, 13, 28, .78);
+  --card2: rgba(12, 19, 39, .72);
+  --line: rgba(130, 180, 255, .18);
+  --text: #f4f8ff;
+  --muted: #91a2bd;
+  --cyan: #55dfff;
+  --purple: #9b7cff;
 }
-
-/* =========================================================
-BODY
-========================================================= */
 
 body {
-margin: 0;
-min-height: 100vh;
-color: var(–white);
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: Arial, Tahoma, sans-serif;
+  overflow-x: hidden;
 
-font-family:
-Arial,
-Tahoma,
-sans-serif;
-
-overflow-x: hidden;
-
-background:
-radial-gradient(
-circle at 20% 20%,
-rgba(58, 82, 180, 0.16),
-transparent 30%
-),
-radial-gradient(
-circle at 80% 30%,
-rgba(119, 56, 210, 0.14),
-transparent 32%
-),
-radial-gradient(
-circle at 50% 90%,
-rgba(0, 150, 255, 0.10),
-transparent 35%
-),
-linear-gradient(
-180deg,
-#010207 0%,
-#020512 40%,
-#030817 100%
-);
-
-position: relative;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(50, 80, 180, .20), transparent 28%),
+    radial-gradient(circle at 85% 25%, rgba(130, 40, 180, .18), transparent 30%),
+    radial-gradient(circle at 50% 90%, rgba(0, 160, 220, .12), transparent 30%),
+    #02040b;
 }
 
-/* =========================================================
-REALISTIC SPACE BACKGROUND
-========================================================= */
+/* =========================
+   SPACE BACKGROUND
+========================= */
 
 body::before {
-content: “”;
-position: fixed;
-inset: -20%;
-z-index: -5;
-pointer-events: none;
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
 
-background:
-radial-gradient(
-ellipse at 25% 30%,
-rgba(78, 105, 255, 0.15),
-transparent 20%
-),
-radial-gradient(
-ellipse at 75% 65%,
-rgba(180, 60, 255, 0.13),
-transparent 22%
-),
-radial-gradient(
-ellipse at 50% 50%,
-rgba(30, 190, 255, 0.06),
-transparent 30%
-);
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.95) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(130,200,255,.8) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(180,120,255,.7) 1px, transparent 1.5px);
 
-filter: blur(25px);
+  background-size:
+    150px 150px,
+    230px 230px,
+    310px 310px;
 
-animation:
-nebulaMove 22s ease-in-out infinite alternate;
+  background-position:
+    0 0,
+    50px 80px,
+    -100px 40px;
+
+  animation: stars 70s linear infinite;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -4;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 30% 45%,
+      rgba(75, 110, 255, .12),
+      transparent 25%
+    ),
+    radial-gradient(
+      ellipse at 70% 55%,
+      rgba(170, 70, 255, .10),
+      transparent 25%
+    );
+
+  filter: blur(45px);
+  animation: nebulaMove 18s ease-in-out infinite alternate;
+}
+
+@keyframes stars {
+  from {
+    background-position:
+      0 0,
+      50px 80px,
+      -100px 40px;
+  }
+
+  to {
+    background-position:
+      500px 700px,
+      -500px 400px,
+      350px -300px;
+  }
 }
 
 @keyframes nebulaMove {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
 
-0% {
-transform:
-translate3d(-2%, -2%, 0)
-scale(1);
+  to {
+    transform: scale(1.12) rotate(4deg);
+  }
 }
 
-50% {
-transform:
-translate3d(2%, 1%, 0)
-scale(1.06);
-}
-
-100% {
-transform:
-translate3d(-1%, 3%, 0)
-scale(1.02);
-}
-}
-
-/* =========================================================
-STARS — SMALL
-========================================================= */
-
-body::after {
-content: “”;
-position: fixed;
-inset: 0;
-
-z-index: -4;
-pointer-events: none;
-
-background-image:
-radial-gradient(
-circle,
-rgba(255,255,255,.95) 0px,
-rgba(255,255,255,.95) 1px,
-transparent 1.7px
-),
-radial-gradient(
-circle,
-rgba(150,220,255,.75) 0px,
-rgba(150,220,255,.75) 1px,
-transparent 1.8px
-),
-radial-gradient(
-circle,
-rgba(190,150,255,.7) 0px,
-rgba(190,150,255,.7) 1px,
-transparent 1.8px
-);
-
-background-size:
-95px 95px,
-145px 145px,
-210px 210px;
-
-background-position:
-0 0,
-40px 80px,
-100px 20px;
-
-animation:
-starDrift 80s linear infinite;
-}
-
-@keyframes starDrift {
-
-from {
-background-position:
-0 0,
-40px 80px,
-100px 20px;
-}
-
-to {
-background-position:
-500px 900px,
--600px 500px,
-350px -400px;
-}
-}
-
-/* =========================================================
-EXTRA SPACE DUST
-========================================================= */
-
-main::before {
-content: “”;
-position: fixed;
-inset: 0;
-
-pointer-events: none;
-
-z-index: -3;
-
-background:
-radial-gradient(
-circle at 10% 40%,
-rgba(100,190,255,.15),
-transparent 2%
-),
-radial-gradient(
-circle at 80% 20%,
-rgba(190,110,255,.13),
-transparent 2%
-),
-radial-gradient(
-circle at 70% 80%,
-rgba(80,160,255,.12),
-transparent 2%
-);
-
-filter: blur(2px);
-}
-
-/* =========================================================
-HEADER
-========================================================= */
+/* =========================
+   HEADER
+========================= */
 
 header {
-width: min(1500px, 94%);
-margin: 18px auto;
+  width: min(1500px, 94%);
+  margin: 18px auto;
 
-padding: 15px 24px;
+  min-height: 76px;
+  padding: 14px 22px;
 
-display: flex;
-justify-content: space-between;
-align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-position: relative;
-z-index: 20;
+  border: 1px solid rgba(130,190,255,.22);
+  border-radius: 24px;
 
-border:
-1px solid
-rgba(130, 210, 255, .22);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(8,15,32,.86),
+      rgba(4,8,20,.68)
+    );
 
-border-radius: 22px;
+  backdrop-filter: blur(25px);
 
-background:
-linear-gradient(
-135deg,
-rgba(5, 10, 28, .86),
-rgba(8, 12, 35, .62)
-);
-
-backdrop-filter: blur(22px);
--webkit-backdrop-filter: blur(22px);
-
-box-shadow:
-0 15px 60px rgba(0,0,0,.5),
-0 0 45px rgba(50,120,255,.08),
-inset 0 1px rgba(255,255,255,.08);
+  box-shadow:
+    0 20px 80px rgba(0,0,0,.45),
+    inset 0 1px rgba(255,255,255,.08);
 }
 
-/* =========================================================
-LOGO
-========================================================= */
-
 .brand {
-display: flex;
-flex-direction: column;
-gap: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .brand b {
-font-size: 27px;
-font-weight: 900;
+  font-size: 28px;
+  letter-spacing: 7px;
 
-letter-spacing: 7px;
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff,
+      #9fdcff,
+      #b99aff,
+      #ffffff
+    );
 
-background:
-linear-gradient(
-90deg,
-#ffffff,
-#b7f5ff,
-#9e82ff,
-#ffffff
-);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 
--webkit-background-clip: text;
-background-clip: text;
-
-color: transparent;
-
-text-shadow:
-0 0 25px rgba(100,200,255,.25);
+  text-shadow:
+    0 0 30px rgba(90,190,255,.25);
 }
 
 .brand small {
-color: rgba(210,235,255,.55);
-letter-spacing: 4px;
-font-size: 9px;
+  color: #8292aa;
+  letter-spacing: 4px;
+  font-size: 10px;
 }
 
-/* =========================================================
-MAIN
-========================================================= */
+/* =========================
+   MAIN
+========================= */
 
 main {
-width: min(1500px, 94%);
-margin: auto;
-position: relative;
+  width: min(1500px, 94%);
+  margin: auto;
 }
 
 .page {
-min-height: calc(100vh - 100px);
-padding: 25px 0 90px;
+  min-height: calc(100vh - 100px);
+  padding: 20px 0 80px;
 }
 
-/* =========================================================
-HERO
-========================================================= */
+/* =========================
+   HERO
+========================= */
 
 .hero {
-text-align: center;
-padding: 50px 20px 35px;
+  text-align: center;
+  padding: 45px 15px 35px;
 }
 
 .badge {
-display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 
-padding: 10px 22px;
+  padding: 9px 18px;
 
-border-radius: 999px;
+  border-radius: 999px;
 
-color: #bdefff;
+  color: #bcecff;
 
-background:
-rgba(40,130,255,.09);
+  border: 1px solid rgba(90,210,255,.28);
 
-border:
-1px solid
-rgba(100,210,255,.35);
+  background:
+    rgba(30,130,190,.10);
 
-box-shadow:
-0 0 30px
-rgba(40,170,255,.13),
-inset 0 0 20px
-rgba(100,180,255,.04);
+  box-shadow:
+    0 0 35px rgba(40,180,255,.12);
 
-backdrop-filter: blur(10px);
-
-letter-spacing: 1px;
+  backdrop-filter: blur(12px);
 }
 
 .hero h1 {
-margin: 18px 0 8px;
+  margin: 18px 0 5px;
 
-font-size:
-clamp(55px, 9vw, 115px);
+  font-size: clamp(55px, 9vw, 115px);
+  line-height: .95;
 
-line-height: .95;
+  letter-spacing: 14px;
 
-font-weight: 900;
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #b9eaff 30%,
+      #a886ff 65%,
+      #ffffff 100%
+    );
 
-letter-spacing: 12px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 
-background:
-linear-gradient(
-90deg,
-#ffffff 0%,
-#d9f9ff 25%,
-#8eeaff 45%,
-#a78aff 70%,
-#ffffff 100%
-);
-
--webkit-background-clip: text;
-background-clip: text;
-
-color: transparent;
-
-filter:
-drop-shadow(
-0 0 35px
-rgba(70,180,255,.28)
-);
+  text-shadow:
+    0 0 50px rgba(80,170,255,.25);
 }
 
 .hero h2 {
-margin: 15px 0;
-
-font-size:
-clamp(24px, 4vw, 44px);
-
-font-weight: 700;
+  font-size: clamp(25px, 4vw, 44px);
+  margin: 18px 0 10px;
 }
 
 .hero p {
-margin: 10px auto;
-
-max-width: 700px;
-
-color:
-rgba(225,240,255,.63);
-
-font-size: 17px;
+  color: var(--muted);
+  font-size: 17px;
 }
 
-/* =========================================================
-CARDS
-========================================================= */
+/* =========================
+   CARDS
+========================= */
 
 .card {
-position: relative;
+  position: relative;
+  overflow: hidden;
 
-background:
-linear-gradient(
-145deg,
-rgba(9,16,40,.78),
-rgba(2,6,22,.74)
-);
+  padding: 28px;
 
-border:
-1px solid
-rgba(130,190,255,.16);
+  border-radius: 28px;
 
-border-radius: 28px;
+  border: 1px solid var(--line);
 
-padding: 30px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(12,20,42,.82),
+      rgba(3,7,18,.74)
+    );
 
-backdrop-filter: blur(22px);
--webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(24px);
 
-box-shadow:
-0 25px 80px rgba(0,0,0,.45),
-0 0 50px rgba(50,100,255,.05),
-inset 0 1px rgba(255,255,255,.06);
-
-overflow: hidden;
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.42),
+    inset 0 1px rgba(255,255,255,.07);
 }
 
 .card::before {
-content: “”;
+  content: "";
+  position: absolute;
 
-position: absolute;
+  width: 250px;
+  height: 250px;
 
-top: 0;
-left: 12%;
-right: 12%;
+  right: -120px;
+  top: -130px;
 
-height: 1px;
+  background:
+    radial-gradient(
+      circle,
+      rgba(80,190,255,.10),
+      transparent 70%
+    );
 
-background:
-linear-gradient(
-90deg,
-transparent,
-rgba(130,225,255,.5),
-transparent
-);
-
-opacity: .6;
+  pointer-events: none;
 }
 
 .join-card {
-width: min(900px,100%);
-margin: auto;
-text-align: center;
+  width: min(900px, 100%);
+  margin: auto;
+  text-align: center;
 }
 
-/* =========================================================
-SECTION TITLE
-========================================================= */
-
-.section-title {
-text-align: center;
-margin: 55px 0 25px;
-}
-
-.section-title h2 {
-font-size: 35px;
-margin-bottom: 5px;
-}
-
-.section-title p {
-opacity: .55;
-}
-
-/* =========================================================
-INPUTS
-========================================================= */
+/* =========================
+   INPUTS
+========================= */
 
 input,
 textarea,
 select {
-width: 100%;
+  width: 100%;
 
-margin: 9px 0;
+  margin: 9px 0;
+  padding: 16px 18px;
 
-padding: 16px 18px;
+  color: white;
 
-border-radius: 15px;
+  font-size: 16px;
 
-border:
-1px solid
-rgba(170,210,255,.15);
+  border-radius: 15px;
 
-outline: none;
+  border: 1px solid rgba(150,190,255,.17);
 
-background:
-rgba(0,2,10,.62);
+  outline: none;
 
-color: white;
+  background:
+    rgba(0,0,0,.42);
 
-font-size: 16px;
-
-transition:
-.25s ease;
-
-box-shadow:
-inset 0 0 20px rgba(0,0,0,.15);
+  transition: .25s;
 }
 
 input::placeholder,
 textarea::placeholder {
-color:
-rgba(220,235,255,.38);
+  color: #687890;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-border-color:
-rgba(80,220,255,.7);
+  border-color: rgba(80,220,255,.65);
 
-box-shadow:
-0 0 25px
-rgba(40,200,255,.12),
-inset 0 0 15px
-rgba(50,150,255,.04);
+  box-shadow:
+    0 0 0 3px rgba(60,200,255,.07),
+    0 0 30px rgba(50,190,255,.12);
 }
 
-textarea {
-min-height: 150px;
-resize: vertical;
+select {
+  cursor: pointer;
 }
 
 select option {
-background: #080d20;
-color: white;
+  background: #080d1c;
+  color: white;
 }
 
-/* =========================================================
-FILE
-========================================================= */
-
-.file-label {
-display: block;
-
-margin: 12px 0;
-
-padding: 16px;
-
-border:
-1px dashed
-rgba(110,210,255,.3);
-
-border-radius: 15px;
-
-background:
-rgba(40,120,190,.06);
-
-color:
-rgba(220,240,255,.75);
-
-cursor: pointer;
-
-transition: .25s;
+textarea {
+  min-height: 150px;
+  resize: vertical;
 }
 
-.file-label:hover {
-border-color:
-rgba(90,220,255,.8);
+/* =========================
+   BUTTONS
+========================= */
 
-background:
-rgba(40,150,255,.1);
+button {
+  padding: 13px 21px;
 
-box-shadow:
-0 0 25px
-rgba(50,180,255,.08);
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  border: 1px solid rgba(160,190,255,.18);
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.11),
+      rgba(255,255,255,.045)
+    );
+
+  cursor: pointer;
+
+  transition:
+    transform .25s,
+    box-shadow .25s,
+    border-color .25s;
 }
 
-.file-label input {
-margin: 10px 0 0;
-padding: 7px;
-border: 0;
-background: transparent;
+button:hover {
+  transform: translateY(-3px);
+
+  border-color:
+    rgba(100,220,255,.45);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.28);
 }
 
-/* =========================================================
-TEAMS — PLANETS
-========================================================= */
+.primary {
+  width: 100%;
+
+  border: 0;
+
+  background:
+    linear-gradient(
+      100deg,
+      #3c5cff,
+      #8055ff,
+      #1bbde7
+    );
+
+  box-shadow:
+    0 12px 40px rgba(70,80,255,.28);
+}
+
+.scan-button {
+  width: 100%;
+  margin-top: 9px;
+
+  border-color:
+    rgba(80,210,255,.25);
+
+  background:
+    rgba(40,170,220,.08);
+}
+
+/* =========================
+   TEAMS
+========================= */
+
+.section-title {
+  text-align: center;
+  margin: 55px 0 25px;
+}
+
+.section-title h2 {
+  font-size: 35px;
+  margin-bottom: 5px;
+}
+
+.section-title p {
+  color: var(--muted);
+}
 
 .teams {
-display: grid;
+  display: grid;
 
-grid-template-columns:
-repeat(4, 1fr);
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
 
-gap: 25px;
+  gap: 24px;
 
-margin: 30px 0;
+  margin: 25px 0;
 }
+
+/* كارت الفريق */
 
 .team {
-position: relative;
+  position: relative;
 
-min-height: 360px;
+  min-height: 390px;
 
-padding: 20px 15px;
+  overflow: hidden;
 
-display: flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
 
-flex-direction: column;
+  padding: 25px 15px;
 
-justify-content: flex-end;
+  border-radius: 30px;
 
-align-items: center;
+  border: 1px solid rgba(150,190,255,.22);
 
-overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 50% 32%,
+      rgba(70,120,220,.16),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(15,25,50,.62),
+      rgba(2,5,15,.95)
+    );
 
-border-radius: 30px;
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.5),
+    inset 0 0 70px rgba(80,100,180,.07);
 
-cursor: pointer;
+  transition:
+    transform .4s,
+    border-color .4s,
+    box-shadow .4s;
 
-border:
-1px solid
-rgba(140,200,255,.22);
-
-background:
-radial-gradient(
-circle at 50% 35%,
-rgba(90,140,255,.15),
-transparent 35%
-),
-linear-gradient(
-145deg,
-rgba(7,12,30,.95),
-rgba(1,4,14,.98)
-);
-
-box-shadow:
-0 25px 70px
-rgba(0,0,0,.55),
-
-inset 0 0 70px
-rgba(70,110,255,.05);
-
-transition:
-transform .4s ease,
-border-color .4s ease,
-box-shadow .4s ease;
+  isolation: isolate;
 }
-
-/* stars inside planet card */
 
 .team::before {
-content: “”;
+  content: "";
 
-position: absolute;
+  position: absolute;
+  inset: 0;
 
-inset: 0;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.9) 1px,
+      transparent 1.5px
+    );
 
-background-image:
-radial-gradient(
-circle,
-rgba(255,255,255,.9) 0 1px,
-transparent 1.5px
-),
-radial-gradient(
-circle,
-rgba(110,210,255,.7) 0 1px,
-transparent 1.5px
-);
+  background-size: 80px 80px;
 
-background-size:
-52px 52px,
-87px 87px;
+  opacity: .18;
 
-opacity: .45;
+  animation:
+    teamStars 25s linear infinite;
 
-animation:
-teamStars 25s linear infinite;
-
-pointer-events: none;
+  z-index: -1;
 }
-
-@keyframes teamStars {
-
-from {
-background-position:
-0 0,
-20px 40px;
-}
-
-to {
-background-position:
-250px 400px,
--300px 200px;
-}
-}
-
-/* atmospheric glow */
 
 .team::after {
-content: “”;
+  content: "";
 
-position: absolute;
+  position: absolute;
 
-width: 330px;
-height: 330px;
+  width: 270px;
+  height: 270px;
 
-left: 50%;
-top: 32px;
+  top: 25px;
 
-transform:
-translateX(-50%);
+  border-radius: 50%;
 
-border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(80,170,255,.15),
+      transparent 68%
+    );
 
-background:
-radial-gradient(
-circle,
-rgba(70,180,255,.10),
-transparent 62%
-);
+  filter: blur(15px);
 
-filter: blur(15px);
-
-pointer-events: none;
+  z-index: -1;
 }
 
 .team:hover {
-transform:
-translateY(-12px)
-scale(1.025);
+  transform:
+    translateY(-12px)
+    scale(1.025);
 
-border-color:
-rgba(120,220,255,.7);
+  border-color:
+    rgba(90,215,255,.58);
 
-box-shadow:
-0 35px 90px
-rgba(0,0,0,.65),
-0 0 45px
-rgba(60,170,255,.15);
+  box-shadow:
+    0 35px 90px rgba(0,0,0,.65),
+    0 0 50px rgba(60,160,255,.16);
 }
 
 .team.sel {
-transform:
-translateY(-8px);
+  border-color: #65e7ff;
 
-border-color:
-rgba(110,230,255,.9);
-
-box-shadow:
-0 0 55px
-rgba(50,210,255,.18),
-0 30px 80px
-rgba(0,0,0,.6);
+  box-shadow:
+    0 0 50px rgba(70,210,255,.22),
+    0 30px 90px rgba(0,0,0,.65);
 }
 
-/* =========================================================
-PLANET IMAGE
-========================================================= */
+@keyframes teamStars {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 160px 220px;
+  }
+}
+
+/* كوكب الفريق */
 
 .team img {
-position: absolute;
+  position: absolute;
 
-top: 25px;
+  top: 30px;
 
-left: 50%;
+  width: 215px;
+  height: 215px;
 
-transform:
-translateX(-50%);
+  object-fit: contain;
 
-width: 205px;
-height: 205px;
+  z-index: 2;
 
-object-fit: contain;
+  border-radius: 50%;
 
-z-index: 3;
+  filter:
+    drop-shadow(
+      0 15px 35px rgba(0,0,0,.7)
+    )
+    drop-shadow(
+      0 0 30px rgba(70,170,255,.18)
+    );
 
-border-radius: 50%;
-
-filter:
-drop-shadow(
-0 0 22px
-rgba(80,170,255,.32)
-);
-
-animation:
-planetFloat 6s ease-in-out infinite;
+  animation:
+    planetFloat 6s ease-in-out infinite;
 }
 
 @keyframes planetFloat {
+  0%,100% {
+    transform:
+      translateY(0)
+      rotate(-1deg);
+  }
 
-0%,
-100% {
-transform:
-translateX(-50%)
-translateY(0)
-rotate(-1deg);
+  50% {
+    transform:
+      translateY(-9px)
+      rotate(1deg);
+  }
 }
-
-50% {
-transform:
-translateX(-50%)
-translateY(-9px)
-rotate(1deg);
-}
-}
-
-/* =========================================================
-PLANET ATMOSPHERE
-========================================================= */
-
-.team img::after {
-content: “”;
-}
-
-/* =========================================================
-TEAM TEXT
-========================================================= */
 
 .team strong,
 .team b,
 .team span {
-position: relative;
+  position: relative;
+  z-index: 5;
 
-z-index: 10;
+  font-size: 25px;
 
-font-size: 25px;
-
-color: white;
-
-text-shadow:
-0 3px 20px
-rgba(0,0,0,.95);
+  text-shadow:
+    0 4px 20px #000;
 }
 
-.team strong::after {
-content: “”;
-
-display: block;
-
-width: 60px;
-
-height: 2px;
-
-margin: 8px auto 0;
-
-background:
-linear-gradient(
-90deg,
-transparent,
-#72ddff,
-transparent
-);
-
-box-shadow:
-0 0 12px
-rgba(80,220,255,.8);
+.team span {
+  color: #91a6c2;
+  font-size: 13px;
+  margin-top: 7px;
 }
 
-/* =========================================================
-BUTTONS
-========================================================= */
-
-button {
-border: 0;
-
-border-radius: 15px;
-
-padding: 14px 22px;
-
-color: white;
-
-background:
-linear-gradient(
-145deg,
-rgba(255,255,255,.10),
-rgba(255,255,255,.04)
-);
-
-border:
-1px solid
-rgba(180,220,255,.12);
-
-cursor: pointer;
-
-font-size: 15px;
-
-transition:
-.25s ease;
-
-box-shadow:
-0 8px 25px
-rgba(0,0,0,.25);
-}
-
-button:hover {
-transform:
-translateY(-3px);
-
-border-color:
-rgba(110,220,255,.4);
-
-box-shadow:
-0 12px 35px
-rgba(30,170,255,.12);
-}
-
-.primary {
-width: 100%;
-
-background:
-linear-gradient(
-100deg,
-#145cff,
-#714cff,
-#00b9ff
-);
-
-border: 0;
-
-box-shadow:
-0 12px 40px
-rgba(70,80,255,.25);
-
-font-weight: bold;
-}
-
-.primary:hover {
-box-shadow:
-0 15px 50px
-rgba(50,180,255,.25);
-}
-
-.scan-button {
-width: 100%;
-
-margin-top: 10px;
-
-border:
-1px solid
-rgba(70,210,255,.3);
-
-background:
-rgba(30,170,255,.07);
-}
-
-/* =========================================================
-QR SCANNER
-========================================================= */
-
-.qr-scanner {
-width: min(450px,100%);
-
-margin: 20px auto;
-
-overflow: hidden;
-
-border-radius: 22px;
-
-border:
-1px solid
-rgba(80,220,255,.4);
-
-background: #000;
-
-box-shadow:
-0 0 40px
-rgba(30,180,255,.12);
-}
-
-.qr-scanner video {
-width: 100% !important;
-border-radius: 20px;
-}
-
-/* =========================================================
-GRID
-========================================================= */
+/* =========================
+   GRID
+========================= */
 
 .grid {
-display: grid;
+  display: grid;
 
-grid-template-columns:
-1.4fr 1fr;
+  grid-template-columns:
+    1.4fr 1fr;
 
-gap: 25px;
+  gap: 25px;
 }
 
 .admin-grid {
-grid-template-columns:
-repeat(3,1fr);
+  grid-template-columns:
+    repeat(3, 1fr);
 }
 
-/* =========================================================
-MEMBER HEADER
-========================================================= */
+/* =========================
+   MEMBER
+========================= */
 
 .member-head {
-display: flex;
+  display: flex;
+  align-items: center;
+  gap: 22px;
 
-align-items: center;
+  margin-bottom: 25px;
+  padding: 25px;
 
-gap: 22px;
+  border-radius: 27px;
 
-margin-bottom: 30px;
+  background:
+    rgba(7,13,29,.72);
 
-padding: 25px;
+  border: 1px solid var(--line);
 
-border-radius: 25px;
-
-background:
-linear-gradient(
-135deg,
-rgba(8,16,40,.78),
-rgba(3,7,22,.68)
-);
-
-border:
-1px solid
-rgba(130,200,255,.16);
-
-box-shadow:
-0 25px 70px
-rgba(0,0,0,.35);
+  backdrop-filter: blur(20px);
 }
 
 .member-photo-box {
-width: 125px;
-height: 125px;
-flex-shrink: 0;
+  width: 125px;
+  height: 125px;
+  flex-shrink: 0;
 }
 
 .member-main-photo {
-width: 125px;
-height: 125px;
+  width: 125px;
+  height: 125px;
 
-border-radius: 50%;
+  border-radius: 50%;
 
-object-fit: cover;
+  object-fit: cover;
 
-border:
-3px solid
-rgba(100,220,255,.65);
+  border: 3px solid rgba(80,220,255,.55);
 
-box-shadow:
-0 0 35px
-rgba(50,190,255,.2);
+  box-shadow:
+    0 0 40px rgba(50,190,255,.18);
 }
 
 .member-info {
-flex: 1;
+  flex: 1;
 }
 
 .member-info small {
-opacity: .5;
-letter-spacing: 2px;
+  color: #70829d;
+  letter-spacing: 2px;
 }
 
 #memberName {
-margin: 7px 0;
+  margin: 7px 0;
 
-font-size:
-clamp(35px,5vw,65px);
+  font-size: clamp(35px,5vw,65px);
 
-font-weight: 900;
+  background:
+    linear-gradient(
+      90deg,
+      white,
+      #8eeaff,
+      #ae8cff
+    );
 
-background:
-linear-gradient(
-90deg,
-#ffffff,
-#9deeff,
-#ae8cff
-);
-
--webkit-background-clip: text;
-background-clip: text;
-
-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 #memberTeam {
-margin: 5px 0;
-
-font-size: 22px;
-
-color: #73ddff;
-
-font-weight: bold;
+  color: #62ddff;
+  font-size: 21px;
+  font-weight: bold;
 }
 
-/* =========================================================
-POSTS
-========================================================= */
+/* =========================
+   POSTS
+========================= */
 
 .post {
-padding: 20px 0;
+  padding: 22px 0;
 
-border-bottom:
-1px solid
-rgba(255,255,255,.08);
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
 }
 
 .post:last-child {
-border-bottom: 0;
+  border-bottom: 0;
 }
 
 .post small {
-opacity: .45;
+  color: #75859d;
 }
 
 .post h3 {
-font-size: 25px;
-}
-
-.post p {
-line-height: 1.8;
-color: rgba(235,245,255,.78);
+  font-size: 25px;
 }
 
 .post-image {
-display: block;
+  display: block;
 
-width: 100%;
+  width: 100%;
+  max-height: 550px;
 
-max-height: 550px;
+  object-fit: contain;
 
-object-fit: contain;
+  margin-top: 15px;
 
-margin-top: 15px;
+  border-radius: 18px;
 
-border-radius: 18px;
+  background: #000;
 
-background: #000;
+  border: 1px solid rgba(255,255,255,.08);
 
-box-shadow:
-0 15px 50px
-rgba(0,0,0,.5);
+  box-shadow:
+    0 15px 50px rgba(0,0,0,.45);
 }
 
-/* =========================================================
-REPLIES
-========================================================= */
-
-.replies {
-margin-top: 25px;
-
-padding-top: 20px;
-
-border-top:
-1px solid
-rgba(255,255,255,.08);
-}
-
-.reply {
-margin: 12px 0;
-
-padding: 15px;
-
-border-radius: 15px;
-
-background:
-rgba(255,255,255,.035);
-
-border:
-1px solid
-rgba(255,255,255,.06);
-}
-
-.reply small,
-.admin-reply small {
-display: block;
-opacity: .45;
-margin-top: 4px;
-}
-
-.reply p,
-.admin-reply p {
-margin-bottom: 0;
-}
-
-/* =========================================================
-RANKING
-========================================================= */
+/* =========================
+   RANK
+========================= */
 
 .rank,
 .member,
 .score {
-display: flex;
+  display: flex;
 
-justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
 
-align-items: center;
+  gap: 10px;
 
-gap: 10px;
+  padding: 15px;
 
-padding: 15px;
+  margin: 10px 0;
 
-margin: 10px 0;
+  border-radius: 16px;
 
-border-radius: 16px;
+  background:
+    rgba(255,255,255,.045);
 
-background:
-linear-gradient(
-135deg,
-rgba(255,255,255,.055),
-rgba(255,255,255,.025)
-);
-
-border:
-1px solid
-rgba(255,255,255,.07);
+  border:
+    1px solid rgba(255,255,255,.07);
 }
 
-.rank:first-child {
-border-color:
-rgba(255,220,100,.35);
-
-box-shadow:
-0 0 25px
-rgba(255,200,60,.05);
-}
-
-/* =========================================================
-ADMIN
-========================================================= */
-
-.admin-section {
-margin-top: 25px;
-}
+/* =========================
+   ADMIN
+========================= */
 
 .admin-member-left {
-display: flex;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 
-align-items: center;
-
-gap: 12px;
-
-flex: 1;
+  flex: 1;
 }
 
 .admin-member-photo {
-width: 55px;
-height: 55px;
+  width: 58px;
+  height: 58px;
 
-border-radius: 50%;
+  border-radius: 50%;
 
-object-fit: cover;
+  object-fit: cover;
 
-background:
-radial-gradient(
-circle,
-#6d65ff,
-#060916
-);
+  background:
+    radial-gradient(
+      circle,
+      #705cff,
+      #071020
+    );
 
-border:
-2px solid
-rgba(100,220,255,.45);
-
-box-shadow:
-0 0 20px
-rgba(60,150,255,.1);
+  border:
+    2px solid rgba(80,210,255,.4);
 }
 
 .admin-member-buttons {
-display: flex;
-
-flex-wrap: wrap;
-
-gap: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
 }
 
 .admin-member-buttons button {
-padding: 9px 12px;
-font-size: 13px;
-}
-
-.delete-btn {
-background:
-rgba(255,50,80,.14);
-
-border:
-1px solid
-rgba(255,70,90,.35);
+  padding: 9px 12px;
+  font-size: 13px;
 }
 
 .admin-post {
-padding: 16px;
+  padding: 18px;
+  margin: 12px 0;
 
-margin: 10px 0;
+  border-radius: 18px;
 
-border-radius: 16px;
+  background:
+    rgba(255,255,255,.045);
 
-background:
-rgba(255,255,255,.04);
-
-border:
-1px solid
-rgba(255,255,255,.07);
+  border:
+    1px solid rgba(255,255,255,.08);
 }
 
-.admin-post-image {
-width: 100%;
+.delete-btn {
+  background:
+    rgba(255,50,80,.14);
 
-max-height: 220px;
-
-object-fit: cover;
-
-border-radius: 12px;
-
-margin: 10px 0;
+  border-color:
+    rgba(255,70,90,.35);
 }
 
-/* =========================================================
-MODAL
-========================================================= */
+/* =========================
+   FILE
+========================= */
 
-.modal {
-position: fixed;
+.file-label {
+  display: block;
 
-inset: 0;
+  margin: 12px 0;
+  padding: 15px;
 
-display: grid;
+  border:
+    1px dashed rgba(100,210,255,.35);
 
-place-items: center;
+  border-radius: 15px;
 
-padding: 20px;
+  background:
+    rgba(50,150,220,.06);
 
-background:
-rgba(0,0,0,.82);
-
-backdrop-filter:
-blur(18px);
-
-z-index: 1000;
+  cursor: pointer;
 }
 
-.modal .card {
-width:
-min(480px,100%);
+.file-label input {
+  border: 0;
+  background: transparent;
 }
 
-/* =========================================================
-LOGIN RESULT
-========================================================= */
+/* =========================
+   QR
+========================= */
 
-.login-result {
-margin-top: 20px;
+.qr-scanner {
+  width: min(450px, 100%);
 
-padding: 20px;
+  margin: 20px auto;
 
-border-radius: 18px;
+  overflow: hidden;
 
-background:
-rgba(50,100,255,.08);
+  border-radius: 20px;
 
-border:
-1px solid
-rgba(100,200,255,.18);
+  border:
+    1px solid rgba(80,220,255,.35);
+
+  background: #000;
+}
+
+.qr-scanner video {
+  width: 100% !important;
 }
 
 #adminQR {
-margin: 20px auto;
+  margin: 20px auto;
 
-width: fit-content;
+  width: fit-content;
 
-padding: 10px;
+  padding: 10px;
 
-background: white;
+  background: white;
 
-border-radius: 12px;
+  border-radius: 12px;
 }
 
-/* =========================================================
-QR POPUP
-========================================================= */
+/* =========================
+   MODAL
+========================= */
 
-#popupQR {
-padding: 10px;
-border-radius: 12px;
+.modal {
+  position: fixed;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  padding: 20px;
+
+  background:
+    rgba(0,0,0,.78);
+
+  backdrop-filter: blur(15px);
+
+  z-index: 1000;
 }
 
-/* =========================================================
-MESSAGES
-========================================================= */
-
-#msg,
-#scanMsg,
-#loginMsg {
-min-height: 20px;
-
-color:
-rgba(150,225,255,.85);
+.modal .card {
+  width: min(480px,100%);
 }
 
-/* =========================================================
-HIDDEN
-========================================================= */
+/* =========================
+   UTILITIES
+========================= */
 
 .hidden {
-display: none !important;
+  display: none !important;
 }
 
-/* =========================================================
-SCROLLBAR
-========================================================= */
-
-::-webkit-scrollbar {
-width: 9px;
+.muted {
+  color: #71829b;
 }
 
-::-webkit-scrollbar-track {
-background:
-#01030a;
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1000px) {
+
+  .teams {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .grid,
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-::-webkit-scrollbar-thumb {
-background:
-linear-gradient(
-180deg,
-#225dff,
-#793fff
-);
-
-border-radius: 20px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-background:
-linear-gradient(
-180deg,
-#35d9ff,
-#9b6cff
-);
-}
-
-/* =========================================================
-TABLET
-========================================================= */
-
-@media (max-width: 1100px) {
-
-.teams {
-grid-template-columns:
-repeat(2,1fr);
-}
-
-.grid,
-.admin-grid {
-grid-template-columns:
-1fr;
-}
-}
-
-/* =========================================================
-MOBILE
-========================================================= */
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 600px) {
 
-header {
-width: 94%;
-padding: 13px 15px;
-}
+  header {
+    width: 94%;
+    padding: 13px 15px;
+  }
 
-.brand b {
-font-size: 21px;
-letter-spacing: 4px;
-}
+  .brand b {
+    font-size: 20px;
+    letter-spacing: 3px;
+  }
 
-.brand small {
-font-size: 8px;
-}
+  .brand small {
+    font-size: 8px;
+  }
 
-header button {
-padding: 10px 13px;
-font-size: 12px;
-}
+  header button {
+    padding: 10px 13px;
+    font-size: 12px;
+  }
 
-.hero {
-padding: 30px 8px;
-}
+  .hero {
+    padding: 30px 8px;
+  }
 
-.hero h1 {
-font-size: 48px;
-letter-spacing: 5px;
-}
+  .hero h1 {
+    font-size: 48px;
+    letter-spacing: 6px;
+  }
 
-.hero h2 {
-font-size: 25px;
-}
+  .hero h2 {
+    font-size: 24px;
+  }
 
-.hero p {
-font-size: 14px;
-}
+  .card {
+    padding: 18px;
+    border-radius: 22px;
+  }
 
-.card {
-padding: 18px;
-border-radius: 22px;
-}
+  .teams {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
 
-.teams {
-grid-template-columns:
-1fr 1fr;
+  .team {
+    min-height: 240px;
+    border-radius: 20px;
+  }
 
-gap: 10px;
+  .team img {
+    width: 125px;
+    height: 125px;
+    top: 20px;
+  }
 
-}
+  .team strong,
+  .team b {
+    font-size: 18px;
+  }
 
-.team {
-min-height: 235px;
-border-radius: 20px;
-}
+  .team span {
+    font-size: 10px;
+  }
 
-.team img {
-width: 120px;
-height: 120px;
-top: 20px;
-}
+  .member-head {
+    flex-wrap: wrap;
+    padding: 18px;
+  }
 
-.team strong,
-.team b,
-.team span {
-font-size: 18px;
-}
+  .member-photo-box,
+  .member-main-photo {
+    width: 95px;
+    height: 95px;
+  }
 
-.member-head {
-flex-wrap: wrap;
-padding: 18px;
-}
+  #memberName {
+    font-size: 38px;
+  }
 
-.member-photo-box,
-.member-main-photo {
-width: 95px;
-height: 95px;
-}
+  #memberTeam {
+    font-size: 18px;
+  }
 
-#memberName {
-font-size: 38px;
-}
+  .member-head button {
+    width: 100%;
+  }
 
-#memberTeam {
-font-size: 18px;
-}
+  .member {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-.member-head button {
-width: 100%;
-}
+  .admin-member-buttons {
+    width: 100%;
+  }
 
-.member {
-align-items: flex-start;
-flex-direction: column;
-}
-
-.admin-member-buttons {
-width: 100%;
-}
-
-.admin-member-buttons button {
-flex: 1;
-}
-}
-
-/* =========================================================
-REDUCED MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-*,
-*::before,
-*::after {
-animation-duration: .01ms !important;
-animation-iteration-count: 1 !important;
-scroll-behavior: auto !important;
-}
+  .admin-member-buttons button {
+    flex: 1;
+  }
 }
