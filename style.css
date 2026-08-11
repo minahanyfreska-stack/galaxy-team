@@ -1,1904 +1,752 @@
-* {
-    box-sizing: border-box;
-    }
-
-html {
-scroll-behavior: smooth;
+*{
+  box-sizing:border-box;
 }
 
-body {
-margin: 0;
-min-height: 100vh;
-
-color: #fff;
-
-font-family:
-Arial,
-Tahoma,
-sans-serif;
-
-overflow-x: hidden;
-
-background: #02030a;
+html{
+  scroll-behavior:smooth;
 }
 
-/* =========================================
-SPACE
-========================================= */
+body{
+  margin:0;
+  min-height:100vh;
+  color:#fff;
+  font-family:Arial,Tahoma,sans-serif;
+  overflow-x:hidden;
 
-.space-bg {
-position: fixed;
-
-inset: 0;
-
-overflow: hidden;
-
-z-index: -10;
-
-background:
-radial-gradient(
-ellipse at 50% 20%,
-#101943 0%,
-#050817 35%,
-#010207 75%,
-#000 100%
-);
+  background:
+    linear-gradient(
+      rgba(2,5,15,.42),
+      rgba(1,3,12,.72)
+    ),
+    url("https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=2400&q=90")
+    center/cover fixed no-repeat;
 }
 
-/* =========================================
-NEBULAS
-========================================= */
+/* طبقة الفضاء */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  pointer-events:none;
 
-.nebula {
-position: absolute;
-
-border-radius: 50%;
-
-filter: blur(75px);
-
-pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 25%,rgba(80,130,255,.20),transparent 20%),
+    radial-gradient(circle at 80% 20%,rgba(170,70,255,.18),transparent 24%),
+    radial-gradient(circle at 50% 90%,rgba(0,180,255,.12),transparent 25%);
 }
 
-.nebula-one {
-width: 700px;
-height: 350px;
+/* نجوم صغيرة */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
 
-top: 0;
-left: -15%;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.95) 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(120,190,255,.8) 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(190,130,255,.7) 1px,transparent 1.5px);
 
-opacity: .45;
+  background-size:
+    95px 95px,
+    170px 170px,
+    250px 250px;
 
-background:
-radial-gradient(
-ellipse,
-rgba(90,40,255,.9),
-rgba(40,80,255,.35),
-transparent 70%
-);
-
-transform: rotate(-25deg);
-
-animation:
-nebulaOne 20s ease-in-out infinite alternate;
+  animation:stars 70s linear infinite;
 }
 
-.nebula-two {
-width: 800px;
-height: 400px;
+@keyframes stars{
+  from{
+    background-position:0 0,0 0,0 0;
+  }
 
-top: 40%;
-right: -20%;
-
-opacity: .4;
-
-background:
-radial-gradient(
-ellipse,
-rgba(0,190,255,.8),
-rgba(90,30,255,.3),
-transparent 70%
-);
-
-transform: rotate(25deg);
-
-animation:
-nebulaTwo 25s ease-in-out infinite alternate;
+  to{
+    background-position:
+      300px 500px,
+      -400px 250px,
+      500px -300px;
+  }
 }
 
-.nebula-three {
-width: 650px;
-height: 300px;
+/* ================= HEADER ================= */
 
-bottom: -5%;
-left: 25%;
+header{
+  width:min(1450px,94%);
+  margin:20px auto;
+  padding:15px 24px;
 
-opacity: .35;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 
-background:
-radial-gradient(
-ellipse,
-rgba(255,50,170,.5),
-rgba(100,40,255,.35),
-transparent 70%
-);
+  border:1px solid rgba(150,200,255,.25);
+  border-radius:20px;
 
-animation:
-nebulaThree 18s ease-in-out infinite alternate;
+  background:rgba(3,7,20,.68);
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 20px 70px rgba(0,0,0,.5),
+    inset 0 1px rgba(255,255,255,.08);
 }
 
-@keyframes nebulaOne {
-
-from {
-transform:
-translate(-30px,0)
-rotate(-25deg)
-scale(1);
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
 }
 
-to {
-transform:
-translate(100px,60px)
-rotate(-10deg)
-scale(1.15);
-}
-}
+.brand b{
+  font-size:28px;
+  letter-spacing:7px;
 
-@keyframes nebulaTwo {
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff,
+      #9fdcff,
+      #d8a9ff,
+      #ffffff
+    );
 
-from {
-transform:
-translate(30px,0)
-rotate(25deg)
-scale(1);
-}
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
 
-to {
-transform:
-translate(-100px,-50px)
-rotate(10deg)
-scale(1.15);
-}
+  text-shadow:0 0 30px rgba(120,180,255,.35);
 }
 
-@keyframes nebulaThree {
-
-from {
-transform:
-translateY(30px)
-scale(.9);
+.brand small{
+  opacity:.55;
 }
 
-to {
-transform:
-translateY(-50px)
-scale(1.15);
-}
-}
+/* ================= MAIN ================= */
 
-/* =========================================
-STARS
-========================================= */
-
-.stars {
-position: absolute;
-
-inset: -50%;
-
-pointer-events: none;
+main{
+  width:min(1450px,94%);
+  margin:auto;
 }
 
-.stars-small {
-
-opacity: .85;
-
-background-image:
-radial-gradient(
-circle,
-rgba(255,255,255,.95) 0 1px,
-transparent 1.5px
-);
-
-background-size:
-65px 65px;
-
-animation:
-starsMove 70s linear infinite;
+.page{
+  min-height:calc(100vh - 100px);
+  padding:25px 0 80px;
 }
 
-.stars-medium {
+/* ================= HERO ================= */
 
-opacity: .6;
-
-background-image:
-radial-gradient(
-circle,
-rgba(100,210,255,.95) 0 1.5px,
-transparent 2px
-);
-
-background-size:
-145px 145px;
-
-animation:
-starsReverse 100s linear infinite;
+.hero{
+  text-align:center;
+  padding:60px 20px 35px;
 }
 
-.stars-large {
+.badge{
+  display:inline-block;
+  padding:10px 22px;
+  border-radius:999px;
 
-opacity: .45;
+  color:#d9f5ff;
 
-background-image:
-radial-gradient(
-circle,
-rgba(190,150,255,1) 0 2px,
-transparent 3px
-);
+  background:rgba(70,150,255,.08);
+  border:1px solid rgba(100,200,255,.3);
 
-background-size:
-280px 280px;
-
-animation:
-starsMove 140s linear infinite;
+  box-shadow:
+    0 0 30px rgba(50,150,255,.12);
 }
 
-@keyframes starsMove {
+.hero h1{
+  margin:20px 0 5px;
 
-from {
-transform:
-translate(0,0);
+  font-size:clamp(55px,9vw,115px);
+  letter-spacing:10px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #fff,
+      #a8dcff,
+      #c7a1ff,
+      #fff
+    );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+
+  filter:
+    drop-shadow(0 0 20px rgba(90,170,255,.35));
 }
 
-to {
-transform:
-translate(400px,600px);
-}
-}
-
-@keyframes starsReverse {
-
-from {
-transform:
-translate(0,0);
+.hero h2{
+  margin:8px;
+  font-size:clamp(25px,4vw,43px);
 }
 
-to {
-transform:
-translate(-500px,300px);
-}
-}
-
-/* =========================================
-SHOOTING STARS
-========================================= */
-
-.shooting-star {
-
-position: absolute;
-
-width: 4px;
-height: 4px;
-
-border-radius: 50%;
-
-background: #fff;
-
-box-shadow:
-0 0 8px #fff,
-0 0 20px #6ee7ff,
--100px 30px 30px rgba(80,210,255,.5);
-
-opacity: 0;
-
-animation:
-shooting 7s linear infinite;
+.hero p{
+  opacity:.65;
+  font-size:18px;
 }
 
-.shooting-one {
-top: 15%;
-left: 10%;
+/* ================= CARD ================= */
+
+.card{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(5,10,25,.84),
+      rgba(3,6,18,.68)
+    );
+
+  border:1px solid rgba(150,200,255,.17);
+  border-radius:26px;
+
+  padding:30px;
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.5),
+    inset 0 1px rgba(255,255,255,.06);
 }
 
-.shooting-two {
-top: 45%;
-left: 65%;
-
-animation-delay: 3s;
+.join-card{
+  width:min(1250px,100%);
+  margin:auto;
+  text-align:center;
 }
 
-.shooting-three {
-top: 75%;
-left: 25%;
-
-animation-delay: 5s;
-}
-
-@keyframes shooting {
-
-0% {
-opacity: 0;
-
-transform:
-  translate(0,0)
-  rotate(-35deg);
-
-}
-
-10% {
-opacity: 1;
-}
-
-35% {
-opacity: 0;
-
-transform:
-  translate(450px,250px)
-  rotate(-35deg);
-
-}
-
-100% {
-opacity: 0;
-}
-}
-
-/* =========================================
-HEADER
-========================================= */
-
-header {
-
-width:
-min(1500px,94%);
-
-margin:
-20px auto;
-
-padding:
-14px 22px;
-
-display:
-flex;
-
-align-items:
-center;
-
-justify-content:
-space-between;
-
-border:
-1px solid
-rgba(130,180,255,.28);
-
-border-radius:
-20px;
-
-background:
-rgba(3,7,22,.7);
-
-backdrop-filter:
-blur(25px);
-
-box-shadow:
-0 20px 70px rgba(0,0,0,.5),
-inset 0 1px rgba(255,255,255,.08);
-}
-
-.brand {
-
-display:
-flex;
-
-align-items:
-center;
-
-gap:
-12px;
-}
-
-.brand-logo {
-
-width:
-48px;
-
-height:
-48px;
-
-display:
-grid;
-
-place-items:
-center;
-
-border-radius:
-50%;
-
-font-size:
-28px;
-
-background:
-radial-gradient(
-circle at 35% 30%,
-#fff,
-#68e5ff 15%,
-#754bff 45%,
-#130c3e 75%
-);
-
-box-shadow:
-0 0 25px
-rgba(90,190,255,.6);
-}
-
-.brand b {
-
-display:
-block;
-
-font-size:
-25px;
-
-letter-spacing:
-5px;
-
-background:
-linear-gradient(
-90deg,
-#fff,
-#79dcff,
-#a978ff,
-#fff
-);
-
--webkit-background-clip:
-text;
-
-background-clip:
-text;
-
-color:
-transparent;
-}
-
-.brand small {
-
-display:
-block;
-
-margin-top:
-2px;
-
-opacity:
-.55;
-}
-
-/* =========================================
-MAIN
-========================================= */
-
-main {
-
-width:
-min(1500px,94%);
-
-margin:
-auto;
-}
-
-.page {
-
-min-height:
-calc(100vh - 100px);
-
-padding:
-20px 0 80px;
-}
-
-/* =========================================
-HERO
-========================================= */
-
-.hero {
-
-text-align:
-center;
-
-padding:
-30px 10px 35px;
-}
-
-.hero-orbit {
-
-width:
-170px;
-
-height:
-170px;
-
-margin:
-0 auto 20px;
-
-border:
-1px solid
-rgba(100,210,255,.25);
-
-border-radius:
-50%;
-
-position:
-relative;
-
-animation:
-orbitRotate 12s linear infinite;
-}
-
-.hero-orbit::before,
-.hero-orbit::after {
-
-content:
-“”;
-
-position:
-absolute;
-
-inset:
-15px;
-
-border:
-1px solid
-rgba(160,100,255,.25);
-
-border-radius:
-50%;
-}
-
-.hero-orbit::before {
-transform:
-rotate(60deg);
-}
-
-.hero-orbit::after {
-transform:
-rotate(-60deg);
-}
-
-.hero-planet {
-
-position:
-absolute;
-
-width:
-95px;
-
-height:
-95px;
-
-left:
-50%;
-
-top:
-50%;
-
-transform:
-translate(-50%,-50%);
-
-border-radius:
-50%;
-
-background:
-radial-gradient(
-circle at 30% 25%,
-#f5ffff 0%,
-#72ddff 8%,
-#387bff 25%,
-#23105f 58%,
-#03030e 85%
-);
-
-box-shadow:
-inset -20px -15px 35px #000,
-0 0 35px
-rgba(70,190,255,.8);
-}
-
-@keyframes orbitRotate {
-
-to {
-transform:
-rotate(360deg);
-}
-}
-
-.badge {
-
-display:
-inline-block;
-
-padding:
-9px 20px;
-
-border:
-1px solid
-rgba(110,210,255,.35);
-
-border-radius:
-999px;
-
-background:
-rgba(40,100,180,.12);
-
-box-shadow:
-0 0 35px
-rgba(50,160,255,.15);
-}
-
-.hero h1 {
-
-margin:
-18px 0 5px;
-
-font-size:
-clamp(55px,9vw,110px);
-
-letter-spacing:
-9px;
-
-background:
-linear-gradient(
-90deg,
-#fff,
-#67dcff,
-#9d6dff,
-#ff7bdc,
-#fff
-);
-
--webkit-background-clip:
-text;
-
-background-clip:
-text;
-
-color:
-transparent;
-
-text-shadow:
-0 0 60px
-rgba(90,150,255,.35);
-}
-
-.hero h2 {
-
-margin:
-5px;
-
-font-size:
-clamp(24px,4vw,42px);
-}
-
-.hero p {
-
-opacity:
-.65;
-
-font-size:
-18px;
-}
-
-/* =========================================
-CARD
-========================================= */
-
-.card {
-
-position:
-relative;
-
-overflow:
-hidden;
-
-background:
-linear-gradient(
-145deg,
-rgba(8,13,38,.84),
-rgba(2,5,18,.8)
-);
-
-border:
-1px solid
-rgba(120,180,255,.22);
-
-border-radius:
-25px;
-
-padding:
-28px;
-
-backdrop-filter:
-blur(22px);
-
-box-shadow:
-0 25px 90px rgba(0,0,0,.5),
-inset 0 1px rgba(255,255,255,.07);
-}
-
-.join-card {
-
-width:
-min(1100px,100%);
-
-margin:
-auto;
-
-text-align:
-center;
-}
-
-.sub-text {
-opacity:
-.55;
-}
-
-/* =========================================
-INPUTS
-========================================= */
+/* ================= INPUTS ================= */
 
 input,
 textarea,
-select {
+select{
+  width:100%;
+  margin:9px 0;
+  padding:16px 18px;
 
-width:
-100%;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.13);
 
-margin:
-8px 0;
+  outline:none;
 
-padding:
-15px 17px;
+  background:rgba(0,0,0,.45);
+  color:white;
 
-color:
-white;
-
-background:
-rgba(0,0,0,.45);
-
-border:
-1px solid
-rgba(150,190,255,.18);
-
-border-radius:
-14px;
-
-outline:
-none;
-
-font-size:
-16px;
-
-transition:
-.25s;
+  font-size:16px;
 }
 
 input:focus,
 textarea:focus,
-select:focus {
+select:focus{
+  border-color:#72dfff;
 
-border-color:
-#65ddff;
-
-box-shadow:
-0 0 25px
-rgba(70,200,255,.14);
+  box-shadow:
+    0 0 25px rgba(50,190,255,.15);
 }
 
-textarea {
-
-min-height:
-140px;
-
-resize:
-vertical;
+textarea{
+  min-height:140px;
+  resize:vertical;
 }
 
-select option {
-
-background:
-#080d22;
-
-color:
-white;
+select option{
+  background:#07101f;
+  color:white;
 }
 
-/* =========================================
-BUTTONS
-========================================= */
+/* ================= TEAMS ================= */
 
-button {
-
-border:
-1px solid
-rgba(255,255,255,.1);
-
-border-radius:
-13px;
-
-padding:
-13px 20px;
-
-color:
-white;
-
-background:
-rgba(255,255,255,.07);
-
-cursor:
-pointer;
-
-transition:
-.25s;
-
-font-size:
-15px;
+.teams{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:22px;
+  margin:30px 0;
 }
 
-button:hover {
+.team{
+  position:relative;
+  min-height:360px;
 
-transform:
-translateY(-3px);
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:center;
 
-border-color:
-rgba(100,210,255,.5);
+  padding:20px;
 
-box-shadow:
-0 10px 30px
-rgba(40,160,255,.12);
+  overflow:hidden;
+
+  border-radius:28px;
+
+  cursor:pointer;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.03),
+      rgba(0,0,0,.6)
+    );
+
+  border:1px solid rgba(150,200,255,.22);
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.55),
+    inset 0 0 80px rgba(50,100,180,.08);
+
+  transition:.45s;
 }
 
-.primary {
+/* إضاءة خلف الكوكب */
+.team::before{
+  content:"";
 
-width:
-100%;
+  position:absolute;
 
-margin-top:
-8px;
+  width:280px;
+  height:280px;
 
-background:
-linear-gradient(
-100deg,
-#304cff,
-#864cff,
-#19cfff
-);
+  top:5px;
+  left:50%;
 
-border:
-0;
+  transform:translateX(-50%);
 
-box-shadow:
-0 12px 40px
-rgba(80,100,255,.3);
+  border-radius:50%;
 
-font-weight:
-bold;
+  background:
+    radial-gradient(
+      circle,
+      rgba(120,190,255,.18),
+      rgba(60,100,255,.08) 35%,
+      transparent 70%
+    );
+
+  filter:blur(8px);
+
+  animation:planetGlow 4s ease-in-out infinite alternate;
 }
 
-.scan-button {
+@keyframes planetGlow{
+  from{
+    transform:translateX(-50%) scale(.9);
+    opacity:.6;
+  }
 
-width:
-100%;
-
-border:
-1px solid
-rgba(70,210,255,.35);
-
-background:
-rgba(30,150,220,.1);
+  to{
+    transform:translateX(-50%) scale(1.1);
+    opacity:1;
+  }
 }
 
-/* =========================================
-DIVIDER
-========================================= */
+/* النجوم داخل كل فريق */
+.team::after{
+  content:"";
 
-.login-divider {
+  position:absolute;
+  inset:0;
 
-display:
-flex;
+  background-image:
+    radial-gradient(circle,white 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(100,200,255,.8) 1px,transparent 1.5px);
 
-align-items:
-center;
+  background-size:55px 55px,90px 90px;
 
-gap:
-15px;
+  opacity:.35;
 
-margin:
-22px 0;
+  animation:teamStars 25s linear infinite;
 
-opacity:
-.5;
+  pointer-events:none;
 }
 
-.login-divider::before,
-.login-divider::after {
-
-content:
-“”;
-
-flex:
-1;
-
-height:
-1px;
-
-background:
-linear-gradient(
-90deg,
-transparent,
-rgba(150,190,255,.4),
-transparent
-);
+@keyframes teamStars{
+  to{
+    background-position:300px 400px,-250px 300px;
+  }
 }
 
-/* =========================================
-TEAMS
-========================================= */
+/* الكوكب */
+.team img{
+  position:absolute;
 
-.teams {
+  top:25px;
+  left:50%;
 
-display:
-grid;
+  transform:translateX(-50%);
 
-grid-template-columns:
-repeat(4,1fr);
+  width:210px;
+  height:210px;
 
-gap:
-18px;
+  object-fit:contain;
 
-margin:
-25px 0;
+  z-index:3;
+
+  border-radius:50%;
+
+  filter:
+    drop-shadow(0 0 25px rgba(100,180,255,.45))
+    drop-shadow(0 0 60px rgba(80,120,255,.18));
+
+  animation:planetFloat 5s ease-in-out infinite;
 }
 
-.team {
+@keyframes planetFloat{
+  0%,100%{
+    transform:translateX(-50%) translateY(0) rotate(-1deg);
+  }
 
-min-height:
-310px;
-
-position:
-relative;
-
-overflow:
-hidden;
-
-display:
-flex;
-
-flex-direction:
-column;
-
-justify-content:
-flex-end;
-
-align-items:
-center;
-
-padding:
-20px;
-
-border:
-1px solid
-rgba(130,190,255,.25);
-
-border-radius:
-25px;
-
-background:
-radial-gradient(
-circle at 50% 35%,
-rgba(90,120,255,.18),
-transparent 50%
-),
-
-rgba(4,7,24,.85);
-
-cursor:
-pointer;
-
-transition:
-.35s;
-}
-
-.team::before {
-
-content:
-“”;
-
-position:
-absolute;
-
-width:
-190px;
-
-height:
-190px;
-
-top:
-30px;
-
-border-radius:
-50%;
-
-background:
-radial-gradient(
-circle at 30% 25%,
-rgba(255,255,255,.9),
-rgba(100,210,255,.7) 8%,
-rgba(60,80,255,.65) 25%,
-rgba(40,20,130,.7) 55%,
-#010107 75%
-);
-
-box-shadow:
-inset -25px -15px 40px #000,
-0 0 35px
-rgba(90,160,255,.45);
-
-animation:
-planetFloat 5s ease-in-out infinite;
-}
-
-.team::after {
-
-content:
-“”;
-
-position:
-absolute;
-
-inset:
-0;
-
-background-image:
-radial-gradient(
-circle,
-rgba(255,255,255,.8) 0 1px,
-transparent 1.5px
-);
-
-background-size:
-50px 50px;
-
-opacity:
-.25;
-
-animation:
-teamStars 25s linear infinite;
-}
-
-.team:hover {
-
-transform:
-translateY(-10px)
-scale(1.02);
-
-border-color:
-rgba(90,220,255,.7);
-
-box-shadow:
-0 30px 80px
-rgba(50,100,255,.25),
-0 0 50px
-rgba(50,180,255,.12);
-}
-
-.team.sel {
-
-border-color:
-#65e8ff;
-
-box-shadow:
-0 0 50px
-rgba(60,210,255,.25);
-}
-
-.team img {
-
-position:
-absolute;
-
-top:
-30px;
-
-width:
-185px;
-
-height:
-185px;
-
-object-fit:
-contain;
-
-z-index:
-2;
-
-filter:
-drop-shadow(
-0 0 25px
-rgba(90,180,255,.6)
-);
-
-animation:
-planetFloat 5s ease-in-out infinite;
+  50%{
+    transform:translateX(-50%) translateY(-9px) rotate(1deg);
+  }
 }
 
 .team strong,
 .team b,
-.team span {
+.team span{
+  position:relative;
+  z-index:5;
 
-position:
-relative;
+  font-size:25px;
 
-z-index:
-5;
-
-font-size:
-22px;
-
-text-shadow:
-0 3px 20px #000;
+  text-shadow:
+    0 3px 20px #000,
+    0 0 15px rgba(0,0,0,.8);
 }
 
-@keyframes planetFloat {
+.team:hover{
+  transform:translateY(-12px) scale(1.025);
 
-0%,
-100% {
-transform:
-translateY(0)
-rotate(-2deg);
+  border-color:rgba(110,210,255,.7);
+
+  box-shadow:
+    0 35px 100px rgba(0,0,0,.65),
+    0 0 50px rgba(70,170,255,.15);
 }
 
-50% {
-transform:
-translateY(-9px)
-rotate(2deg);
-}
-}
+.team.sel{
+  transform:translateY(-8px);
 
-@keyframes teamStars {
+  border-color:#78e5ff;
 
-from {
-background-position:
-0 0;
+  box-shadow:
+    0 0 50px rgba(70,210,255,.25),
+    0 30px 90px rgba(0,0,0,.6);
 }
 
-to {
-background-position:
-300px 400px;
-}
+.team .icon{
+  display:none !important;
 }
 
-/* =========================================
-GRID
-========================================= */
+/* ================= BUTTONS ================= */
 
-.grid {
+button{
+  border:0;
+  border-radius:14px;
 
-display:
-grid;
+  padding:14px 22px;
 
-grid-template-columns:
-1.4fr 1fr;
+  color:white;
 
-gap:
-22px;
+  background:rgba(255,255,255,.09);
+
+  cursor:pointer;
+
+  font-size:15px;
+
+  transition:.25s;
 }
 
-.admin-grid {
-
-grid-template-columns:
-repeat(3,1fr);
+button:hover{
+  transform:translateY(-3px);
+  background:rgba(255,255,255,.15);
 }
 
-/* =========================================
-MEMBER
-========================================= */
+.primary{
+  width:100%;
 
-.member-head {
+  background:
+    linear-gradient(
+      100deg,
+      #167dff,
+      #694dff,
+      #9a5cff
+    );
 
-display:
-flex;
+  box-shadow:
+    0 15px 40px rgba(60,100,255,.25);
 
-align-items:
-center;
-
-gap:
-20px;
-
-margin-bottom:
-25px;
-
-padding:
-20px;
-
-border:
-1px solid
-rgba(120,180,255,.2);
-
-border-radius:
-22px;
-
-background:
-rgba(4,8,27,.65);
-
-backdrop-filter:
-blur(20px);
+  font-weight:bold;
 }
 
-.member-photo-box {
-flex-shrink:
-0;
+/* ================= POSTS ================= */
+
+.post{
+  padding:20px 0;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
 }
 
-.member-main-photo {
-
-width:
-115px;
-
-height:
-115px;
-
-border-radius:
-50%;
-
-object-fit:
-cover;
-
-border:
-3px solid
-rgba(90,220,255,.65);
-
-box-shadow:
-0 0 35px
-rgba(60,200,255,.3);
+.post h3{
+  font-size:25px;
 }
 
-.member-info {
-flex:
-1;
+.post small{
+  opacity:.5;
 }
 
-.member-info small {
-opacity:
-.5;
+.post-image{
+  display:block;
+
+  width:100%;
+  max-height:550px;
+
+  object-fit:contain;
+
+  margin-top:15px;
+
+  border-radius:18px;
+
+  background:#000;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.5);
 }
 
-#memberName {
-
-margin:
-5px 0;
-
-font-size:
-clamp(32px,5vw,60px);
-
-background:
-linear-gradient(
-90deg,
-#fff,
-#72e2ff,
-#ae7aff
-);
-
--webkit-background-clip:
-text;
-
-background-clip:
-text;
-
-color:
-transparent;
-}
-
-#memberTeam {
-
-color:
-#65ddff;
-
-font-weight:
-bold;
-
-font-size:
-20px;
-}
-
-/* =========================================
-POSTS
-========================================= */
-
-.post {
-
-padding:
-20px 0;
-
-border-bottom:
-1px solid
-rgba(255,255,255,.08);
-}
-
-.post h3 {
-font-size:
-24px;
-}
-
-.post small {
-opacity:
-.45;
-}
-
-.post-image {
-
-display:
-block;
-
-width:
-100%;
-
-max-height:
-550px;
-
-object-fit:
-contain;
-
-margin:
-15px auto;
-
-border-radius:
-18px;
-
-box-shadow:
-0 15px 50px
-rgba(0,0,0,.5);
-}
-
-/* =========================================
-REPLIES
-========================================= */
-
-.replies {
-
-margin-top:
-20px;
-
-padding-top:
-15px;
-
-border-top:
-1px solid
-rgba(255,255,255,.08);
-}
-
-.reply {
-
-padding:
-13px;
-
-margin:
-10px 0;
-
-border-radius:
-14px;
-
-background:
-rgba(255,255,255,.04);
-
-border:
-1px solid
-rgba(255,255,255,.06);
-}
-
-.reply small {
-
-display:
-block;
-
-margin-top:
-3px;
-
-opacity:
-.45;
-}
-
-.reply-box {
-margin-top:
-15px;
-}
-
-.reply-box textarea {
-min-height:
-85px;
-}
-
-/* =========================================
-RANKING
-========================================= */
+/* ================= RANKING ================= */
 
 .rank,
 .member,
-.score {
+.score{
+  display:flex;
 
-display:
-flex;
+  justify-content:space-between;
+  align-items:center;
 
-align-items:
-center;
+  gap:10px;
 
-justify-content:
-space-between;
+  padding:15px;
+  margin:10px 0;
 
-gap:
-10px;
+  border-radius:15px;
 
-padding:
-14px;
+  background:rgba(255,255,255,.045);
 
-margin:
-9px 0;
-
-border-radius:
-15px;
-
-background:
-rgba(255,255,255,.045);
-
-border:
-1px solid
-rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.07);
 }
 
-/* =========================================
-ADMIN
-========================================= */
+/* ================= ADMIN ================= */
 
-.admin-head {
-
-display:
-flex;
-
-align-items:
-center;
-
-justify-content:
-space-between;
-
-margin-bottom:
-25px;
+.grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:25px;
 }
 
-.admin-badge {
-
-color:
-#ffb7e9;
-
-border-color:
-rgba(255,100,220,.35);
+.admin-grid{
+  grid-template-columns:repeat(3,1fr);
 }
 
-.admin-member-left {
-
-display:
-flex;
-
-align-items:
-center;
-
-gap:
-12px;
-
-flex:
-1;
+.admin-member-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex:1;
 }
 
-.admin-member-photo {
+.admin-member-photo{
+  width:60px;
+  height:60px;
 
-width:
-55px;
+  border-radius:50%;
 
-height:
-55px;
+  object-fit:cover;
 
-border-radius:
-50%;
+  background:#07101f;
 
-object-fit:
-cover;
-
-border:
-2px solid
-rgba(80,210,255,.45);
+  border:2px solid rgba(100,210,255,.5);
 }
 
-.admin-member-buttons {
-
-display:
-flex;
-
-flex-wrap:
-wrap;
-
-gap:
-6px;
+.admin-member-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
 }
 
-.admin-member-buttons button {
-
-padding:
-8px 11px;
-
-font-size:
-12px;
+.admin-member-buttons button{
+  padding:9px 12px;
+  font-size:13px;
 }
 
-.admin-post {
+.admin-post{
+  padding:17px;
+  margin:10px 0;
 
-padding:
-15px;
+  border-radius:17px;
 
-margin:
-10px 0;
+  background:rgba(255,255,255,.045);
 
-border-radius:
-15px;
-
-background:
-rgba(255,255,255,.045);
-
-border:
-1px solid
-rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.08);
 }
 
-/* =========================================
-FILE
-========================================= */
+/* ================= REPLIES ================= */
 
-.file-label {
+.replies{
+  margin-top:25px;
+  padding-top:20px;
 
-display:
-block;
-
-padding:
-14px;
-
-margin:
-10px 0;
-
-border:
-1px dashed
-rgba(100,200,255,.35);
-
-border-radius:
-14px;
-
-background:
-rgba(50,150,255,.06);
-
-cursor:
-pointer;
+  border-top:
+    1px solid rgba(255,255,255,.08);
 }
 
-.file-label input {
+.reply{
+  margin:12px 0;
+  padding:15px;
 
-margin-top:
-10px;
+  border-radius:15px;
 
-border:
-0;
+  background:rgba(255,255,255,.045);
 
-background:
-transparent;
+  border:1px solid rgba(255,255,255,.06);
 }
 
-/* =========================================
-QR
-========================================= */
-
-.qr-scanner {
-
-width:
-min(450px,100%);
-
-margin:
-20px auto;
-
-overflow:
-hidden;
-
-border-radius:
-20px;
-
-border:
-1px solid
-rgba(80,210,255,.4);
-
-background:
-#000;
+.reply small{
+  display:block;
+  opacity:.5;
 }
 
-.qr-scanner video {
-width:
-100% !important;
+.reply-box{
+  margin-top:18px;
 }
 
-/* =========================================
-MODAL
-========================================= */
+/* ================= QR ================= */
 
-.modal {
+#qrScanner{
+  width:min(450px,100%);
+  margin:20px auto;
 
-position:
-fixed;
+  overflow:hidden;
 
-inset:
-0;
+  border-radius:20px;
 
-z-index:
-1000;
+  border:1px solid rgba(100,210,255,.3);
 
-display:
-grid;
-
-place-items:
-center;
-
-padding:
-20px;
-
-background:
-rgba(0,0,0,.8);
-
-backdrop-filter:
-blur(15px);
+  background:#000;
 }
 
-.login-modal-card {
-
-width:
-min(450px,100%);
-
-text-align:
-center;
+#qrScanner video{
+  width:100% !important;
 }
 
-.modal-icon {
+/* ================= MODAL ================= */
 
-font-size:
-45px;
+.modal{
+  position:fixed;
+  inset:0;
 
-margin-bottom:
-5px;
+  display:grid;
+  place-items:center;
+
+  padding:20px;
+
+  background:rgba(0,0,0,.78);
+
+  backdrop-filter:blur(15px);
+
+  z-index:100;
 }
 
-/* =========================================
-RESULT
-========================================= */
-
-.login-result {
-
-margin-top:
-20px;
-
-padding:
-18px;
-
-border-radius:
-17px;
-
-background:
-rgba(50,100,255,.08);
-
-border:
-1px solid
-rgba(100,200,255,.2);
+.modal .card{
+  width:min(480px,100%);
 }
 
-#adminQR {
+#adminQR{
+  margin:20px auto;
+  width:fit-content;
 
-width:
-fit-content;
+  padding:10px;
 
-margin:
-20px auto;
+  background:#fff;
 
-padding:
-10px;
-
-background:
-white;
-
-border-radius:
-10px;
+  border-radius:12px;
 }
 
-/* =========================================
-HIDDEN
-========================================= */
+/* ================= HIDDEN ================= */
 
-.hidden {
-display:
-none !important;
+.hidden{
+  display:none !important;
 }
 
-/* =========================================
-TABLET
-========================================= */
+/* ================= TABLET ================= */
 
-@media (max-width:1000px) {
+@media(max-width:1000px){
 
-.teams {
-grid-template-columns:
-repeat(2,1fr);
+  .teams{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .grid,
+  .admin-grid{
+    grid-template-columns:1fr;
+  }
 }
 
-.grid,
-.admin-grid {
-grid-template-columns:
-1fr;
-}
+/* ================= MOBILE ================= */
 
-}
+@media(max-width:600px){
 
-/* =========================================
-MOBILE
-========================================= */
+  header{
+    width:94%;
+    padding:13px 15px;
+  }
 
-@media (max-width:600px) {
+  .brand b{
+    font-size:21px;
+    letter-spacing:3px;
+  }
 
-header {
+  .hero{
+    padding:35px 8px;
+  }
 
-width:
-  94%;
-padding:
-  12px 14px;
+  .hero h1{
+    font-size:50px;
+    letter-spacing:4px;
+  }
 
-}
+  .card{
+    padding:18px;
+    border-radius:21px;
+  }
 
-.brand-logo {
+  .teams{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
 
-width:
-  40px;
-height:
-  40px;
+  .team{
+    min-height:230px;
+    border-radius:20px;
+  }
 
-}
+  .team img{
+    width:125px;
+    height:125px;
+    top:18px;
+  }
 
-.brand b {
+  .team strong,
+  .team b,
+  .team span{
+    font-size:17px;
+  }
 
-font-size:
-  20px;
-letter-spacing:
-  3px;
+  .member-head{
+    flex-wrap:wrap;
+    padding:18px;
+  }
 
-}
-
-.brand small {
-font-size:
-9px;
-}
-
-.hero {
-padding-top:
-15px;
-}
-
-.hero-orbit {
-
-width:
-  130px;
-height:
-  130px;
-
-}
-
-.hero-planet {
-
-width:
-  75px;
-height:
-  75px;
-
-}
-
-.hero h1 {
-
-font-size:
-  48px;
-letter-spacing:
-  4px;
-
-}
-
-.hero h2 {
-font-size:
-24px;
-}
-
-.card {
-
-padding:
-  18px;
-border-radius:
-  20px;
-
-}
-
-.teams {
-
-grid-template-columns:
-  1fr 1fr;
-gap:
-  9px;
-
-}
-
-.team {
-
-min-height:
-  210px;
-padding:
-  12px;
-border-radius:
-  18px;
-
-}
-
-.team::before {
-
-width:
-  120px;
-height:
-  120px;
-
-}
-
-.team img {
-
-width:
-  120px;
-height:
-  120px;
-
-}
-
-.team strong,
-.team b,
-.team span {
-
-font-size:
-  17px;
-
-}
-
-.member-head {
-flex-wrap:
-wrap;
-}
-
-.member-main-photo {
-
-width:
-  90px;
-height:
-  90px;
-
-}
-
-.member-head button {
-width:
-100%;
-}
-
-.admin-head {
-
-align-items:
-  flex-start;
-gap:
-  15px;
-
-}
-
+  .member-head button{
+    width:100%;
+  }
 }
