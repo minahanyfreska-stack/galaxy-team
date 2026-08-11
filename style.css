@@ -1,52 +1,49 @@
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 html,body{
   margin:0;
   min-height:100%;
 }
 body{
+  margin:0;
   color:#fff;
   font-family:Tahoma,Arial,sans-serif;
   min-height:100vh;
   overflow-x:hidden;
   background:
-    radial-gradient(circle at 15% 20%,rgba(111,72,255,.35) 0 2px,transparent 3px),
-    radial-gradient(circle at 80% 15%,rgba(255,255,255,.9) 0 1px,transparent 2px),
-    radial-gradient(circle at 60% 70%,rgba(120,180,255,.8) 0 1px,transparent 2px),
-    radial-gradient(circle at 30% 85%,rgba(255,255,255,.8) 0 1px,transparent 2px),
-    radial-gradient(circle at 90% 80%,rgba(180,120,255,.8) 0 2px,transparent 3px),
-    radial-gradient(circle at 45% 40%,rgba(255,255,255,.7) 0 1px,transparent 2px),
-    linear-gradient(135deg,#02020d,#070b29 45%,#13052c 100%);
-  background-size:
-    180px 180px,
-    230px 230px,
-    260px 260px,
-    190px 190px,
-    300px 300px,
-    210px 210px,
-    100% 100%;
-  background-attachment:fixed;
+    radial-gradient(circle at 20% 15%,rgba(72,150,255,.35),transparent 25%),
+    radial-gradient(circle at 85% 30%,rgba(0,100,255,.25),transparent 28%),
+    radial-gradient(circle at 50% 100%,rgba(40,80,255,.35),transparent 35%),
+    linear-gradient(180deg,#020b24 0%,#04194a 45%,#02091f 100%);
+  position:relative;
 }
-/* نجوم إضافية */
+/* النجوم */
 body:before{
   content:"";
   position:fixed;
   inset:0;
   pointer-events:none;
-  opacity:.7;
-  background:
-    radial-gradient(circle,white 1px,transparent 1.5px) 20px 30px/150px 150px,
-    radial-gradient(circle,#b9c8ff 1px,transparent 1.5px) 80px 70px/190px 190px;
-  animation:stars 20s linear infinite;
+  background-image:
+    radial-gradient(circle,#fff 1px,transparent 1.5px),
+    radial-gradient(circle,#8ec5ff 1px,transparent 1.5px),
+    radial-gradient(circle,#fff 1.5px,transparent 2px);
+  background-size:110px 110px,170px 170px,260px 260px;
+  background-position:10px 20px,50px 80px,120px 30px;
+  opacity:.75;
+  z-index:0;
 }
-@keyframes stars{
-  from{
-    transform:translateY(0);
-  }
-  to{
-    transform:translateY(-80px);
-  }
+/* توهج أزرق حول الصفحة */
+body:after{
+  content:"";
+  position:fixed;
+  width:650px;
+  height:650px;
+  left:-300px;
+  bottom:-300px;
+  border-radius:50%;
+  background:rgba(30,110,255,.22);
+  filter:blur(80px);
+  pointer-events:none;
+  z-index:0;
 }
 header{
   height:72px;
@@ -54,9 +51,9 @@ header{
   align-items:center;
   justify-content:space-between;
   padding:0 5%;
-  background:rgba(3,7,22,.88);
-  border-bottom:1px solid #33406b;
-  backdrop-filter:blur(12px);
+  background:rgba(2,10,30,.88);
+  border-bottom:1px solid rgba(100,160,255,.35);
+  backdrop-filter:blur(14px);
   position:sticky;
   top:0;
   z-index:10;
@@ -69,17 +66,14 @@ header{
 }
 .brand small{
   display:block;
-  color:#9da9d1;
+  color:#9dbce9;
   font-size:10px;
   margin-right:30px;
 }
 .brand b{
   display:block;
 }
-button,
-input,
-textarea,
-select{
+button,input,textarea,select{
   font:inherit;
 }
 button{
@@ -89,8 +83,8 @@ header button,
 .member-head button,
 .admin-head button,
 #closeModal{
-  background:#101938;
-  border:1px solid #3b4b7e;
+  background:#081a42;
+  border:1px solid #3e72b8;
   color:#fff;
   padding:10px 15px;
   border-radius:12px;
@@ -104,51 +98,54 @@ header button,
 }
 .hero{
   text-align:center;
-  padding:30px 10px 10px;
+  padding:35px 10px 10px;
 }
+/* رائد الفضاء */
 .hero:after{
   content:"👨‍🚀";
   display:block;
-  font-size:70px;
-  margin:10px auto;
-  animation:astronaut 3s ease-in-out infinite;
-  filter:drop-shadow(0 0 18px rgba(150,170,255,.8));
+  font-size:90px;
+  margin:12px auto 5px;
+  filter:
+    drop-shadow(0 0 10px #8ed0ff)
+    drop-shadow(0 0 30px #287cff);
+  animation:floatAstronaut 4s ease-in-out infinite;
 }
-@keyframes astronaut{
+@keyframes floatAstronaut{
   0%,100%{
     transform:translateY(0) rotate(-3deg);
   }
   50%{
-    transform:translateY(-12px) rotate(3deg);
+    transform:translateY(-16px) rotate(3deg);
   }
 }
 .hero h1{
   font-size:48px;
   line-height:1.2;
-  margin:18px 0;
-  text-shadow:0 0 25px rgba(120,120,255,.5);
+  margin:12px 0;
+  text-shadow:0 0 25px rgba(50,140,255,.65);
 }
 .hero h1 span{
-  color:#b993ff;
+  color:#69b8ff;
 }
 .hero p{
-  color:#b6c0df;
+  color:#b9d5f5;
 }
 .badge{
   display:inline-block;
-  border:1px solid #7649dc;
-  background:rgba(33,19,68,.8);
+  border:1px solid #438cff;
+  background:rgba(8,42,95,.75);
   padding:8px 15px;
   border-radius:30px;
-  box-shadow:0 0 25px rgba(120,70,255,.25);
+  box-shadow:0 0 25px rgba(40,130,255,.3);
 }
 .card{
-  background:rgba(5,11,32,.9);
-  border:1px solid #2d3964;
-  border-radius:20px;
+  background:rgba(3,14,38,.88);
+  border:1px solid rgba(70,125,205,.45);
+  border-radius:22px;
   padding:23px;
-  box-shadow:0 18px 60px rgba(0,0,0,.55);
-  backdrop-filter:blur(8px);
+  box-shadow:0 20px 70px rgba(0,0,0,.55);
+  backdrop-filter:blur(10px);
 }
 .join-card{
   max-width:650px;
@@ -161,9 +158,9 @@ header button,
   width:100%;
   padding:13px;
   margin:7px 0;
-  background:#03071a;
+  background:#020b21;
   color:#fff;
-  border:1px solid #3a4876;
+  border:1px solid #31588e;
   border-radius:12px;
 }
 .card textarea{
@@ -175,79 +172,97 @@ header button,
   padding:14px;
   border:0;
   border-radius:13px;
-  background:linear-gradient(100deg,#356bff,#a12be2);
+  background:linear-gradient(100deg,#087cff,#5147ff);
   color:#fff;
   font-weight:bold;
   margin-top:10px;
-  box-shadow:0 8px 25px rgba(85,65,255,.3);
+  box-shadow:0 8px 30px rgba(20,120,255,.3);
 }
+/* الكواكب */
 .teams{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:18px;
-  margin:18px 0;
+  margin:20px 0;
 }
 .team{
   position:relative;
-  min-height:170px;
-  padding:20px;
-  border:1px solid #33416f;
+  min-height:185px;
+  padding:18px;
+  border:1px solid #31598f;
   border-radius:22px;
   text-align:center;
-  background:
-    radial-gradient(circle at 50% 35%,rgba(100,100,255,.12),transparent 55%),
-    rgba(10,17,48,.9);
+  background:linear-gradient(145deg,rgba(7,27,65,.95),rgba(2,12,35,.95));
   transition:.25s;
   overflow:hidden;
 }
-.team:before{
-  content:"✦  ·  ✧     ·     ✦";
-  position:absolute;
-  top:10px;
-  left:10px;
-  right:10px;
-  color:#8c9aff;
-  opacity:.5;
-  font-size:12px;
-}
 .team:hover,
 .team.sel{
-  border-color:#a477ff;
-  transform:translateY(-6px) scale(1.02);
-  box-shadow:0 15px 35px rgba(105,70,255,.3);
+  border-color:#65b7ff;
+  transform:translateY(-7px);
+  box-shadow:
+    0 15px 40px rgba(0,110,255,.3),
+    0 0 25px rgba(70,170,255,.2);
 }
+.team:before{
+  content:"✦    ·    ✧       ·       ✦";
+  position:absolute;
+  top:10px;
+  left:0;
+  right:0;
+  color:#b9dcff;
+  opacity:.45;
+  font-size:12px;
+}
+/* الكوكب نفسه */
 .team .icon{
-  width:80px;
-  height:80px;
+  width:92px;
+  height:92px;
   display:grid;
   place-items:center;
-  margin:10px auto 14px;
+  margin:10px auto 15px;
   border-radius:50%;
-  font-size:52px;
-  background:radial-gradient(circle at 35% 30%,#fff,#9ba9ff 18%,#433b9b 55%,#171436 100%);
-  box-shadow:
-    inset -12px -12px 20px rgba(0,0,0,.55),
-    0 0 25px rgba(110,100,255,.55);
+  font-size:0;
   position:relative;
-  z-index:1;
+  overflow:visible;
+  box-shadow:
+    inset -18px -12px 25px rgba(0,0,0,.55),
+    0 0 28px rgba(70,160,255,.45);
 }
+/* المشتري */
+.team:nth-child(1) .icon{
+  background:
+    repeating-linear-gradient(
+      0deg,
+      #d8b27c 0 9px,
+      #b77d45 10px 17px,
+      #e5c38f 18px 25px
+    );
+}
+/* زحل */
 .team:nth-child(2) .icon{
-  background:radial-gradient(circle at 35% 30%,#fff,#ffe7a1 15%,#b87c34 55%,#3d1c0b 100%);
-}
-.team:nth-child(3) .icon{
-  background:radial-gradient(circle at 35% 30%,#bfffff,#39a8ff 25%,#1744a0 60%,#07153e 100%);
-}
-.team:nth-child(4) .icon{
-  background:radial-gradient(circle at 35% 30%,#e9ffff,#8ce7ff 25%,#4385b8 60%,#10263c 100%);
+  background:
+    radial-gradient(circle at 35% 30%,#f9e8b6,#d59c55 40%,#8b5228 75%,#351a0b);
 }
 .team:nth-child(2) .icon:after{
   content:"";
   position:absolute;
-  width:105px;
-  height:30px;
-  border:5px solid rgba(245,210,140,.75);
+  width:125px;
+  height:38px;
+  border:7px solid rgba(226,190,126,.8);
   border-radius:50%;
   transform:rotate(-18deg);
+  box-shadow:0 0 8px rgba(255,220,160,.35);
+}
+/* نبتون */
+.team:nth-child(3) .icon{
+  background:
+    radial-gradient(circle at 30% 25%,#b8f2ff,#318cff 35%,#06469d 70%,#021c55);
+}
+/* أورانوس */
+.team:nth-child(4) .icon{
+  background:
+    radial-gradient(circle at 30% 25%,#e4ffff,#8de8ff 30%,#3986ad 65%,#12354d);
 }
 .team b{
   display:block;
@@ -255,7 +270,7 @@ header button,
 }
 .team small{
   display:block;
-  color:#9eabd0;
+  color:#9fc6ee;
   margin-top:5px;
 }
 .hidden{
@@ -288,45 +303,45 @@ header button,
   gap:20px;
 }
 .post{
-  border:1px solid #2c3860;
-  background:#09112b;
+  border:1px solid #2c5a91;
+  background:#061733;
   padding:16px;
   border-radius:15px;
   margin-top:12px;
 }
 .post small{
-  color:#8d99bf;
+  color:#8fb8e7;
 }
 .rank{
   display:flex;
   justify-content:space-between;
   padding:13px;
-  border-bottom:1px solid #202b4e;
+  border-bottom:1px solid #1d3b64;
 }
 .member{
   display:flex;
   justify-content:space-between;
   padding:10px;
-  border-bottom:1px solid #202b4e;
+  border-bottom:1px solid #1d3b64;
 }
 .score{
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:10px;
-  border-bottom:1px solid #202b4e;
+  border-bottom:1px solid #1d3b64;
 }
 .score button{
-  background:#111b3e;
+  background:#09204b;
   color:#fff;
-  border:1px solid #3d4c7c;
+  border:1px solid #3d72ad;
   border-radius:9px;
   padding:7px 12px;
 }
 .modal{
   position:fixed;
   inset:0;
-  background:#000a;
+  background:rgba(0,5,20,.75);
   display:grid;
   place-items:center;
   z-index:20;
@@ -347,6 +362,9 @@ header button,
   .hero h1{
     font-size:36px;
   }
+  .hero:after{
+    font-size:70px;
+  }
   .member-head{
     flex-wrap:wrap;
   }
@@ -355,13 +373,12 @@ header button,
     gap:10px;
   }
   .team{
-    min-height:150px;
+    min-height:165px;
     padding:14px 8px;
   }
   .team .icon{
-    width:65px;
-    height:65px;
-    font-size:42px;
+    width:72px;
+    height:72px;
   }
   .member-head button{
     margin-right:0;
