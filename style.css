@@ -6,118 +6,74 @@ html {
   scroll-behavior: smooth;
 }
 
+:root {
+  --purple: #8b5cff;
+  --blue: #20bfff;
+  --cyan: #55eaff;
+  --gold: #ffc857;
+  --glass: rgba(7, 10, 28, 0.72);
+  --border: rgba(255, 255, 255, 0.16);
+}
+
 body {
   margin: 0;
   min-height: 100vh;
-  color: #ffffff;
+  color: #fff;
   font-family: Arial, Tahoma, sans-serif;
-  background:
-    radial-gradient(circle at 15% 20%, rgba(99, 52, 180, .35), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(0, 180, 255, .22), transparent 25%),
-    radial-gradient(circle at 50% 90%, rgba(170, 30, 220, .18), transparent 30%),
-    linear-gradient(135deg, #02030b, #07051a 45%, #02030b);
   overflow-x: hidden;
-  position: relative;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2, 4, 18, 0.38),
+      rgba(3, 5, 20, 0.72)
+    ),
+    url("F32F4345-F795-4ECC-AFD0-5EA95621440F.png")
+      center center / cover fixed no-repeat;
 }
 
-/* نجوم */
+/* طبقة غامقة خفيفة فوق الخلفية */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: -3;
-  opacity: .8;
-  background-image:
-    radial-gradient(circle, #fff 1px, transparent 1.5px),
-    radial-gradient(circle, #fff 1px, transparent 1.5px),
-    radial-gradient(circle, #fff 1.5px, transparent 2px);
-  background-size: 90px 90px, 150px 150px, 230px 230px;
-  background-position: 10px 20px, 50px 80px, 120px 30px;
-}
-
-/* مجرة */
-body::after {
-  content: "";
-  position: fixed;
-  width: 900px;
-  height: 350px;
-  left: 50%;
-  top: 48%;
-  transform: translate(-50%, -50%) rotate(-18deg);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: -2;
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(255,255,255,.25) 0%,
-      rgba(170,100,255,.18) 15%,
-      rgba(90,50,220,.12) 30%,
-      transparent 70%
-    );
-  filter: blur(20px);
-  box-shadow:
-    0 0 100px rgba(130,70,255,.3),
-    0 0 180px rgba(30,140,255,.18);
-}
-
-/* كواكب */
-.page::before {
-  content: "";
-  position: fixed;
-  width: 170px;
-  height: 170px;
-  right: -55px;
-  top: 150px;
-  border-radius: 50%;
-  background:
-    radial-gradient(
-      circle at 30% 30%,
-      #c7c9ff,
-      #6258b5 38%,
-      #211d55 70%,
-      #090817
-    );
-  box-shadow:
-    0 0 35px rgba(120,100,255,.5),
-    inset -30px -20px 40px rgba(0,0,0,.65);
   z-index: -1;
-}
-
-/* كوكب صغير */
-.page::after {
-  content: "";
-  position: fixed;
-  width: 75px;
-  height: 75px;
-  left: 7%;
-  bottom: 12%;
-  border-radius: 50%;
   background:
     radial-gradient(
-      circle at 35% 30%,
-      #8eeaff,
-      #247da0 45%,
-      #09233c 80%
+      circle at 20% 20%,
+      rgba(130, 70, 255, 0.18),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 30%,
+      rgba(20, 190, 255, 0.16),
+      transparent 30%
     );
-  box-shadow: 0 0 35px rgba(40,190,255,.35);
-  z-index: -1;
 }
 
-/* الهيدر */
+/* =========================
+   Header
+========================= */
+
 header {
-  width: min(1400px, 94%);
-  margin: 20px auto;
-  padding: 18px 25px;
+  width: min(1500px, 94%);
+  margin: 22px auto;
+  padding: 20px 28px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 22px;
-  background: rgba(5, 7, 22, .72);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 15px 50px rgba(0,0,0,.35);
+  gap: 20px;
+
+  border: 1px solid var(--border);
+  border-radius: 24px;
+
+  background: rgba(4, 7, 25, 0.65);
+  backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 20px 70px rgba(0, 0, 0, 0.45),
+    inset 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .brand {
@@ -127,185 +83,378 @@ header {
 }
 
 .brand b {
-  font-size: 28px;
-  letter-spacing: 4px;
+  font-size: 32px;
+  letter-spacing: 7px;
+
+  background: linear-gradient(
+    90deg,
+    #fff,
+    #bda7ff,
+    #57e8ff,
+    #fff
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .brand small {
-  opacity: .65;
+  opacity: 0.65;
+  font-size: 13px;
+  letter-spacing: 1px;
 }
 
-/* المحتوى */
+/* =========================
+   Main
+========================= */
+
 main {
-  width: min(1400px, 94%);
+  width: min(1500px, 94%);
   margin: auto;
 }
 
 .page {
   min-height: calc(100vh - 110px);
-  padding: 55px 0;
+  padding: 40px 0 80px;
 }
 
-/* الهيرو */
+/* =========================
+   Hero
+========================= */
+
 .hero {
   text-align: center;
-  padding: 50px 20px;
-}
-
-.hero h1 {
-  margin: 20px 0 10px;
-  font-size: clamp(48px, 8vw, 100px);
-  letter-spacing: 8px;
-  background: linear-gradient(90deg, #fff, #b99cff, #6cecff, #fff);
-  -webkit-background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 35px rgba(130,90,255,.25);
-}
-
-.hero h2 {
-  font-size: clamp(24px, 4vw, 45px);
-  margin: 10px;
-}
-
-.hero p {
-  font-size: 19px;
-  opacity: .7;
+  padding: 65px 20px 45px;
 }
 
 .badge {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 11px 24px;
+
   border-radius: 999px;
-  background: rgba(120,80,255,.15);
-  border: 1px solid rgba(170,130,255,.35);
-  box-shadow: 0 0 25px rgba(120,80,255,.15);
+
+  background: rgba(120, 80, 255, 0.16);
+  border: 1px solid rgba(180, 150, 255, 0.35);
+
+  box-shadow:
+    0 0 30px rgba(110, 70, 255, 0.2);
+
+  font-weight: bold;
 }
 
-/* الكروت */
+.hero h1 {
+  margin: 25px 0 10px;
+
+  font-size: clamp(60px, 10vw, 125px);
+  line-height: 0.95;
+
+  letter-spacing: 12px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff,
+      #b99cff,
+      #55eaff,
+      #ffffff
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  text-shadow:
+    0 0 40px rgba(120, 90, 255, 0.3);
+}
+
+.hero h2 {
+  margin: 18px 0;
+
+  font-size: clamp(25px, 4vw, 48px);
+
+  text-shadow:
+    0 0 25px rgba(90, 190, 255, 0.35);
+}
+
+.hero p {
+  font-size: 19px;
+  opacity: 0.72;
+}
+
+/* =========================
+   Cards
+========================= */
+
 .card {
-  background: rgba(8, 10, 30, .72);
-  border: 1px solid rgba(255,255,255,.13);
-  border-radius: 25px;
-  padding: 30px;
-  backdrop-filter: blur(18px);
+  background: var(--glass);
+
+  border: 1px solid var(--border);
+  border-radius: 28px;
+
+  padding: 32px;
+
+  backdrop-filter: blur(20px);
+
   box-shadow:
-    0 25px 70px rgba(0,0,0,.35),
-    inset 0 1px rgba(255,255,255,.05);
+    0 25px 80px rgba(0, 0, 0, 0.42),
+    inset 0 1px rgba(255, 255, 255, 0.07);
 }
 
 .join-card {
-  max-width: 850px;
+  width: min(1050px, 100%);
   margin: 20px auto;
+
   text-align: center;
 }
 
 .join-card h2 {
-  font-size: 32px;
+  font-size: 35px;
+  margin-top: 0;
 }
 
 .sub-text {
-  opacity: .6;
+  opacity: 0.6;
 }
 
-/* الإدخال */
+/* =========================
+   Inputs
+========================= */
+
 input,
 textarea,
 select {
   width: 100%;
+
   margin: 10px 0;
-  padding: 17px 20px;
-  border-radius: 15px;
-  border: 1px solid rgba(255,255,255,.13);
+  padding: 18px 20px;
+
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
   outline: none;
-  background: rgba(0,0,0,.35);
+
+  background: rgba(0, 0, 0, 0.4);
   color: #fff;
-  font-size: 16px;
+
+  font-size: 17px;
+
+  transition: 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--cyan);
+
+  box-shadow:
+    0 0 0 3px rgba(70, 220, 255, 0.08),
+    0 0 25px rgba(50, 190, 255, 0.12);
 }
 
 textarea {
-  min-height: 140px;
+  min-height: 150px;
   resize: vertical;
 }
 
-/* الفرق */
+/* =========================
+   Teams
+========================= */
+
 .teams {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  margin: 25px 0;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 22px;
+
+  margin: 30px 0;
 }
 
 .team {
-  min-height: 150px;
-  padding: 25px 15px;
+  min-height: 190px;
+
+  padding: 28px 18px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  border-radius: 22px;
+
+  gap: 12px;
+
+  border-radius: 24px;
+
   cursor: pointer;
-  background: rgba(255,255,255,.055);
-  border: 1px solid rgba(255,255,255,.12);
-  transition: .25s;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.09),
+      rgba(255, 255, 255, 0.025)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s,
+    border-color 0.25s,
+    background 0.25s;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.team::before {
+  content: "";
+
+  position: absolute;
+
+  width: 130px;
+  height: 130px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(100, 190, 255, 0.2),
+      transparent 70%
+    );
+
+  filter: blur(8px);
 }
 
 .team:hover {
-  transform: translateY(-7px);
-  background: rgba(130,90,255,.16);
-  box-shadow: 0 15px 40px rgba(100,70,255,.2);
+  transform: translateY(-9px) scale(1.02);
+
+  border-color: rgba(100, 220, 255, 0.55);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(110, 80, 255, 0.2),
+      rgba(20, 180, 255, 0.08)
+    );
+
+  box-shadow:
+    0 20px 55px rgba(50, 120, 255, 0.2),
+    0 0 30px rgba(130, 80, 255, 0.12);
 }
 
 .team.sel {
-  border-color: #9c7cff;
-  background: rgba(130,90,255,.2);
-  box-shadow: 0 0 30px rgba(130,90,255,.25);
+  border-color: var(--cyan);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(120, 80, 255, 0.28),
+      rgba(20, 190, 255, 0.14)
+    );
+
+  box-shadow:
+    0 0 35px rgba(70, 200, 255, 0.25),
+    inset 0 0 30px rgba(120, 80, 255, 0.08);
 }
 
+/* إخفاء الإيموجي القديم */
 .team .icon {
-  display: none;
+  display: none !important;
 }
 
-/* الأزرار */
+/* اسم الفريق */
+.team strong,
+.team b {
+  position: relative;
+  z-index: 1;
+
+  font-size: 24px;
+}
+
+/* =========================
+   Buttons
+========================= */
+
 button {
   border: 0;
-  border-radius: 14px;
-  padding: 14px 22px;
+  border-radius: 15px;
+
+  padding: 15px 24px;
+
   cursor: pointer;
-  color: white;
-  background: rgba(255,255,255,.1);
+
+  color: #fff;
+
+  background:
+    rgba(255, 255, 255, 0.1);
+
   font-size: 16px;
-  transition: .2s;
+
+  transition: 0.2s;
 }
 
 button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
 .primary {
   width: 100%;
-  background: linear-gradient(90deg, #663cff, #9a57ff, #1ca9ff);
-  box-shadow: 0 10px 30px rgba(100,60,255,.25);
+
+  background:
+    linear-gradient(
+      90deg,
+      #653cff,
+      #9957ff,
+      #18baff
+    );
+
+  box-shadow:
+    0 12px 35px rgba(100, 60, 255, 0.3);
+
   font-weight: bold;
+  font-size: 18px;
 }
 
-/* الشبكات */
+.primary:hover {
+  box-shadow:
+    0 15px 45px rgba(70, 130, 255, 0.4);
+}
+
+/* =========================
+   Grid
+========================= */
+
 .grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 25px;
+
+  grid-template-columns:
+    1.4fr 1fr;
+
+  gap: 28px;
 }
 
 .admin-grid {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns:
+    repeat(3, 1fr);
 }
 
-/* العضو */
+/* =========================
+   Member / Admin
+========================= */
+
 .member-head,
 .admin-head {
   display: flex;
+
   align-items: center;
-  gap: 20px;
+
+  gap: 22px;
+
   margin-bottom: 30px;
 }
 
@@ -314,20 +463,36 @@ button:hover {
 }
 
 .big {
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
+
   border-radius: 50%;
+
   display: grid;
   place-items: center;
-  background: radial-gradient(circle, #714cff, #15102f);
-  box-shadow: 0 0 40px rgba(100,70,255,.4);
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #8c6cff,
+      #17102f 70%
+    );
+
+  box-shadow:
+    0 0 50px rgba(100, 70, 255, 0.45);
+
   font-size: 0;
 }
 
-/* المنشورات */
+/* =========================
+   Posts
+========================= */
+
 .post {
-  padding: 20px 0;
-  border-bottom: 1px solid rgba(255,255,255,.1);
+  padding: 22px 0;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.1);
 }
 
 .post:last-child {
@@ -335,49 +500,78 @@ button:hover {
 }
 
 .post small {
-  opacity: .5;
+  opacity: 0.5;
 }
 
-/* الترتيب */
+/* =========================
+   Ranking / Members
+========================= */
+
 .rank,
 .member,
 .score {
   display: flex;
+
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  padding: 15px;
+
+  gap: 12px;
+
+  padding: 17px;
+
   margin: 10px 0;
-  border-radius: 14px;
-  background: rgba(255,255,255,.05);
+
+  border-radius: 16px;
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* المودال */
+/* =========================
+   Modal
+========================= */
+
 .modal {
   position: fixed;
   inset: 0;
+
   display: grid;
   place-items: center;
+
   padding: 20px;
-  background: rgba(0,0,0,.75);
-  backdrop-filter: blur(12px);
+
+  background:
+    rgba(0, 0, 0, 0.78);
+
+  backdrop-filter: blur(14px);
+
   z-index: 100;
 }
 
 .modal .card {
-  width: min(450px, 100%);
+  width: min(480px, 100%);
 }
 
-/* إخفاء */
+/* =========================
+   Hidden
+========================= */
+
 .hidden {
   display: none !important;
 }
 
-/* موبايل */
-@media (max-width: 900px) {
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 1000px) {
 
   .teams {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns:
+      repeat(2, 1fr);
   }
 
   .grid,
@@ -386,32 +580,74 @@ button:hover {
   }
 
   .hero h1 {
-    font-size: 48px;
+    font-size: 60px;
   }
-
 }
 
-@media (max-width: 550px) {
+@media (max-width: 600px) {
 
   header {
-    padding: 15px;
+    width: 94%;
+    padding: 16px;
   }
 
   .brand b {
-    font-size: 20px;
+    font-size: 22px;
+    letter-spacing: 4px;
+  }
+
+  .brand small {
+    font-size: 11px;
+  }
+
+  header button {
+    padding: 11px 14px;
+    font-size: 13px;
   }
 
   .page {
-    padding-top: 20px;
+    padding-top: 15px;
+  }
+
+  .hero {
+    padding:
+      35px 10px
+      25px;
+  }
+
+  .hero h1 {
+    font-size: 50px;
+    letter-spacing: 6px;
+  }
+
+  .hero h2 {
+    font-size: 27px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .card {
+    padding: 22px;
+    border-radius: 22px;
   }
 
   .teams {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    gap: 12px;
   }
 
   .team {
-    min-height: 120px;
+    min-height: 135px;
+    padding: 18px 10px;
+  }
+
+  .team strong,
+  .team b {
+    font-size: 18px;
   }
 
   .member-head {
@@ -422,4 +658,8 @@ button:hover {
     width: 100%;
   }
 
+  .big {
+    width: 85px;
+    height: 85px;
+  }
 }
