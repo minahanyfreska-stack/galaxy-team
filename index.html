@@ -3,11 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>INFINITY</title>
 
@@ -16,345 +12,406 @@
 
 <body>
 
+<header>
+  <div class="brand">
+    <b>INFINITY</b>
+    <small>رحلتنا لا تنتهي</small>
+  </div>
+
+  <button id="adminOpen">
+    لوحة التحكم
+  </button>
+</header>
+
+
+<main>
+
   <!-- =========================
-       HEADER
+       دخول INFINITY
   ========================== -->
 
-  <header>
+  <section id="join" class="page">
 
-    <div class="brand">
-      <b>INFINITY</b>
-      <small>رحلتنا لا تنتهي</small>
+    <div class="hero">
+
+      <span class="badge">
+        أهلاً بك في عالم INFINITY
+      </span>
+
+      <h1>INFINITY</h1>
+
+      <h2>رحلتنا لا تنتهي</h2>
+
+      <p>
+        فريق واحد • هدف واحد • مستقبل بلا حدود
+      </p>
+
     </div>
 
-    <button id="adminOpen">
-      لوحة التحكم
-    </button>
 
-  </header>
+    <div class="card join-card">
 
+      <h2>دخول الأعضاء</h2>
 
-  <main>
+      <p class="sub-text">
+        استخدم كود الدخول الخاص بك للدخول مباشرة
+      </p>
 
-    <!-- =========================
-         الصفحة الرئيسية
-    ========================== -->
 
-    <section id="join" class="page">
-
-      <div class="hero">
-
-        <span class="badge">
-          أهلاً بك في عالم INFINITY
-        </span>
-
-        <h1>
-          INFINITY
-        </h1>
-
-        <h2>
-          رحلتنا لا تنتهي
-        </h2>
-
-        <p>
-          أربع فرق • هدف واحد • مجرة واحدة
-        </p>
-
-      </div>
-
-
-      <!-- =========================
-           اختيار الفريق
-      ========================== -->
-
-      <div class="card join-card">
-
-        <h2>
-          اختر فريقك
-        </h2>
-
-        <p class="sub-text">
-          اختر الكوكب الذي سيمثل فريقك
-        </p>
-
-
-        <input
-          id="name"
-          type="text"
-          placeholder="اكتب اسمك هنا"
-          autocomplete="name"
-        >
-
-
-        <!--
-          app.js هيملأ الفرق هنا
-          من Supabase
-        -->
-
-        <div
-          id="teams"
-          class="teams"
-        ></div>
-
-
-        <button
-          id="joinBtn"
-          class="primary"
-        >
-          دخول الفريق
-        </button>
-
-
-        <p id="msg"></p>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         صفحة العضو
-    ========================== -->
-
-    <section
-      id="member"
-      class="page hidden"
-    >
-
-      <div class="member-head">
-
-        <div
-          id="memberIcon"
-          class="big"
-        ></div>
-
-
-        <div>
-
-          <small>
-            أهلاً بك في INFINITY
-          </small>
-
-          <h2 id="memberName"></h2>
-
-          <p id="memberTeam"></p>
-
-        </div>
-
-
-        <button id="logout">
-          تغيير الحساب
-        </button>
-
-      </div>
-
-
-
-      <div class="grid">
-
-        <!-- المحتوى -->
-
-        <div class="card">
-
-          <h2>
-            المحتوى الحالي
-          </h2>
-
-          <div id="posts"></div>
-
-        </div>
-
-
-        <!-- ترتيب الفرق -->
-
-        <div class="card">
-
-          <h2>
-            ترتيب الفرق
-          </h2>
-
-          <div id="ranking"></div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         لوحة الإدارة
-    ========================== -->
-
-    <section
-      id="admin"
-      class="page hidden"
-    >
-
-      <div class="admin-head">
-
-        <div>
-
-          <span class="badge">
-            ADMIN
-          </span>
-
-          <h2>
-            لوحة تحكم INFINITY
-          </h2>
-
-        </div>
-
-
-        <button id="adminLogout">
-          خروج
-        </button>
-
-      </div>
-
-
-
-      <div class="grid admin-grid">
-
-
-        <!-- نشر المحتوى -->
-
-        <div class="card">
-
-          <h3>
-            نشر محتوى
-          </h3>
-
-
-          <input
-            id="postTitle"
-            type="text"
-            placeholder="عنوان المنشور"
-          >
-
-
-          <textarea
-            id="postBody"
-            placeholder="اكتب تفاصيل المنشور هنا"
-          ></textarea>
-
-
-          <select id="postTeam">
-
-            <option value="all">
-              كل الفرق
-            </option>
-
-          </select>
-
-
-          <button
-            id="postBtn"
-            class="primary"
-          >
-            نشر الآن
-          </button>
-
-        </div>
-
-
-
-        <!-- الأعضاء -->
-
-        <div class="card">
-
-          <h3>
-            أعضاء الفرق
-          </h3>
-
-          <div id="members">
-            لا يوجد أعضاء
-          </div>
-
-        </div>
-
-
-
-        <!-- النقاط -->
-
-        <div class="card">
-
-          <h3>
-            نقاط الفرق والأعضاء
-          </h3>
-
-          <div id="scores"></div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-
-  <!-- =========================
-       تسجيل دخول الإدارة
-  ========================== -->
-
-  <div
-    id="loginModal"
-    class="modal hidden"
-  >
-
-    <div class="card">
-
-      <h2>
-        دخول الإدارة
-      </h2>
-
+      <!-- كود الدخول -->
 
       <input
-        id="adminPass"
-        type="password"
-        placeholder="كلمة مرور الإدارة"
+        id="accessCode"
+        type="text"
+        placeholder="اكتب كود الدخول"
         autocomplete="off"
       >
 
 
       <button
-        id="loginBtn"
+        id="codeLoginBtn"
         class="primary"
       >
-        دخول
+        دخول بالكود
       </button>
 
 
-      <button id="closeModal">
-        إلغاء
+      <div class="login-divider">
+        <span>أو</span>
+      </div>
+
+
+      <!-- دخول جديد -->
+
+      <h3>
+        تسجيل عضو جديد
+      </h3>
+
+      <input
+        id="name"
+        type="text"
+        placeholder="اكتب اسمك"
+        autocomplete="name"
+      >
+
+
+      <!-- الفرق -->
+
+      <div
+        id="teams"
+        class="teams"
+      ></div>
+
+
+      <button
+        id="joinBtn"
+        class="primary"
+      >
+        تسجيل ودخول
       </button>
 
 
-      <p id="loginMsg"></p>
+      <p id="msg"></p>
 
     </div>
 
+  </section>
+
+
+
+  <!-- =========================
+       صفحة العضو
+  ========================== -->
+
+  <section
+    id="member"
+    class="page hidden"
+  >
+
+    <div class="member-head">
+
+      <div
+        id="memberIcon"
+        class="big"
+      ></div>
+
+
+      <div>
+
+        <small>
+          أهلاً بك في INFINITY
+        </small>
+
+        <h2 id="memberName"></h2>
+
+        <p id="memberTeam"></p>
+
+      </div>
+
+
+      <button id="logout">
+        تسجيل خروج
+      </button>
+
+    </div>
+
+
+    <div class="grid">
+
+      <!-- المحتوى -->
+
+      <div class="card">
+
+        <h2>
+          المحتوى الحالي
+        </h2>
+
+        <div id="posts"></div>
+
+      </div>
+
+
+      <!-- الترتيب -->
+
+      <div class="card">
+
+        <h2>
+          ترتيب الفرق
+        </h2>
+
+        <div id="ranking"></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       لوحة التحكم
+  ========================== -->
+
+  <section
+    id="admin"
+    class="page hidden"
+  >
+
+    <div class="admin-head">
+
+      <div>
+
+        <span class="badge">
+          ADMIN
+        </span>
+
+        <h2>
+          لوحة تحكم INFINITY
+        </h2>
+
+      </div>
+
+
+      <button id="adminLogout">
+        خروج
+      </button>
+
+    </div>
+
+
+    <div class="grid admin-grid">
+
+
+      <!-- إضافة عضو -->
+
+      <div class="card">
+
+        <h3>
+          إضافة عضو
+        </h3>
+
+
+        <input
+          id="newMemberName"
+          type="text"
+          placeholder="اسم العضو"
+        >
+
+
+        <select id="newMemberTeam">
+          <option value="">
+            اختر الفريق
+          </option>
+        </select>
+
+
+        <button
+          id="addMemberBtn"
+          class="primary"
+        >
+          إضافة العضو وإنشاء الكود
+        </button>
+
+
+        <div id="newMemberResult"></div>
+
+      </div>
+
+
+
+      <!-- الأعضاء -->
+
+      <div class="card">
+
+        <h3>
+          أعضاء الفرق
+        </h3>
+
+
+        <div id="members">
+          لا يوجد أعضاء
+        </div>
+
+      </div>
+
+
+
+      <!-- النقاط -->
+
+      <div class="card">
+
+        <h3>
+          نقاط الفرق
+        </h3>
+
+
+        <div id="scores"></div>
+
+      </div>
+
+
+
+      <!-- نشر المحتوى -->
+
+      <div class="card">
+
+        <h3>
+          نشر محتوى
+        </h3>
+
+
+        <input
+          id="postTitle"
+          type="text"
+          placeholder="عنوان المنشور"
+        >
+
+
+        <textarea
+          id="postBody"
+          placeholder="اكتب التفاصيل"
+        ></textarea>
+
+
+        <select id="postTeam">
+
+          <option value="all">
+            كل الفرق
+          </option>
+
+        </select>
+
+
+        <button
+          id="postBtn"
+          class="primary"
+        >
+          نشر الآن
+        </button>
+
+      </div>
+
+
+
+      <!-- إدارة الفرق -->
+
+      <div class="card">
+
+        <h3>
+          الفرق
+        </h3>
+
+        <div id="adminTeams"></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+
+<!-- =========================
+     تسجيل دخول الإدارة
+========================== -->
+
+<div
+  id="loginModal"
+  class="modal hidden"
+>
+
+  <div class="card">
+
+    <h2>
+      دخول الإدارة
+    </h2>
+
+
+    <input
+      id="adminPass"
+      type="password"
+      placeholder="كلمة مرور الإدارة"
+      autocomplete="off"
+    >
+
+
+    <button
+      id="loginBtn"
+      class="primary"
+    >
+      دخول
+    </button>
+
+
+    <button id="closeModal">
+      إلغاء
+    </button>
+
+
+    <p id="loginMsg"></p>
+
   </div>
 
+</div>
 
 
-  <!-- =========================
-       Supabase
-  ========================== -->
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Supabase -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
-  <!-- =========================
-       كود الموقع
-  ========================== -->
+<!-- QR Code -->
 
-  <script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+
+<!-- كود الموقع -->
+
+<script src="app.js"></script>
 
 </body>
-
 </html>
