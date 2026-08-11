@@ -6,107 +6,105 @@ html {
   scroll-behavior: smooth;
 }
 
-:root {
-  --purple: #8b5cff;
-  --blue: #20bfff;
-  --cyan: #55eaff;
-  --gold: #ffc857;
-  --glass: rgba(7, 10, 28, 0.72);
-  --border: rgba(255, 255, 255, 0.16);
-}
-
 body {
   margin: 0;
   min-height: 100vh;
   color: #fff;
   font-family: Arial, Tahoma, sans-serif;
   overflow-x: hidden;
+
   background:
     linear-gradient(
-      180deg,
-      rgba(2, 4, 18, 0.38),
-      rgba(3, 5, 20, 0.72)
+      rgba(1, 3, 18, .35),
+      rgba(1, 3, 18, .72)
     ),
     url("F32F4345-F795-4ECC-AFD0-5EA95621440F.png")
-      center center / cover fixed no-repeat;
+    center center / cover fixed no-repeat;
 }
 
-/* طبقة غامقة خفيفة فوق الخلفية */
+/* طبقة النجوم */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
+  z-index: -2;
   pointer-events: none;
-  z-index: -1;
-  background:
-    radial-gradient(
-      circle at 20% 20%,
-      rgba(130, 70, 255, 0.18),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 80% 30%,
-      rgba(20, 190, 255, 0.16),
-      transparent 30%
-    );
+
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.9) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(150,210,255,.7) 1px, transparent 1.5px);
+
+  background-size: 120px 120px, 190px 190px;
+  animation: starsMove 35s linear infinite;
+}
+
+@keyframes starsMove {
+  from {
+    background-position: 0 0, 0 0;
+  }
+
+  to {
+    background-position: 300px 500px, -400px 300px;
+  }
 }
 
 /* =========================
-   Header
+   HEADER
 ========================= */
 
 header {
   width: min(1500px, 94%);
-  margin: 22px auto;
-  padding: 20px 28px;
+  margin: 20px auto;
+  padding: 18px 28px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
 
-  border: 1px solid var(--border);
-  border-radius: 24px;
+  border: 1px solid rgba(160,120,255,.35);
+  border-radius: 22px;
 
-  background: rgba(4, 7, 25, 0.65);
+  background: rgba(3, 6, 25, .68);
   backdrop-filter: blur(20px);
 
   box-shadow:
-    0 20px 70px rgba(0, 0, 0, 0.45),
-    inset 0 1px rgba(255, 255, 255, 0.08);
+    0 0 40px rgba(90,50,255,.15),
+    inset 0 1px rgba(255,255,255,.08);
 }
 
 .brand {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 }
 
 .brand b {
-  font-size: 32px;
+  font-size: 34px;
   letter-spacing: 7px;
 
-  background: linear-gradient(
-    90deg,
-    #fff,
-    #bda7ff,
-    #57e8ff,
-    #fff
-  );
+  background:
+    linear-gradient(
+      90deg,
+      #fff,
+      #b78cff,
+      #55eaff,
+      #fff
+    );
 
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+
+  text-shadow:
+    0 0 30px rgba(150,80,255,.5);
 }
 
 .brand small {
-  opacity: 0.65;
-  font-size: 13px;
-  letter-spacing: 1px;
+  opacity: .65;
 }
 
 /* =========================
-   Main
+   MAIN
 ========================= */
 
 main {
@@ -115,17 +113,17 @@ main {
 }
 
 .page {
-  min-height: calc(100vh - 110px);
-  padding: 40px 0 80px;
+  min-height: calc(100vh - 100px);
+  padding: 30px 0 80px;
 }
 
 /* =========================
-   Hero
+   HERO
 ========================= */
 
 .hero {
   text-align: center;
-  padding: 65px 20px 45px;
+  padding: 55px 20px 40px;
 }
 
 .badge {
@@ -134,29 +132,25 @@ main {
 
   border-radius: 999px;
 
-  background: rgba(120, 80, 255, 0.16);
-  border: 1px solid rgba(180, 150, 255, 0.35);
+  background: rgba(120,70,255,.15);
+  border: 1px solid rgba(170,130,255,.4);
 
   box-shadow:
-    0 0 30px rgba(110, 70, 255, 0.2);
-
-  font-weight: bold;
+    0 0 30px rgba(110,60,255,.2);
 }
 
 .hero h1 {
   margin: 25px 0 10px;
 
   font-size: clamp(60px, 10vw, 125px);
-  line-height: 0.95;
-
   letter-spacing: 12px;
 
   background:
     linear-gradient(
       90deg,
       #ffffff,
-      #b99cff,
-      #55eaff,
+      #bd91ff,
+      #5cecff,
       #ffffff
     );
 
@@ -165,31 +159,32 @@ main {
   color: transparent;
 
   text-shadow:
-    0 0 40px rgba(120, 90, 255, 0.3);
+    0 0 50px rgba(130,80,255,.45);
 }
 
 .hero h2 {
-  margin: 18px 0;
-
-  font-size: clamp(25px, 4vw, 48px);
-
-  text-shadow:
-    0 0 25px rgba(90, 190, 255, 0.35);
+  margin: 10px;
+  font-size: clamp(28px, 4vw, 48px);
 }
 
 .hero p {
+  opacity: .7;
   font-size: 19px;
-  opacity: 0.72;
 }
 
 /* =========================
-   Cards
+   CARD
 ========================= */
 
 .card {
-  background: var(--glass);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(7,10,35,.82),
+      rgba(3,5,22,.7)
+    );
 
-  border: 1px solid var(--border);
+  border: 1px solid rgba(150,130,255,.2);
   border-radius: 28px;
 
   padding: 32px;
@@ -197,28 +192,18 @@ main {
   backdrop-filter: blur(20px);
 
   box-shadow:
-    0 25px 80px rgba(0, 0, 0, 0.42),
-    inset 0 1px rgba(255, 255, 255, 0.07);
+    0 25px 80px rgba(0,0,0,.45),
+    inset 0 1px rgba(255,255,255,.06);
 }
 
 .join-card {
-  width: min(1050px, 100%);
-  margin: 20px auto;
-
+  width: min(1250px, 100%);
+  margin: auto;
   text-align: center;
 }
 
-.join-card h2 {
-  font-size: 35px;
-  margin-top: 0;
-}
-
-.sub-text {
-  opacity: 0.6;
-}
-
 /* =========================
-   Inputs
+   INPUT
 ========================= */
 
 input,
@@ -230,151 +215,271 @@ select {
   padding: 18px 20px;
 
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  border: 1px solid rgba(255,255,255,.14);
 
   outline: none;
 
-  background: rgba(0, 0, 0, 0.4);
-  color: #fff;
+  background: rgba(0,0,0,.45);
+  color: white;
 
   font-size: 17px;
-
-  transition: 0.2s;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--cyan);
+  border-color: #5deaff;
 
   box-shadow:
-    0 0 0 3px rgba(70, 220, 255, 0.08),
-    0 0 25px rgba(50, 190, 255, 0.12);
+    0 0 25px rgba(60,210,255,.15);
 }
 
 textarea {
   min-height: 150px;
-  resize: vertical;
 }
 
-/* =========================
-   Teams
-========================= */
+/* =====================================================
+   الفرق
+   كروت كبيرة بشكل مجرات
+===================================================== */
 
 .teams {
   display: grid;
 
   grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+    repeat(4, 1fr);
 
-  gap: 22px;
+  gap: 24px;
 
-  margin: 30px 0;
+  margin: 35px 0;
 }
 
-.team {
-  min-height: 190px;
+/* الكارت نفسه */
 
-  padding: 28px 18px;
+.team {
+  position: relative;
+
+  min-height: 330px;
+
+  padding: 25px 15px;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
 
-  gap: 12px;
+  overflow: hidden;
 
-  border-radius: 24px;
+  border-radius: 28px;
 
   cursor: pointer;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.09),
-      rgba(255, 255, 255, 0.025)
-    );
+  border: 1px solid rgba(150,120,255,.45);
 
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background:
+    radial-gradient(
+      ellipse at 50% 45%,
+      rgba(150,70,255,.55),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(0,200,255,.35),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(255,40,190,.25),
+      transparent 35%
+    ),
+    #03051a;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.5),
+    inset 0 0 50px rgba(100,60,255,.12);
 
   transition:
-    transform 0.25s,
-    box-shadow 0.25s,
-    border-color 0.25s,
-    background 0.25s;
-
-  position: relative;
-  overflow: hidden;
+    transform .35s,
+    box-shadow .35s,
+    border-color .35s;
 }
+
+/* المجرة المتحركة داخل الكارت */
 
 .team::before {
   content: "";
 
   position: absolute;
 
-  width: 130px;
+  width: 260px;
   height: 130px;
+
+  top: 40px;
+  left: 50%;
+
+  transform:
+    translateX(-50%)
+    rotate(-20deg);
 
   border-radius: 50%;
 
   background:
     radial-gradient(
-      circle,
-      rgba(100, 190, 255, 0.2),
+      ellipse,
+      rgba(255,255,255,.95) 0%,
+      rgba(180,110,255,.8) 8%,
+      rgba(110,60,255,.5) 20%,
+      rgba(40,80,255,.25) 35%,
       transparent 70%
     );
 
-  filter: blur(8px);
+  filter: blur(5px);
+
+  opacity: .9;
+
+  animation:
+    galaxySpin 8s ease-in-out infinite alternate;
 }
+
+/* نجوم داخل الكارت */
+
+.team::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    radial-gradient(circle, white 1px, transparent 1.5px),
+    radial-gradient(circle, #8edfff 1px, transparent 1.5px);
+
+  background-size:
+    45px 45px,
+    75px 75px;
+
+  opacity: .45;
+
+  animation:
+    galaxyStars 12s linear infinite;
+
+  pointer-events: none;
+}
+
+@keyframes galaxySpin {
+
+  0% {
+    transform:
+      translateX(-50%)
+      rotate(-25deg)
+      scale(.85);
+  }
+
+  100% {
+    transform:
+      translateX(-50%)
+      rotate(25deg)
+      scale(1.15);
+  }
+}
+
+@keyframes galaxyStars {
+
+  from {
+    background-position:
+      0 0,
+      0 0;
+  }
+
+  to {
+    background-position:
+      120px 180px,
+      -180px 100px;
+  }
+}
+
+/* حركة الكارت */
 
 .team:hover {
-  transform: translateY(-9px) scale(1.02);
+  transform:
+    translateY(-12px)
+    scale(1.025);
 
-  border-color: rgba(100, 220, 255, 0.55);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(110, 80, 255, 0.2),
-      rgba(20, 180, 255, 0.08)
-    );
+  border-color: #9d7cff;
 
   box-shadow:
-    0 20px 55px rgba(50, 120, 255, 0.2),
-    0 0 30px rgba(130, 80, 255, 0.12);
+    0 30px 80px rgba(80,50,255,.3),
+    0 0 45px rgba(110,80,255,.25);
 }
 
-.team.sel {
-  border-color: var(--cyan);
+/* الكارت المختار */
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(120, 80, 255, 0.28),
-      rgba(20, 190, 255, 0.14)
-    );
+.team.sel {
+  transform: translateY(-8px);
+
+  border-color: #5eeaff;
 
   box-shadow:
-    0 0 35px rgba(70, 200, 255, 0.25),
-    inset 0 0 30px rgba(120, 80, 255, 0.08);
+    0 0 50px rgba(70,210,255,.3),
+    0 30px 80px rgba(60,50,255,.25);
 }
 
 /* إخفاء الإيموجي القديم */
+
 .team .icon {
   display: none !important;
 }
 
-/* اسم الفريق */
-.team strong,
-.team b {
-  position: relative;
-  z-index: 1;
+/* أي صورة داخل الفريق */
 
-  font-size: 24px;
+.team img {
+  position: absolute;
+
+  top: 35px;
+
+  width: 180px;
+  height: 180px;
+
+  object-fit: contain;
+
+  z-index: 2;
+
+  filter:
+    drop-shadow(0 0 20px rgba(120,100,255,.8));
+
+  animation:
+    planetFloat 4s ease-in-out infinite;
+}
+
+@keyframes planetFloat {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
+
+/* اسم الفريق */
+
+.team strong,
+.team b,
+.team span {
+  position: relative;
+
+  z-index: 5;
+
+  font-size: 27px;
+
+  text-shadow:
+    0 3px 15px #000;
 }
 
 /* =========================
-   Buttons
+   BUTTON
 ========================= */
 
 button {
@@ -383,23 +488,19 @@ button {
 
   padding: 15px 24px;
 
+  color: white;
+
+  background: rgba(255,255,255,.1);
+
   cursor: pointer;
-
-  color: #fff;
-
-  background:
-    rgba(255, 255, 255, 0.1);
 
   font-size: 16px;
 
-  transition: 0.2s;
+  transition: .25s;
 }
 
 button:hover {
   transform: translateY(-3px);
-
-  box-shadow:
-    0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
 .primary {
@@ -408,25 +509,19 @@ button:hover {
   background:
     linear-gradient(
       90deg,
-      #653cff,
-      #9957ff,
-      #18baff
+      #713cff,
+      #a34fff,
+      #16bfff
     );
 
   box-shadow:
-    0 12px 35px rgba(100, 60, 255, 0.3);
+    0 12px 35px rgba(100,50,255,.3);
 
   font-weight: bold;
-  font-size: 18px;
-}
-
-.primary:hover {
-  box-shadow:
-    0 15px 45px rgba(70, 130, 255, 0.4);
 }
 
 /* =========================
-   Grid
+   GRID
 ========================= */
 
 .grid {
@@ -435,25 +530,24 @@ button:hover {
   grid-template-columns:
     1.4fr 1fr;
 
-  gap: 28px;
+  gap: 25px;
 }
 
 .admin-grid {
   grid-template-columns:
-    repeat(3, 1fr);
+    repeat(3,1fr);
 }
 
 /* =========================
-   Member / Admin
+   MEMBER
 ========================= */
 
 .member-head,
 .admin-head {
   display: flex;
-
   align-items: center;
 
-  gap: 22px;
+  gap: 20px;
 
   margin-bottom: 30px;
 }
@@ -463,36 +557,31 @@ button:hover {
 }
 
 .big {
-  width: 110px;
-  height: 110px;
+  width: 105px;
+  height: 105px;
 
   border-radius: 50%;
 
-  display: grid;
-  place-items: center;
-
   background:
     radial-gradient(
-      circle at 35% 30%,
-      #8c6cff,
-      #17102f 70%
+      circle,
+      #8055ff,
+      #12102b
     );
 
   box-shadow:
-    0 0 50px rgba(100, 70, 255, 0.45);
-
-  font-size: 0;
+    0 0 45px rgba(100,70,255,.4);
 }
 
 /* =========================
-   Posts
+   POSTS
 ========================= */
 
 .post {
-  padding: 22px 0;
+  padding: 20px 0;
 
   border-bottom:
-    1px solid rgba(255, 255, 255, 0.1);
+    1px solid rgba(255,255,255,.1);
 }
 
 .post:last-child {
@@ -500,11 +589,11 @@ button:hover {
 }
 
 .post small {
-  opacity: 0.5;
+  opacity: .5;
 }
 
 /* =========================
-   Ranking / Members
+   RANK
 ========================= */
 
 .rank,
@@ -515,8 +604,6 @@ button:hover {
   justify-content: space-between;
   align-items: center;
 
-  gap: 12px;
-
   padding: 17px;
 
   margin: 10px 0;
@@ -524,18 +611,19 @@ button:hover {
   border-radius: 16px;
 
   background:
-    rgba(255, 255, 255, 0.055);
+    rgba(255,255,255,.055);
 
   border:
-    1px solid rgba(255, 255, 255, 0.06);
+    1px solid rgba(255,255,255,.07);
 }
 
 /* =========================
-   Modal
+   MODAL
 ========================= */
 
 .modal {
   position: fixed;
+
   inset: 0;
 
   display: grid;
@@ -544,7 +632,7 @@ button:hover {
   padding: 20px;
 
   background:
-    rgba(0, 0, 0, 0.78);
+    rgba(0,0,0,.78);
 
   backdrop-filter: blur(14px);
 
@@ -552,11 +640,11 @@ button:hover {
 }
 
 .modal .card {
-  width: min(480px, 100%);
+  width: min(480px,100%);
 }
 
 /* =========================
-   Hidden
+   HIDDEN
 ========================= */
 
 .hidden {
@@ -564,7 +652,7 @@ button:hover {
 }
 
 /* =========================
-   Mobile
+   TABLET
 ========================= */
 
 @media (max-width: 1000px) {
@@ -578,21 +666,21 @@ button:hover {
   .admin-grid {
     grid-template-columns: 1fr;
   }
-
-  .hero h1 {
-    font-size: 60px;
-  }
 }
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 600px) {
 
   header {
     width: 94%;
-    padding: 16px;
+    padding: 15px;
   }
 
   .brand b {
-    font-size: 22px;
+    font-size: 23px;
     letter-spacing: 4px;
   }
 
@@ -600,54 +688,45 @@ button:hover {
     font-size: 11px;
   }
 
-  header button {
-    padding: 11px 14px;
-    font-size: 13px;
-  }
-
-  .page {
-    padding-top: 15px;
-  }
-
   .hero {
-    padding:
-      35px 10px
-      25px;
+    padding: 35px 10px;
   }
 
   .hero h1 {
-    font-size: 50px;
-    letter-spacing: 6px;
+    font-size: 52px;
+    letter-spacing: 5px;
   }
 
   .hero h2 {
-    font-size: 27px;
-  }
-
-  .hero p {
-    font-size: 16px;
+    font-size: 28px;
   }
 
   .card {
-    padding: 22px;
-    border-radius: 22px;
+    padding: 20px;
   }
 
   .teams {
     grid-template-columns:
-      repeat(2, 1fr);
+      1fr 1fr;
 
     gap: 12px;
   }
 
   .team {
-    min-height: 135px;
-    padding: 18px 10px;
+    min-height: 220px;
+    border-radius: 22px;
+  }
+
+  .team img {
+    width: 125px;
+    height: 125px;
+    top: 25px;
   }
 
   .team strong,
-  .team b {
-    font-size: 18px;
+  .team b,
+  .team span {
+    font-size: 19px;
   }
 
   .member-head {
@@ -656,10 +735,5 @@ button:hover {
 
   .member-head button {
     width: 100%;
-  }
-
-  .big {
-    width: 85px;
-    height: 85px;
   }
 }
