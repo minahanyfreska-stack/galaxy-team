@@ -2,18 +2,21 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
   <title>Galaxy Teams</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
   <div class="brand">
-    🪐 <b>Galaxy Teams</b>
+    <b>GALAXY TEAMS</b>
     <small>مجرة واحدة • هدف واحد</small>
   </div>
   <button id="adminOpen">
-    لوحة التحكم ⚙️
+    لوحة التحكم
   </button>
 </header>
 <main>
@@ -23,29 +26,40 @@
   <section id="join" class="page">
     <div class="hero">
       <span class="badge">
-        🌌 أهلاً بك في المجرة
+        أهلاً بك في المجرة
       </span>
       <h1>
-        4 فرق • هدف واحد
-        <br>
-        <span>مين هيصنع المجد؟ 🚀</span>
+        GALAXY TEAMS
       </h1>
+      <h2>
+        مين هيصنع المجد؟
+      </h2>
       <p>
-        اكتب اسمك واختار الكوكب الخاص بفريقك.
+        اختار فريقك وابدأ رحلتك داخل المجرة
       </p>
     </div>
     <div class="card join-card">
       <h2>
-        🚀 انضم للمسابقة
+        انضم للمسابقة
       </h2>
+      <p class="sub-text">
+        اكتب اسمك واختار الفريق
+      </p>
       <input
         id="name"
         type="text"
-        placeholder="اكتب اسمك"
+        placeholder="اكتب اسمك هنا"
         autocomplete="name"
       >
-      <div id="teams" class="teams"></div>
-      <button id="joinBtn" class="primary">
+      <!-- الفرق -->
+      <div
+        id="teams"
+        class="teams"
+      ></div>
+      <button
+        id="joinBtn"
+        class="primary"
+      >
         دخول الفريق
       </button>
       <p id="msg"></p>
@@ -54,11 +68,15 @@
   <!-- =========================
        صفحة العضو
   ========================== -->
-  <section id="member" class="page hidden">
+  <section
+    id="member"
+    class="page hidden"
+  >
     <div class="member-head">
-      <div id="memberIcon" class="big">
-        🌌
-      </div>
+      <div
+        id="memberIcon"
+        class="big"
+      ></div>
       <div>
         <small>
           أهلاً يا
@@ -73,13 +91,13 @@
     <div class="grid">
       <div class="card">
         <h2>
-          ✨ المحتوى الحالي
+          المحتوى الحالي
         </h2>
         <div id="posts"></div>
       </div>
       <div class="card">
         <h2>
-          🏆 ترتيب الفرق
+          ترتيب الفرق
         </h2>
         <div id="ranking"></div>
       </div>
@@ -88,11 +106,14 @@
   <!-- =========================
        لوحة الإدارة
   ========================== -->
-  <section id="admin" class="page hidden">
+  <section
+    id="admin"
+    class="page hidden"
+  >
     <div class="admin-head">
       <div>
         <span class="badge">
-          👑 ADMIN
+          ADMIN
         </span>
         <h2>
           لوحة التحكم
@@ -103,10 +124,12 @@
       </button>
     </div>
     <div class="grid admin-grid">
-      <!-- نشر محتوى -->
+      <!-- =========================
+           نشر المحتوى
+      ========================== -->
       <div class="card">
         <h3>
-          📢 نشر محتوى
+          نشر محتوى
         </h3>
         <input
           id="postTitle"
@@ -115,30 +138,37 @@
         >
         <textarea
           id="postBody"
-          placeholder="التفاصيل"
+          placeholder="اكتب تفاصيل المنشور هنا"
         ></textarea>
         <select id="postTeam">
           <option value="all">
             كل الفرق
           </option>
         </select>
-        <button id="postBtn" class="primary">
+        <button
+          id="postBtn"
+          class="primary"
+        >
           نشر الآن
         </button>
       </div>
-      <!-- الأعضاء -->
+      <!-- =========================
+           الأعضاء
+      ========================== -->
       <div class="card">
         <h3>
-          👥 الأعضاء
+          الأعضاء
         </h3>
         <div id="members">
           لا يوجد أعضاء
         </div>
       </div>
-      <!-- النقاط -->
+      <!-- =========================
+           النقاط
+      ========================== -->
       <div class="card">
         <h3>
-          ⭐ النقاط
+          النقاط
         </h3>
         <div id="scores"></div>
       </div>
@@ -148,10 +178,13 @@
 <!-- =========================
      تسجيل دخول الإدارة
 ========================== -->
-<div id="loginModal" class="modal hidden">
+<div
+  id="loginModal"
+  class="modal hidden"
+>
   <div class="card">
     <h2>
-      🔐 دخول الإدارة
+      دخول الإدارة
     </h2>
     <input
       id="adminPass"
@@ -159,7 +192,10 @@
       placeholder="كلمة مرور الإدارة"
       autocomplete="off"
     >
-    <button id="loginBtn" class="primary">
+    <button
+      id="loginBtn"
+      class="primary"
+    >
       دخول
     </button>
     <button id="closeModal">
@@ -172,7 +208,9 @@
      Supabase
 ========================== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<!-- كود الموقع -->
+<!-- =========================
+     كود الموقع
+========================== -->
 <script src="app.js"></script>
 </body>
 </html>
