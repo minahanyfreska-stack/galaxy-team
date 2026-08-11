@@ -8,21 +8,23 @@
   <title>INFINITY</title>
 
   <link rel="stylesheet" href="style.css">
-
-  <!-- QR Scanner -->
-  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 </head>
 
 <body>
 
 <header>
+
   <div class="brand">
     <b>INFINITY</b>
     <small>رحلتنا لا تنتهي</small>
   </div>
 
-  <button id="adminOpen">لوحة التحكم</button>
+  <button id="adminOpen">
+    لوحة التحكم
+  </button>
+
 </header>
+
 
 <main>
 
@@ -34,25 +36,29 @@
 
     <div class="hero">
 
-      <span class="badge">WELCOME TO INFINITY</span>
+      <span class="badge">
+        أهلاً بك في عالم INFINITY
+      </span>
 
       <h1>INFINITY</h1>
 
       <h2>رحلتنا لا تنتهي</h2>
 
       <p>
-        فريق واحد • هدف واحد • مستقبل بلا حدود
+        عالم واحد • فرق متعددة • رحلة بلا حدود
       </p>
 
     </div>
+
 
     <div class="card join-card">
 
       <h2>دخول الأعضاء</h2>
 
       <p class="sub-text">
-        استخدم كود الدخول أو امسح QR Code
+        أدخل كود الدخول أو امسح QR Code بالكاميرا
       </p>
+
 
       <input
         id="accessCode"
@@ -61,35 +67,36 @@
         autocomplete="off"
       >
 
-      <button id="codeLoginBtn" class="primary">
+
+      <button
+        id="codeLoginBtn"
+        class="primary"
+      >
         دخول بالكود
       </button>
 
-      <button id="scanBtn" class="scan-btn">
-        📷 الدخول بالكاميرا
-      </button>
-
-      <div id="scannerBox" class="scanner-box hidden">
-
-        <div id="reader"></div>
-
-        <button id="stopScan">
-          إغلاق الكاميرا
-        </button>
-
-      </div>
 
       <div class="login-divider">
         <span>أو</span>
       </div>
 
-      <h3>اختر فريقك</h3>
 
-      <div id="teams" class="teams"></div>
-
-      <button id="joinBtn" class="primary">
-        تسجيل ودخول
+      <button
+        id="scanQRBtn"
+        class="scan-button"
+      >
+        📷 مسح QR بالكاميرا
       </button>
+
+
+      <div
+        id="qrScanner"
+        class="qr-scanner hidden"
+      ></div>
+
+
+      <p id="scanMsg"></p>
+
 
       <p id="msg"></p>
 
@@ -102,23 +109,40 @@
        صفحة العضو
   ========================== -->
 
-  <section id="member" class="page hidden">
+  <section
+    id="member"
+    class="page hidden"
+  >
 
-    <div class="member-head">
+    <div class="member-profile">
 
-      <div class="member-avatar">
-        <img id="memberPhoto" src="" alt="صورة العضو">
+      <div class="member-photo-wrap">
+
+        <img
+          id="memberPhoto"
+          class="member-photo"
+          src=""
+          alt="صورة العضو"
+        >
+
       </div>
 
-      <div>
 
-        <small>أهلاً بك في INFINITY</small>
+      <div class="member-info">
+
+        <small>
+          أهلاً بك في INFINITY
+        </small>
 
         <h1 id="memberName"></h1>
 
-        <p id="memberTeam"></p>
+        <div
+          id="memberTeam"
+          class="member-team"
+        ></div>
 
       </div>
+
 
       <button id="logout">
         تسجيل خروج
@@ -126,19 +150,25 @@
 
     </div>
 
+
     <div class="grid">
 
       <div class="card">
 
-        <h2>المحتوى الحالي</h2>
+        <h2>
+          المحتوى الحالي
+        </h2>
 
         <div id="posts"></div>
 
       </div>
 
+
       <div class="card">
 
-        <h2>ترتيب الفرق</h2>
+        <h2>
+          ترتيب الفرق
+        </h2>
 
         <div id="ranking"></div>
 
@@ -153,17 +183,25 @@
        الإدارة
   ========================== -->
 
-  <section id="admin" class="page hidden">
+  <section
+    id="admin"
+    class="page hidden"
+  >
 
     <div class="admin-head">
 
       <div>
 
-        <span class="badge">ADMIN</span>
+        <span class="badge">
+          ADMIN
+        </span>
 
-        <h2>لوحة تحكم INFINITY</h2>
+        <h2>
+          لوحة تحكم INFINITY
+        </h2>
 
       </div>
+
 
       <button id="adminLogout">
         خروج
@@ -179,7 +217,10 @@
 
       <div class="card">
 
-        <h3>إضافة عضو</h3>
+        <h3>
+          إضافة عضو
+        </h3>
+
 
         <input
           id="newMemberName"
@@ -187,19 +228,35 @@
           placeholder="اسم العضو"
         >
 
-        <input
-          id="newMemberPhoto"
-          type="file"
-          accept="image/*"
-        >
 
         <select id="newMemberTeam">
-          <option value="">اختر الفريق</option>
+
+          <option value="">
+            اختر الفريق
+          </option>
+
         </select>
 
-        <button id="addMemberBtn" class="primary">
+
+        <label class="upload-label">
+          صورة العضو
+
+          <input
+            id="newMemberPhoto"
+            type="file"
+            accept="image/*"
+          >
+
+        </label>
+
+
+        <button
+          id="addMemberBtn"
+          class="primary"
+        >
           إضافة العضو وإنشاء الكود
         </button>
+
 
         <div id="newMemberResult"></div>
 
@@ -210,7 +267,10 @@
 
       <div class="card">
 
-        <h3>أعضاء الفرق</h3>
+        <h3>
+          أعضاء الفرق
+        </h3>
+
 
         <div id="members">
           لا يوجد أعضاء
@@ -223,18 +283,24 @@
 
       <div class="card">
 
-        <h3>نقاط الفرق</h3>
+        <h3>
+          نقاط الفرق
+        </h3>
+
 
         <div id="scores"></div>
 
       </div>
 
 
-      <!-- المنشورات -->
+      <!-- نشر المحتوى -->
 
       <div class="card">
 
-        <h3>نشر محتوى</h3>
+        <h3>
+          نشر محتوى
+        </h3>
+
 
         <input
           id="postTitle"
@@ -242,24 +308,39 @@
           placeholder="عنوان المنشور"
         >
 
+
         <textarea
           id="postBody"
           placeholder="اكتب التفاصيل"
         ></textarea>
 
-        <input
-          id="postImage"
-          type="file"
-          accept="image/*"
-        >
 
         <select id="postTeam">
+
           <option value="all">
             كل الفرق
           </option>
+
         </select>
 
-        <button id="postBtn" class="primary">
+
+        <label class="upload-label">
+
+          صورة المنشور
+
+          <input
+            id="postImage"
+            type="file"
+            accept="image/*"
+          >
+
+        </label>
+
+
+        <button
+          id="postBtn"
+          class="primary"
+        >
           نشر الآن
         </button>
 
@@ -270,7 +351,9 @@
 
       <div class="card">
 
-        <h3>الفرق</h3>
+        <h3>
+          الفرق
+        </h3>
 
         <div id="adminTeams"></div>
 
@@ -284,14 +367,20 @@
 
 
 <!-- =========================
-     Admin Login
+     تسجيل دخول الإدارة
 ========================== -->
 
-<div id="loginModal" class="modal hidden">
+<div
+  id="loginModal"
+  class="modal hidden"
+>
 
   <div class="card">
 
-    <h2>دخول الإدارة</h2>
+    <h2>
+      دخول الإدارة
+    </h2>
+
 
     <input
       id="adminPass"
@@ -300,13 +389,19 @@
       autocomplete="off"
     >
 
-    <button id="loginBtn" class="primary">
+
+    <button
+      id="loginBtn"
+      class="primary"
+    >
       دخول
     </button>
+
 
     <button id="closeModal">
       إلغاء
     </button>
+
 
     <p id="loginMsg"></p>
 
@@ -319,11 +414,16 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- QR Code -->
+
+<!-- QR Generator -->
 
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 
-<!-- App -->
+
+<!-- QR Camera -->
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
 
 <script src="app.js"></script>
 
