@@ -7,13 +7,10 @@
    ========================= */
 const SUPABASE_URL =
   "https://jbdjhdbbmfowdwmejdtw.supabase.co";
-/*
-  ضع هنا Supabase Publishable Key الصحيح
-  أو الـ anon public key القديم إذا كان مشروعك يستخدمه.
-  لا تضع service_role key هنا.
-*/
+
 const SUPABASE_KEY =
-  "PUT_YOUR_SUPABASE_PUBLIC_KEY_HERE";
+  "sb_publishable_zF7z4wuwluqfPDfAH0-7qg_8-tjtrSr";
+
 const sb = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
