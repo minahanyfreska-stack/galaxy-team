@@ -1,216 +1,360 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="utf-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1"
   >
-  <title>Galaxy Teams</title>
+
+  <title>INFINITY</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<header>
-  <div class="brand">
-    <b>GALAXY TEAMS</b>
-    <small>مجرة واحدة • هدف واحد</small>
-  </div>
-  <button id="adminOpen">
-    لوحة التحكم
-  </button>
-</header>
-<main>
+
   <!-- =========================
-       الصفحة الرئيسية
+       HEADER
   ========================== -->
-  <section id="join" class="page">
-    <div class="hero">
-      <span class="badge">
-        أهلاً بك في المجرة
-      </span>
-      <h1>
-        GALAXY TEAMS
-      </h1>
-      <h2>
-        مين هيصنع المجد؟
-      </h2>
-      <p>
-        اختار فريقك وابدأ رحلتك داخل المجرة
-      </p>
+
+  <header>
+
+    <div class="brand">
+      <b>INFINITY</b>
+      <small>رحلتنا لا تنتهي</small>
     </div>
-    <div class="card join-card">
-      <h2>
-        انضم للمسابقة
-      </h2>
-      <p class="sub-text">
-        اكتب اسمك واختار الفريق
-      </p>
-      <input
-        id="name"
-        type="text"
-        placeholder="اكتب اسمك هنا"
-        autocomplete="name"
-      >
-      <!-- الفرق -->
-      <div
-        id="teams"
-        class="teams"
-      ></div>
-      <button
-        id="joinBtn"
-        class="primary"
-      >
-        دخول الفريق
-      </button>
-      <p id="msg"></p>
-    </div>
-  </section>
-  <!-- =========================
-       صفحة العضو
-  ========================== -->
-  <section
-    id="member"
-    class="page hidden"
-  >
-    <div class="member-head">
-      <div
-        id="memberIcon"
-        class="big"
-      ></div>
-      <div>
-        <small>
-          أهلاً يا
-        </small>
-        <h2 id="memberName"></h2>
-        <p id="memberTeam"></p>
-      </div>
-      <button id="logout">
-        تغيير الحساب
-      </button>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <h2>
-          المحتوى الحالي
-        </h2>
-        <div id="posts"></div>
-      </div>
-      <div class="card">
-        <h2>
-          ترتيب الفرق
-        </h2>
-        <div id="ranking"></div>
-      </div>
-    </div>
-  </section>
-  <!-- =========================
-       لوحة الإدارة
-  ========================== -->
-  <section
-    id="admin"
-    class="page hidden"
-  >
-    <div class="admin-head">
-      <div>
+
+    <button id="adminOpen">
+      لوحة التحكم
+    </button>
+
+  </header>
+
+
+  <main>
+
+    <!-- =========================
+         الصفحة الرئيسية
+    ========================== -->
+
+    <section id="join" class="page">
+
+      <div class="hero">
+
         <span class="badge">
-          ADMIN
+          أهلاً بك في عالم INFINITY
         </span>
+
+        <h1>
+          INFINITY
+        </h1>
+
         <h2>
-          لوحة التحكم
+          رحلتنا لا تنتهي
         </h2>
+
+        <p>
+          أربع فرق • هدف واحد • مجرة واحدة
+        </p>
+
       </div>
-      <button id="adminLogout">
-        خروج
-      </button>
-    </div>
-    <div class="grid admin-grid">
+
+
       <!-- =========================
-           نشر المحتوى
+           اختيار الفريق
       ========================== -->
-      <div class="card">
-        <h3>
-          نشر محتوى
-        </h3>
+
+      <div class="card join-card">
+
+        <h2>
+          اختر فريقك
+        </h2>
+
+        <p class="sub-text">
+          اختر الكوكب الذي سيمثل فريقك
+        </p>
+
+
         <input
-          id="postTitle"
+          id="name"
           type="text"
-          placeholder="عنوان المنشور"
+          placeholder="اكتب اسمك هنا"
+          autocomplete="name"
         >
-        <textarea
-          id="postBody"
-          placeholder="اكتب تفاصيل المنشور هنا"
-        ></textarea>
-        <select id="postTeam">
-          <option value="all">
-            كل الفرق
-          </option>
-        </select>
+
+
+        <!--
+          app.js هيملأ الفرق هنا
+          من Supabase
+        -->
+
+        <div
+          id="teams"
+          class="teams"
+        ></div>
+
+
         <button
-          id="postBtn"
+          id="joinBtn"
           class="primary"
         >
-          نشر الآن
+          دخول الفريق
         </button>
+
+
+        <p id="msg"></p>
+
       </div>
-      <!-- =========================
-           الأعضاء
-      ========================== -->
-      <div class="card">
-        <h3>
-          الأعضاء
-        </h3>
-        <div id="members">
-          لا يوجد أعضاء
+
+    </section>
+
+
+
+    <!-- =========================
+         صفحة العضو
+    ========================== -->
+
+    <section
+      id="member"
+      class="page hidden"
+    >
+
+      <div class="member-head">
+
+        <div
+          id="memberIcon"
+          class="big"
+        ></div>
+
+
+        <div>
+
+          <small>
+            أهلاً بك في INFINITY
+          </small>
+
+          <h2 id="memberName"></h2>
+
+          <p id="memberTeam"></p>
+
         </div>
+
+
+        <button id="logout">
+          تغيير الحساب
+        </button>
+
       </div>
-      <!-- =========================
-           النقاط
-      ========================== -->
-      <div class="card">
-        <h3>
-          النقاط
-        </h3>
-        <div id="scores"></div>
+
+
+
+      <div class="grid">
+
+        <!-- المحتوى -->
+
+        <div class="card">
+
+          <h2>
+            المحتوى الحالي
+          </h2>
+
+          <div id="posts"></div>
+
+        </div>
+
+
+        <!-- ترتيب الفرق -->
+
+        <div class="card">
+
+          <h2>
+            ترتيب الفرق
+          </h2>
+
+          <div id="ranking"></div>
+
+        </div>
+
       </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         لوحة الإدارة
+    ========================== -->
+
+    <section
+      id="admin"
+      class="page hidden"
+    >
+
+      <div class="admin-head">
+
+        <div>
+
+          <span class="badge">
+            ADMIN
+          </span>
+
+          <h2>
+            لوحة تحكم INFINITY
+          </h2>
+
+        </div>
+
+
+        <button id="adminLogout">
+          خروج
+        </button>
+
+      </div>
+
+
+
+      <div class="grid admin-grid">
+
+
+        <!-- نشر المحتوى -->
+
+        <div class="card">
+
+          <h3>
+            نشر محتوى
+          </h3>
+
+
+          <input
+            id="postTitle"
+            type="text"
+            placeholder="عنوان المنشور"
+          >
+
+
+          <textarea
+            id="postBody"
+            placeholder="اكتب تفاصيل المنشور هنا"
+          ></textarea>
+
+
+          <select id="postTeam">
+
+            <option value="all">
+              كل الفرق
+            </option>
+
+          </select>
+
+
+          <button
+            id="postBtn"
+            class="primary"
+          >
+            نشر الآن
+          </button>
+
+        </div>
+
+
+
+        <!-- الأعضاء -->
+
+        <div class="card">
+
+          <h3>
+            أعضاء الفرق
+          </h3>
+
+          <div id="members">
+            لا يوجد أعضاء
+          </div>
+
+        </div>
+
+
+
+        <!-- النقاط -->
+
+        <div class="card">
+
+          <h3>
+            نقاط الفرق والأعضاء
+          </h3>
+
+          <div id="scores"></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- =========================
+       تسجيل دخول الإدارة
+  ========================== -->
+
+  <div
+    id="loginModal"
+    class="modal hidden"
+  >
+
+    <div class="card">
+
+      <h2>
+        دخول الإدارة
+      </h2>
+
+
+      <input
+        id="adminPass"
+        type="password"
+        placeholder="كلمة مرور الإدارة"
+        autocomplete="off"
+      >
+
+
+      <button
+        id="loginBtn"
+        class="primary"
+      >
+        دخول
+      </button>
+
+
+      <button id="closeModal">
+        إلغاء
+      </button>
+
+
+      <p id="loginMsg"></p>
+
     </div>
-  </section>
-</main>
-<!-- =========================
-     تسجيل دخول الإدارة
-========================== -->
-<div
-  id="loginModal"
-  class="modal hidden"
->
-  <div class="card">
-    <h2>
-      دخول الإدارة
-    </h2>
-    <input
-      id="adminPass"
-      type="password"
-      placeholder="كلمة مرور الإدارة"
-      autocomplete="off"
-    >
-    <button
-      id="loginBtn"
-      class="primary"
-    >
-      دخول
-    </button>
-    <button id="closeModal">
-      إلغاء
-    </button>
-    <p id="loginMsg"></p>
+
   </div>
-</div>
-<!-- =========================
-     Supabase
-========================== -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<!-- =========================
-     كود الموقع
-========================== -->
-<script src="app.js"></script>
+
+
+
+  <!-- =========================
+       Supabase
+  ========================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+  <!-- =========================
+       كود الموقع
+  ========================== -->
+
+  <script src="app.js"></script>
+
 </body>
+
 </html>
