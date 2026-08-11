@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Galaxy Teams</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Galaxy Teams</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
@@ -12,80 +12,167 @@
     🪐 <b>Galaxy Teams</b>
     <small>مجرة واحدة • هدف واحد</small>
   </div>
-  <button id="adminOpen">لوحة التحكم ⚙️</button>
+  <button id="adminOpen">
+    لوحة التحكم ⚙️
+  </button>
 </header>
 <main>
-<section id="join" class="page">
-  <div class="hero">
-    <span class="badge">🌌 أهلاً بك في المجرة</span>
-    <h1>4 فرق • هدف واحد<br><span>مين هيصنع المجد؟ 🚀</span></h1>
-    <p>اكتب اسمك واختار الكوكب الخاص بفريقك.</p>
-  </div>
-  <div class="card join-card">
-    <h2>🚀 انضم للمسابقة</h2>
-    <input id="name" placeholder="اكتب اسمك">
-    <div id="teams" class="teams"></div>
-    <button id="joinBtn" class="primary">دخول الفريق</button>
-    <p id="msg"></p>
-  </div>
-</section>
-<section id="member" class="page hidden">
-  <div class="member-head">
-    <div id="memberIcon" class="big">🌌</div>
-    <div>
-      <small>أهلاً يا</small>
-      <h2 id="memberName"></h2>
-      <p id="memberTeam"></p>
+  <!-- =========================
+       الصفحة الرئيسية
+  ========================== -->
+  <section id="join" class="page">
+    <div class="hero">
+      <span class="badge">
+        🌌 أهلاً بك في المجرة
+      </span>
+      <h1>
+        4 فرق • هدف واحد
+        <br>
+        <span>مين هيصنع المجد؟ 🚀</span>
+      </h1>
+      <p>
+        اكتب اسمك واختار الكوكب الخاص بفريقك.
+      </p>
     </div>
-    <button id="logout">تغيير الحساب</button>
-  </div>
-  <div class="grid">
-    <div class="card">
-      <h2>✨ المحتوى الحالي</h2>
-      <div id="posts"></div>
+    <div class="card join-card">
+      <h2>
+        🚀 انضم للمسابقة
+      </h2>
+      <input
+        id="name"
+        type="text"
+        placeholder="اكتب اسمك"
+        autocomplete="name"
+      >
+      <div id="teams" class="teams"></div>
+      <button id="joinBtn" class="primary">
+        دخول الفريق
+      </button>
+      <p id="msg"></p>
     </div>
-    <div class="card">
-      <h2>🏆 ترتيب الفرق</h2>
-      <div id="ranking"></div>
+  </section>
+  <!-- =========================
+       صفحة العضو
+  ========================== -->
+  <section id="member" class="page hidden">
+    <div class="member-head">
+      <div id="memberIcon" class="big">
+        🌌
+      </div>
+      <div>
+        <small>
+          أهلاً يا
+        </small>
+        <h2 id="memberName"></h2>
+        <p id="memberTeam"></p>
+      </div>
+      <button id="logout">
+        تغيير الحساب
+      </button>
     </div>
-  </div>
-</section>
-<section id="admin" class="page hidden">
-  <div class="admin-head">
-    <div>
-      <span class="badge">👑 ADMIN</span>
-      <h2>لوحة التحكم</h2>
+    <div class="grid">
+      <div class="card">
+        <h2>
+          ✨ المحتوى الحالي
+        </h2>
+        <div id="posts"></div>
+      </div>
+      <div class="card">
+        <h2>
+          🏆 ترتيب الفرق
+        </h2>
+        <div id="ranking"></div>
+      </div>
     </div>
-    <button id="adminLogout">خروج</button>
-  </div>
-  <div class="grid admin-grid">
-    <div class="card">
-      <h3>📢 نشر محتوى</h3>
-      <input id="postTitle" placeholder="عنوان المنشور">
-      <textarea id="postBody" placeholder="التفاصيل"></textarea>
-      <select id="postTeam"></select>
-      <button id="postBtn" class="primary">نشر الآن</button>
+  </section>
+  <!-- =========================
+       لوحة الإدارة
+  ========================== -->
+  <section id="admin" class="page hidden">
+    <div class="admin-head">
+      <div>
+        <span class="badge">
+          👑 ADMIN
+        </span>
+        <h2>
+          لوحة التحكم
+        </h2>
+      </div>
+      <button id="adminLogout">
+        خروج
+      </button>
     </div>
-    <div class="card">
-      <h3>👥 الأعضاء</h3>
-      <div id="members"></div>
+    <div class="grid admin-grid">
+      <!-- نشر محتوى -->
+      <div class="card">
+        <h3>
+          📢 نشر محتوى
+        </h3>
+        <input
+          id="postTitle"
+          type="text"
+          placeholder="عنوان المنشور"
+        >
+        <textarea
+          id="postBody"
+          placeholder="التفاصيل"
+        ></textarea>
+        <select id="postTeam">
+          <option value="all">
+            كل الفرق
+          </option>
+        </select>
+        <button id="postBtn" class="primary">
+          نشر الآن
+        </button>
+      </div>
+      <!-- الأعضاء -->
+      <div class="card">
+        <h3>
+          👥 الأعضاء
+        </h3>
+        <div id="members">
+          لا يوجد أعضاء
+        </div>
+      </div>
+      <!-- النقاط -->
+      <div class="card">
+        <h3>
+          ⭐ النقاط
+        </h3>
+        <div id="scores"></div>
+      </div>
     </div>
-    <div class="card">
-      <h3>⭐ النقاط</h3>
-      <div id="scores"></div>
-    </div>
-  </div>
-</section>
+  </section>
 </main>
+<!-- =========================
+     تسجيل دخول الإدارة
+========================== -->
 <div id="loginModal" class="modal hidden">
   <div class="card">
-    <h2>🔐 دخول الإدارة</h2>
-    <input id="adminPass" type="password" placeholder="كلمة مرور الإدارة">
-    <button id="loginBtn" class="primary">دخول</button>
-    <button id="closeModal">إلغاء</button>
+    <h2>
+      🔐 دخول الإدارة
+    </h2>
+    <input
+      id="adminPass"
+      type="password"
+      placeholder="كلمة مرور الإدارة"
+      autocomplete="off"
+    >
+    <button id="loginBtn" class="primary">
+      دخول
+    </button>
+    <button id="closeModal">
+      إلغاء
+    </button>
     <p id="loginMsg"></p>
   </div>
 </div>
+<!-- =========================
+     Supabase
+========================== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- كود الموقع -->
 <script src="app.js"></script>
 </body>
 </html>
