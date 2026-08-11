@@ -1,5 +1,5 @@
 /* =========================================================
-   GALAXY TEAMS — REALISTIC SPACE UI
+   SPACE GALAXY UI — FULL CSS
 ========================================================= */
 * {
   box-sizing: border-box;
@@ -7,47 +7,20 @@
 html {
   scroll-behavior: smooth;
 }
-:root {
-  --bg: #01030a;
-  --panel: rgba(7, 13, 28, .78);
-  --panel2: rgba(12, 20, 40, .72);
-  --border: rgba(150, 200, 255, .18);
-  --blue: #5edcff;
-  --purple: #9c7cff;
-  --white: #f5f8ff;
-}
-/* =========================================================
-   BODY
-========================================================= */
 body {
   margin: 0;
   min-height: 100vh;
   color: #fff;
-  font-family:
-    Arial,
-    Tahoma,
-    sans-serif;
+  font-family: Arial, Tahoma, sans-serif;
   overflow-x: hidden;
   background:
-    radial-gradient(
-      ellipse at 15% 20%,
-      rgba(40, 90, 180, .20),
-      transparent 35%
-    ),
-    radial-gradient(
-      ellipse at 85% 70%,
-      rgba(120, 50, 190, .16),
-      transparent 38%
-    ),
-    radial-gradient(
-      ellipse at 50% 100%,
-      rgba(20, 80, 160, .12),
-      transparent 40%
-    ),
-    #01030a;
+    radial-gradient(circle at 20% 20%, rgba(70,100,255,.18), transparent 30%),
+    radial-gradient(circle at 80% 30%, rgba(150,50,255,.16), transparent 28%),
+    radial-gradient(circle at 50% 90%, rgba(0,180,255,.12), transparent 35%),
+    linear-gradient(180deg, #02030c 0%, #050817 45%, #02030a 100%);
 }
 /* =========================================================
-   SPACE ATMOSPHERE
+   STARS
 ========================================================= */
 body::before {
   content: "";
@@ -55,80 +28,42 @@ body::before {
   inset: 0;
   z-index: -3;
   pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse at 30% 50%,
-      rgba(80, 120, 255, .09),
-      transparent 38%
-    ),
-    radial-gradient(
-      ellipse at 70% 25%,
-      rgba(190, 80, 255, .07),
-      transparent 32%
-    );
-  filter: blur(20px);
-  animation:
-    spaceGlow 12s ease-in-out infinite alternate;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.95) 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(120,200,255,.8) 1px, transparent 1.7px),
+    radial-gradient(circle, rgba(190,130,255,.7) 1px, transparent 1.6px);
+  background-size:
+    95px 95px,
+    150px 150px,
+    220px 220px;
+  animation: starMove 45s linear infinite;
 }
-@keyframes spaceGlow {
-  from {
-    opacity: .55;
-    transform: scale(1);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-}
-/* =========================================================
-   STARS
-========================================================= */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -2;
+  z-index: -4;
   pointer-events: none;
-  background-image:
+  background:
     radial-gradient(
-      circle,
-      rgba(255,255,255,.95) 0 1px,
-      transparent 1.6px
-    ),
-    radial-gradient(
-      circle,
-      rgba(120,210,255,.8) 0 1px,
-      transparent 1.7px
-    ),
-    radial-gradient(
-      circle,
-      rgba(190,150,255,.7) 0 1px,
-      transparent 1.8px
+      ellipse at 50% 50%,
+      transparent 0%,
+      rgba(0,0,0,.15) 55%,
+      rgba(0,0,0,.7) 100%
     );
-  background-size:
-    90px 90px,
-    150px 150px,
-    230px 230px;
-  background-position:
-    10px 20px,
-    50px 80px,
-    100px 30px;
-  opacity: .85;
-  animation:
-    starsMove 75s linear infinite;
 }
-@keyframes starsMove {
-  0% {
+@keyframes starMove {
+  from {
     background-position:
-      10px 20px,
-      50px 80px,
-      100px 30px;
+      0 0,
+      0 0,
+      0 0;
   }
-  100% {
+  to {
     background-position:
-      450px 800px,
-      -300px 500px,
-      500px -350px;
+      400px 700px,
+      -500px 400px,
+      300px -500px;
   }
 }
 /* =========================================================
@@ -136,216 +71,322 @@ body::after {
 ========================================================= */
 header {
   width: min(1500px, 94%);
-  margin: 20px auto;
-  padding: 16px 25px;
+  margin: 18px auto;
+  padding: 15px 24px;
   display: flex;
-  justify-content:
-    space-between;
-  align-items:
-    center;
-  position: relative;
-  border:
-    1px solid
-    rgba(140,190,255,.20);
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(150,180,255,.25);
   border-radius: 22px;
   background:
     linear-gradient(
       135deg,
-      rgba(13,25,50,.86),
-      rgba(2,7,20,.78)
+      rgba(10,15,40,.85),
+      rgba(3,5,20,.7)
     );
-  backdrop-filter:
-    blur(24px);
+  backdrop-filter: blur(22px);
   box-shadow:
-    0 20px 70px rgba(0,0,0,.5),
+    0 20px 60px rgba(0,0,0,.45),
     inset 0 1px rgba(255,255,255,.08);
 }
-header::after {
-  content: "";
-  position: absolute;
-  left: 15%;
-  right: 15%;
-  top: 0;
-  height: 1px;
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(130,220,255,.5),
-      transparent
-    );
-  opacity: .6;
-}
-/* =========================================================
-   BRAND
-========================================================= */
 .brand {
-  display:
-    flex;
-  flex-direction:
-    column;
+  display: flex;
+  flex-direction: column;
   gap: 4px;
 }
 .brand b {
-  font-size: 27px;
-  letter-spacing: 6px;
+  font-size: 26px;
+  letter-spacing: 5px;
   background:
     linear-gradient(
       90deg,
-      #fff,
-      #bcecff,
-      #a68aff,
-      #fff
+      #ffffff,
+      #8ed8ff,
+      #b68cff,
+      #ffffff
     );
-  -webkit-background-clip:
-    text;
-  background-clip:
-    text;
-  color:
-    transparent;
-  text-shadow:
-    0 0 30px
-    rgba(100,190,255,.25);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 .brand small {
-  opacity: .55;
+  color: rgba(255,255,255,.55);
 }
 /* =========================================================
    MAIN
 ========================================================= */
 main {
-  width:
-    min(1500px,94%);
-  margin:
-    auto;
+  width: min(1500px, 94%);
+  margin: auto;
 }
 .page {
-  min-height:
-    calc(100vh - 100px);
-  padding:
-    25px 0 80px;
+  min-height: calc(100vh - 100px);
+  padding: 20px 0 80px;
 }
 /* =========================================================
    HERO
 ========================================================= */
 .hero {
-  text-align:
-    center;
-  padding:
-    50px 20px 35px;
+  text-align: center;
+  padding: 45px 20px 35px;
 }
 .badge {
-  display:
-    inline-block;
-  padding:
-    9px 20px;
-  border-radius:
-    999px;
+  display: inline-block;
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(130,190,255,.35);
   background:
-    rgba(80,150,255,.08);
-  border:
-    1px solid
-    rgba(100,210,255,.28);
+    rgba(50,100,200,.12);
   box-shadow:
-    0 0 35px
-    rgba(70,170,255,.12);
+    0 0 35px rgba(70,140,255,.12);
 }
 .hero h1 {
-  margin:
-    20px 0 10px;
-  font-size:
-    clamp(50px,8vw,105px);
-  letter-spacing:
-    8px;
+  margin: 18px 0 8px;
+  font-size: clamp(48px, 8vw, 100px);
+  letter-spacing: 8px;
   background:
     linear-gradient(
       90deg,
-      #fff,
-      #b9ebff,
-      #a78dff,
-      #fff
+      #ffffff,
+      #9bdfff,
+      #a98cff,
+      #ffffff
     );
-  -webkit-background-clip:
-    text;
-  background-clip:
-    text;
-  color:
-    transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   text-shadow:
-    0 0 70px
-    rgba(90,160,255,.35);
+    0 0 50px rgba(100,160,255,.25);
 }
 .hero h2 {
-  margin:
-    10px;
-  font-size:
-    clamp(24px,4vw,44px);
+  margin: 10px;
+  font-size: clamp(24px, 4vw, 45px);
 }
 .hero p {
-  opacity:
-    .65;
-  font-size:
-    18px;
+  color: rgba(255,255,255,.65);
+  font-size: 18px;
 }
 /* =========================================================
-   CARD
+   CARDS
 ========================================================= */
 .card {
-  position:
-    relative;
+  padding: 30px;
+  border-radius: 28px;
+  border: 1px solid rgba(150,180,255,.18);
   background:
     linear-gradient(
       145deg,
-      rgba(11,20,42,.84),
-      rgba(2,7,18,.74)
+      rgba(9,14,38,.88),
+      rgba(3,5,20,.78)
     );
-  border:
-    1px solid
-    rgba(150,195,255,.18);
-  border-radius:
-    28px;
-  padding:
-    30px;
-  backdrop-filter:
-    blur(24px);
+  backdrop-filter: blur(20px);
   box-shadow:
-    0 30px 90px
-    rgba(0,0,0,.55),
-    inset 0 1px
-    rgba(255,255,255,.06);
-  overflow:
-    hidden;
+    0 30px 90px rgba(0,0,0,.5),
+    inset 0 1px rgba(255,255,255,.05);
 }
-.card::before {
+.join-card {
+  width: min(1250px, 100%);
+  margin: auto;
+  text-align: center;
+}
+/* =========================================================
+   TEAM GRID
+========================================================= */
+.teams {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  margin: 35px 0;
+}
+/* =========================================================
+   TEAM CARD
+========================================================= */
+.team {
+  position: relative;
+  min-height: 360px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 30px;
+  border: 1px solid rgba(160,180,255,.35);
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(80,120,255,.18),
+      transparent 35%
+    ),
+    linear-gradient(
+      160deg,
+      rgba(10,15,38,.95),
+      rgba(2,4,15,.98)
+    );
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.55),
+    inset 0 0 60px rgba(80,120,255,.08);
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease;
+}
+/* نجوم داخل كل كوكب */
+.team::before {
   content: "";
-  position:
-    absolute;
-  width:
-    320px;
-  height:
-    320px;
-  top:
-    -190px;
-  right:
-    -120px;
-  border-radius:
-    50%;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.9) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(100,200,255,.7) 1px, transparent 1.5px);
+  background-size:
+    55px 55px,
+    90px 90px;
+  opacity: .35;
+  animation: teamStars 20s linear infinite;
+}
+@keyframes teamStars {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 180px 300px, -250px 180px;
+  }
+}
+/* هالة الكوكب */
+.team::after {
+  content: "";
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  top: 25px;
+  border-radius: 50%;
   background:
     radial-gradient(
       circle,
-      rgba(90,180,255,.13),
-      transparent 70%
+      rgba(100,160,255,.22),
+      transparent 65%
     );
-  pointer-events:
-    none;
+  filter: blur(18px);
+  pointer-events: none;
+  animation: planetGlow 4s ease-in-out infinite alternate;
 }
-.join-card {
-  width:
-    min(1250px,100%);
-  margin:
-    auto;
-  text-align:
-    center;
+@keyframes planetGlow {
+  from {
+    transform: scale(.9);
+    opacity: .6;
+  }
+  to {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+/* =========================================================
+   PLANET IMAGE
+========================================================= */
+.team img {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 205px;
+  height: 205px;
+  object-fit: contain;
+  z-index: 3;
+  display: block;
+  border-radius: 50%;
+  filter:
+    drop-shadow(0 0 20px rgba(100,180,255,.45))
+    drop-shadow(0 20px 35px rgba(0,0,0,.6));
+  animation:
+    planetFloat 5s ease-in-out infinite;
+}
+@keyframes planetFloat {
+  0%,
+  100% {
+    transform:
+      translateX(-50%)
+      translateY(0)
+      rotate(-1deg);
+  }
+  50% {
+    transform:
+      translateX(-50%)
+      translateY(-12px)
+      rotate(1deg);
+  }
+}
+/* =========================================================
+   TEAM NAME
+========================================================= */
+.team strong,
+.team b,
+.team span {
+  position: relative;
+  z-index: 10;
+  font-size: 25px;
+  margin-top: 10px;
+  text-align: center;
+  color: #fff;
+  text-shadow:
+    0 3px 20px #000,
+    0 0 15px rgba(100,170,255,.4);
+}
+/* =========================================================
+   TEAM HOVER
+========================================================= */
+.team:hover {
+  transform:
+    translateY(-12px)
+    scale(1.025);
+  border-color:
+    rgba(130,210,255,.8);
+  box-shadow:
+    0 35px 100px rgba(0,0,0,.65),
+    0 0 45px rgba(80,160,255,.18);
+}
+.team.sel {
+  transform: translateY(-8px);
+  border-color: #65dcff;
+  box-shadow:
+    0 0 55px rgba(70,210,255,.3),
+    0 30px 80px rgba(0,0,0,.6);
+}
+/* =========================================================
+   BUTTONS
+========================================================= */
+button {
+  border: 0;
+  border-radius: 15px;
+  padding: 14px 22px;
+  color: #fff;
+  background:
+    rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.1);
+  cursor: pointer;
+  font-size: 15px;
+  transition: .25s;
+}
+button:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.3);
+}
+.primary {
+  width: 100%;
+  background:
+    linear-gradient(
+      90deg,
+      #2677ff,
+      #784cff,
+      #14c9ff
+    );
+  font-weight: bold;
+  box-shadow:
+    0 15px 40px rgba(50,100,255,.25);
 }
 /* =========================================================
    INPUTS
@@ -353,990 +394,388 @@ main {
 input,
 textarea,
 select {
-  width:
-    100%;
-  margin:
-    9px 0;
-  padding:
-    16px 18px;
-  border-radius:
-    15px;
+  width: 100%;
+  margin: 9px 0;
+  padding: 16px 18px;
+  border-radius: 15px;
   border:
-    1px solid
-    rgba(160,200,255,.16);
-  outline:
-    none;
+    1px solid rgba(255,255,255,.14);
+  outline: none;
   background:
-    rgba(0,4,14,.75);
-  color:
-    white;
-  font-size:
-    16px;
-  transition:
-    .25s;
-}
-input::placeholder,
-textarea::placeholder {
-  color:
-    rgba(255,255,255,.38);
+    rgba(0,0,0,.45);
+  color: #fff;
+  font-size: 16px;
 }
 input:focus,
 textarea:focus,
 select:focus {
-  border-color:
-    rgba(90,220,255,.7);
+  border-color: #58dfff;
   box-shadow:
-    0 0 25px
-    rgba(60,190,255,.13);
+    0 0 25px rgba(50,200,255,.12);
 }
 textarea {
-  min-height:
-    150px;
-  resize:
-    vertical;
+  min-height: 150px;
+  resize: vertical;
 }
 select option {
-  background:
-    #081020;
-  color:
-    white;
+  background: #0a1024;
+  color: white;
 }
 /* =========================================================
    FILE
 ========================================================= */
 .file-label {
-  display:
-    block;
-  margin:
-    12px 0;
-  padding:
-    17px;
+  display: block;
+  margin: 12px 0;
+  padding: 16px;
   border:
-    1px dashed
-    rgba(100,200,255,.35);
-  border-radius:
-    15px;
+    1px dashed rgba(100,190,255,.4);
+  border-radius: 15px;
   background:
-    rgba(40,100,180,.07);
-  cursor:
-    pointer;
-  transition:
-    .25s;
-}
-.file-label:hover {
-  border-color:
-    #5deaff;
-  background:
-    rgba(40,130,220,.12);
-  box-shadow:
-    0 0 25px
-    rgba(60,190,255,.08);
+    rgba(50,100,180,.08);
+  cursor: pointer;
 }
 .file-label input {
-  display:
-    block;
-  margin:
-    10px 0 0;
-  padding:
-    8px;
-  border:
-    0;
-  background:
-    transparent;
-}
-/* =========================================================
-   TEAMS
-========================================================= */
-.teams {
-  display:
-    grid;
-  grid-template-columns:
-    repeat(4,1fr);
-  gap:
-    24px;
-  margin:
-    35px 0;
-}
-/* =========================================================
-   PLANET TEAM CARD
-========================================================= */
-.team {
-  position:
-    relative;
-  min-height:
-    360px;
-  padding:
-    20px 15px;
-  display:
-    flex;
-  flex-direction:
-    column;
-  justify-content:
-    flex-end;
-  align-items:
-    center;
-  overflow:
-    hidden;
-  border-radius:
-    28px;
-  cursor:
-    pointer;
-  border:
-    1px solid
-    rgba(150,195,255,.22);
-  background:
-    radial-gradient(
-      circle at 50% 30%,
-      rgba(80,130,210,.14),
-      transparent 38%
-    ),
-    radial-gradient(
-      circle at 20% 80%,
-      rgba(80,50,170,.10),
-      transparent 35%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(8,16,33,.92),
-      rgba(1,4,13,.98)
-    );
-  box-shadow:
-    0 25px 75px
-    rgba(0,0,0,.65),
-    inset 0 0 70px
-    rgba(50,110,200,.08);
-  transition:
-    transform .35s,
-    border-color .35s,
-    box-shadow .35s;
-}
-/* =========================================================
-   PLANET GLOW
-========================================================= */
-.team::before {
-  content:
-    "";
-  position:
-    absolute;
-  width:
-    300px;
-  height:
-    300px;
-  top:
-    -5px;
-  left:
-    50%;
-  transform:
-    translateX(-50%);
-  border-radius:
-    50%;
-  background:
-    radial-gradient(
-      circle,
-      rgba(100,190,255,.18),
-      rgba(100,100,255,.08) 35%,
-      transparent 70%
-    );
-  filter:
-    blur(12px);
-  animation:
-    planetGlow 5s
-    ease-in-out
-    infinite;
-}
-@keyframes planetGlow {
-  0%,
-  100% {
-    opacity:
-      .5;
-    transform:
-      translateX(-50%)
-      scale(.95);
-  }
-  50% {
-    opacity:
-      1;
-    transform:
-      translateX(-50%)
-      scale(1.08);
-  }
-}
-/* =========================================================
-   STARS INSIDE TEAM
-========================================================= */
-.team::after {
-  content:
-    "";
-  position:
-    absolute;
-  inset:
-    0;
-  pointer-events:
-    none;
-  background-image:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.9) 0 1px,
-      transparent 1.5px
-    ),
-    radial-gradient(
-      circle,
-      rgba(120,210,255,.8) 0 1px,
-      transparent 1.5px
-    );
-  background-size:
-    43px 43px,
-    85px 85px;
-  opacity:
-    .4;
-  animation:
-    teamStars 25s
-    linear
-    infinite;
-}
-@keyframes teamStars {
-  from {
-    background-position:
-      0 0,
-      0 0;
-  }
-  to {
-    background-position:
-      180px 300px,
-      -200px 150px;
-  }
-}
-/* =========================================================
-   PLANET IMAGE
-========================================================= */
-.team img {
-  position:
-    absolute;
-  top:
-    28px;
-  left:
-    50%;
-  transform:
-    translateX(-50%);
-  width:
-    195px;
-  height:
-    195px;
-  object-fit:
-    contain;
-  z-index:
-    3;
-  border-radius:
-    50%;
-  filter:
-    drop-shadow(
-      0 0 22px
-      rgba(100,190,255,.38)
-    )
-    drop-shadow(
-      0 20px 35px
-      rgba(0,0,0,.65)
-    );
-  animation:
-    planetFloat 6s
-    ease-in-out
-    infinite;
-  transition:
-    .4s;
-}
-@keyframes planetFloat {
-  0%,
-  100% {
-    margin-top:
-      0;
-    filter:
-      drop-shadow(
-        0 0 22px
-        rgba(100,190,255,.38)
-      )
-      drop-shadow(
-        0 20px 35px
-        rgba(0,0,0,.65)
-      );
-  }
-  50% {
-    margin-top:
-      -11px;
-    filter:
-      drop-shadow(
-        0 0 35px
-        rgba(100,200,255,.48)
-      )
-      drop-shadow(
-        0 25px 40px
-        rgba(0,0,0,.7)
-      );
-  }
-}
-/* =========================================================
-   OLD ICON SUPPORT
-========================================================= */
-.team .icon {
-  display:
-    block !important;
-  position:
-    absolute;
-  top:
-    28px;
-  left:
-    50%;
-  transform:
-    translateX(-50%);
-  width:
-    195px;
-  height:
-    195px;
-  object-fit:
-    contain;
-  z-index:
-    3;
-  filter:
-    drop-shadow(
-      0 0 22px
-      rgba(100,190,255,.38)
-    )
-    drop-shadow(
-      0 20px 35px
-      rgba(0,0,0,.65)
-    );
-}
-/* =========================================================
-   TEAM TEXT
-========================================================= */
-.team strong,
-.team b,
-.team span {
-  position:
-    relative;
-  z-index:
-    5;
-  font-size:
-    25px;
-  text-shadow:
-    0 3px 18px #000,
-    0 0 18px rgba(0,0,0,.9);
-}
-/* =========================================================
-   TEAM HOVER
-========================================================= */
-.team:hover {
-  transform:
-    translateY(-10px)
-    scale(1.025);
-  border-color:
-    rgba(100,215,255,.62);
-  box-shadow:
-    0 35px 95px
-    rgba(0,0,0,.72),
-    0 0 45px
-    rgba(70,170,255,.16),
-    inset 0 0 80px
-    rgba(70,130,255,.08);
-}
-.team:hover img {
-  transform:
-    translateX(-50%)
-    scale(1.06);
-}
-/* =========================================================
-   SELECTED TEAM
-========================================================= */
-.team.sel {
-  transform:
-    translateY(-8px);
-  border-color:
-    rgba(100,220,255,.8);
-  box-shadow:
-    0 0 60px
-    rgba(70,190,255,.24),
-    0 30px 90px
-    rgba(0,0,0,.7);
-}
-/* =========================================================
-   BUTTONS
-========================================================= */
-button {
-  border:
-    0;
-  border-radius:
-    15px;
-  padding:
-    14px 22px;
-  color:
-    white;
-  background:
-    linear-gradient(
-      145deg,
-      rgba(100,140,200,.18),
-      rgba(50,70,110,.16)
-    );
-  border:
-    1px solid
-    rgba(150,200,255,.15);
-  cursor:
-    pointer;
-  font-size:
-    15px;
-  transition:
-    .25s;
-  box-shadow:
-    0 8px 25px
-    rgba(0,0,0,.2);
-}
-button:hover {
-  transform:
-    translateY(-3px);
-  border-color:
-    rgba(100,215,255,.5);
-  box-shadow:
-    0 12px 35px
-    rgba(60,170,255,.12);
-}
-.primary {
-  width:
-    100%;
-  background:
-    linear-gradient(
-      100deg,
-      #2468d8,
-      #7048d5,
-      #238fc7
-    );
-  box-shadow:
-    0 15px 40px
-    rgba(60,100,220,.25);
-  font-weight:
-    bold;
-}
-.scan-button {
-  width:
-    100%;
-  margin-top:
-    10px;
-  border:
-    1px solid
-    rgba(90,220,255,.35);
-  background:
-    rgba(50,180,255,.08);
-}
-/* =========================================================
-   QR CAMERA
-========================================================= */
-.qr-scanner {
-  width:
-    min(450px,100%);
-  margin:
-    20px auto;
-  overflow:
-    hidden;
-  border-radius:
-    20px;
-  border:
-    1px solid
-    rgba(100,220,255,.4);
-  background:
-    #000;
-  box-shadow:
-    0 20px 60px
-    rgba(0,0,0,.55);
-}
-.qr-scanner video {
-  width:
-    100% !important;
-  border-radius:
-    20px;
+  background: transparent;
+  border: 0;
 }
 /* =========================================================
    GRID
 ========================================================= */
 .grid {
-  display:
-    grid;
+  display: grid;
   grid-template-columns:
     1.4fr 1fr;
-  gap:
-    25px;
+  gap: 25px;
 }
 .admin-grid {
   grid-template-columns:
-    repeat(3,1fr);
+    repeat(3, 1fr);
 }
 /* =========================================================
    MEMBER
 ========================================================= */
 .member-head {
-  display:
-    flex;
-  align-items:
-    center;
-  gap:
-    22px;
-  margin-bottom:
-    30px;
-  padding:
-    25px;
-  border-radius:
-    25px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 30px;
+  padding: 25px;
+  border-radius: 25px;
   background:
-    linear-gradient(
-      135deg,
-      rgba(10,22,45,.75),
-      rgba(3,8,20,.7)
-    );
+    rgba(4,7,30,.7);
   border:
-    1px solid
-    rgba(150,200,255,.17);
-  box-shadow:
-    0 20px 60px
-    rgba(0,0,0,.4);
+    1px solid rgba(130,170,255,.18);
 }
 .member-photo-box {
-  width:
-    125px;
-  height:
-    125px;
-  flex-shrink:
-    0;
+  width: 125px;
+  height: 125px;
+  flex-shrink: 0;
 }
 .member-main-photo {
-  width:
-    125px;
-  height:
-    125px;
-  border-radius:
-    50%;
-  object-fit:
-    cover;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  object-fit: cover;
   border:
-    3px solid
-    rgba(100,220,255,.7);
+    3px solid rgba(100,210,255,.7);
   box-shadow:
-    0 0 40px
-    rgba(70,180,255,.25);
+    0 0 40px rgba(60,180,255,.3);
 }
 .member-info {
-  flex:
-    1;
+  flex: 1;
 }
 .member-info small {
-  opacity:
-    .55;
+  opacity: .55;
 }
 #memberName {
-  margin:
-    7px 0;
+  margin: 7px 0;
   font-size:
-    clamp(35px,5vw,65px);
-  font-weight:
-    900;
+    clamp(35px, 5vw, 65px);
+  font-weight: 900;
   background:
     linear-gradient(
       90deg,
       #fff,
-      #a9eaff,
-      #b39aff
+      #8eeaff,
+      #b68cff
     );
-  -webkit-background-clip:
-    text;
-  background-clip:
-    text;
-  color:
-    transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 #memberTeam {
-  margin:
-    5px 0;
-  font-size:
-    22px;
-  color:
-    #65ddff;
-  font-weight:
-    bold;
+  margin: 5px 0;
+  font-size: 22px;
+  color: #65ddff;
+  font-weight: bold;
 }
 /* =========================================================
    POSTS
 ========================================================= */
 .post {
-  padding:
-    20px 0;
+  padding: 20px 0;
   border-bottom:
-    1px solid
-    rgba(255,255,255,.08);
-}
-.post:last-child {
-  border-bottom:
-    0;
+    1px solid rgba(255,255,255,.1);
 }
 .post small {
-  opacity:
-    .5;
+  opacity: .5;
 }
 .post h3 {
-  font-size:
-    25px;
+  font-size: 25px;
 }
 .post-image {
-  display:
-    block;
-  width:
-    100%;
-  max-height:
-    550px;
-  object-fit:
-    contain;
-  margin-top:
-    15px;
-  border-radius:
-    18px;
-  background:
-    #000;
+  display: block;
+  width: 100%;
+  max-height: 550px;
+  object-fit: contain;
+  margin-top: 15px;
+  border-radius: 18px;
+  background: #000;
   box-shadow:
-    0 15px 50px
-    rgba(0,0,0,.55);
-  border:
-    1px solid
-    rgba(150,190,255,.12);
+    0 15px 50px rgba(0,0,0,.45);
 }
 /* =========================================================
    REPLIES
 ========================================================= */
 .replies {
-  margin-top:
-    25px;
-  padding-top:
-    20px;
+  margin-top: 25px;
+  padding-top: 20px;
   border-top:
-    1px solid
-    rgba(255,255,255,.08);
+    1px solid rgba(255,255,255,.1);
 }
 .reply {
-  margin:
-    12px 0;
-  padding:
-    15px;
-  border-radius:
-    15px;
+  margin: 12px 0;
+  padding: 15px;
+  border-radius: 15px;
   background:
-    rgba(255,255,255,.035);
+    rgba(255,255,255,.05);
   border:
-    1px solid
-    rgba(255,255,255,.06);
+    1px solid rgba(255,255,255,.07);
 }
 .reply small,
 .admin-reply small {
-  display:
-    block;
-  opacity:
-    .45;
-  margin-top:
-    4px;
-}
-.reply p,
-.admin-reply p {
-  margin-bottom:
-    0;
-}
-.reply-box {
-  margin-top:
-    20px;
+  display: block;
+  opacity: .5;
+  margin-top: 4px;
 }
 /* =========================================================
-   RANKING
+   RANK
 ========================================================= */
 .rank,
 .member,
 .score {
-  display:
-    flex;
-  justify-content:
-    space-between;
-  align-items:
-    center;
-  gap:
-    10px;
-  padding:
-    15px;
-  margin:
-    10px 0;
-  border-radius:
-    16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 16px;
   background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.045),
-      rgba(255,255,255,.018)
-    );
+    rgba(255,255,255,.05);
   border:
-    1px solid
-    rgba(255,255,255,.07);
+    1px solid rgba(255,255,255,.07);
 }
 /* =========================================================
-   ADMIN MEMBERS
+   ADMIN
 ========================================================= */
 .admin-member-left {
-  display:
-    flex;
-  align-items:
-    center;
-  gap:
-    12px;
-  flex:
-    1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
 }
 .admin-member-photo {
-  width:
-    55px;
-  height:
-    55px;
-  border-radius:
-    50%;
-  object-fit:
-    cover;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
   background:
     radial-gradient(
       circle,
-      #567cff,
+      #6c8cff,
       #080b20
     );
   border:
-    2px solid
-    rgba(100,220,255,.5);
+    2px solid rgba(100,220,255,.5);
 }
 .admin-member-buttons {
-  display:
-    flex;
-  flex-wrap:
-    wrap;
-  gap:
-    6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 .admin-member-buttons button {
-  padding:
-    9px 12px;
-  font-size:
-    13px;
+  padding: 9px 12px;
+  font-size: 13px;
 }
 .delete-btn {
   background:
-    rgba(255,50,80,.12);
+    rgba(255,50,80,.15);
   border:
-    1px solid
-    rgba(255,70,90,.35);
+    1px solid rgba(255,70,90,.4);
 }
 .admin-post {
-  padding:
-    15px;
-  margin:
-    10px 0;
-  border-radius:
-    16px;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 16px;
   background:
-    rgba(255,255,255,.035);
+    rgba(255,255,255,.05);
   border:
-    1px solid
-    rgba(255,255,255,.07);
+    1px solid rgba(255,255,255,.08);
 }
 .admin-post-image {
-  width:
-    100%;
-  max-height:
-    180px;
-  object-fit:
-    cover;
-  border-radius:
-    12px;
-  margin:
-    10px 0;
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 10px 0;
 }
 /* =========================================================
    MODAL
 ========================================================= */
 .modal {
-  position:
-    fixed;
-  inset:
-    0;
-  display:
-    grid;
-  place-items:
-    center;
-  padding:
-    20px;
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
   background:
-    rgba(0,0,0,.84);
+    rgba(0,0,0,.8);
   backdrop-filter:
-    blur(18px);
-  z-index:
-    100;
+    blur(15px);
+  z-index: 100;
 }
 .modal .card {
-  width:
-    min(480px,100%);
+  width: min(480px,100%);
+}
+/* =========================================================
+   QR
+========================================================= */
+.qr-scanner {
+  width: min(450px,100%);
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 20px;
+  border:
+    1px solid rgba(100,220,255,.4);
+  background: #000;
+}
+.qr-scanner video {
+  width: 100% !important;
+}
+#adminQR {
+  margin: 20px auto;
+  width: fit-content;
+  padding: 10px;
+  background: white;
+  border-radius: 12px;
 }
 /* =========================================================
    LOGIN RESULT
 ========================================================= */
 .login-result {
-  margin-top:
-    20px;
-  padding:
-    20px;
-  border-radius:
-    18px;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 18px;
   background:
-    rgba(60,120,220,.07);
+    rgba(70,100,255,.1);
   border:
-    1px solid
-    rgba(100,200,255,.18);
-}
-#adminQR {
-  margin:
-    20px auto;
-  width:
-    fit-content;
-  padding:
-    10px;
-  background:
-    white;
-  border-radius:
-    12px;
+    1px solid rgba(100,200,255,.2);
 }
 /* =========================================================
    HIDDEN
 ========================================================= */
 .hidden {
-  display:
-    none !important;
+  display: none !important;
 }
 /* =========================================================
    TABLET
 ========================================================= */
-@media (max-width:1000px) {
+@media (max-width: 1000px) {
   .teams {
     grid-template-columns:
-      repeat(2,1fr);
+      repeat(2, 1fr);
   }
   .grid,
   .admin-grid {
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
   }
 }
 /* =========================================================
    MOBILE
 ========================================================= */
-@media (max-width:600px) {
+@media (max-width: 600px) {
   header {
-    width:
-      94%;
-    padding:
-      13px 15px;
+    width: 94%;
+    padding: 13px 15px;
   }
   .brand b {
-    font-size:
-      21px;
-    letter-spacing:
-      3px;
+    font-size: 20px;
+    letter-spacing: 3px;
   }
   .brand small {
-    font-size:
-      10px;
-  }
-  header button {
-    padding:
-      10px 13px;
-    font-size:
-      12px;
+    font-size: 10px;
   }
   .hero {
-    padding:
-      30px 8px;
+    padding: 30px 8px;
   }
   .hero h1 {
-    font-size:
-      48px;
-    letter-spacing:
-      4px;
+    font-size: 45px;
+    letter-spacing: 3px;
   }
   .hero h2 {
-    font-size:
-      25px;
+    font-size: 24px;
   }
   .card {
-    padding:
-      18px;
-    border-radius:
-      22px;
+    padding: 18px;
+    border-radius: 22px;
   }
+  /* التيمات تفضل ظاهرة 2 جنب بعض */
   .teams {
-    grid-template-columns:
-      1fr 1fr;
-    gap:
-      10px;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
   .team {
-    min-height:
-      235px;
-    border-radius:
-      20px;
+    min-height: 240px;
+    border-radius: 20px;
   }
-  .team img,
-  .team .icon {
-    width:
-      120px;
-    height:
-      120px;
-    top:
-      18px;
+  .team img {
+    width: 120px;
+    height: 120px;
+    top: 25px;
   }
   .team strong,
   .team b,
   .team span {
-    font-size:
-      18px;
+    font-size: 17px;
   }
   .member-head {
-    flex-wrap:
-      wrap;
-    padding:
-      18px;
+    flex-wrap: wrap;
+    padding: 18px;
   }
   .member-photo-box,
   .member-main-photo {
-    width:
-      95px;
-    height:
-      95px;
+    width: 95px;
+    height: 95px;
   }
   #memberName {
-    font-size:
-      38px;
+    font-size: 38px;
   }
   #memberTeam {
-    font-size:
-      18px;
+    font-size: 18px;
   }
   .member-head button {
-    width:
-      100%;
+    width: 100%;
   }
   .member {
-    align-items:
-      flex-start;
-    flex-direction:
-      column;
+    flex-direction: column;
+    align-items: flex-start;
   }
   .admin-member-buttons {
-    width:
-      100%;
+    width: 100%;
   }
   .admin-member-buttons button {
-    flex:
-      1;
+    flex: 1;
   }
 }
