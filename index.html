@@ -13,21 +13,23 @@
 <body>
 
 <header>
+
   <div class="brand">
     <b>INFINITY</b>
     <small>رحلتنا لا تنتهي</small>
   </div>
 
-  <button id="adminOpen">
+  <button id="adminOpen" class="admin-button">
     لوحة التحكم
   </button>
+
 </header>
 
 
 <main>
 
   <!-- =========================
-       دخول INFINITY
+       صفحة الدخول
   ========================== -->
 
   <section id="join" class="page">
@@ -51,20 +53,27 @@
 
     <div class="card join-card">
 
-      <h2>دخول الأعضاء</h2>
+      <div class="login-icon">
+        ∞
+      </div>
+
+      <h2>
+        دخول الأعضاء
+      </h2>
 
       <p class="sub-text">
-        استخدم كود الدخول الخاص بك للدخول مباشرة
+        استخدم كود الدخول الخاص بك
       </p>
 
 
-      <!-- كود الدخول -->
+      <!-- الدخول بالكود -->
 
       <input
         id="accessCode"
         type="text"
         placeholder="اكتب كود الدخول"
         autocomplete="off"
+        autocapitalize="characters"
       >
 
 
@@ -81,37 +90,47 @@
       </div>
 
 
-      <!-- دخول جديد -->
+      <!-- QR -->
 
-      <h3>
-        تسجيل عضو جديد
-      </h3>
-
-      <input
-        id="name"
-        type="text"
-        placeholder="اكتب اسمك"
-        autocomplete="name"
+      <button
+        id="scanQRBtn"
+        class="scan-button"
       >
+        <span class="camera-symbol">⌾</span>
+        الدخول عن طريق QR
+      </button>
+
+
+      <div
+        id="reader"
+        class="qr-reader hidden"
+      ></div>
+
+
+      <button
+        id="stopScanBtn"
+        class="stop-scan hidden"
+      >
+        إغلاق الكاميرا
+      </button>
+
+
+      <p id="msg"></p>
 
 
       <!-- الفرق -->
+
+      <div class="teams-title">
+        <span></span>
+        <h3>فرق INFINITY</h3>
+        <span></span>
+      </div>
+
 
       <div
         id="teams"
         class="teams"
       ></div>
-
-
-      <button
-        id="joinBtn"
-        class="primary"
-      >
-        تسجيل ودخول
-      </button>
-
-
-      <p id="msg"></p>
 
     </div>
 
@@ -132,7 +151,7 @@
 
       <div
         id="memberIcon"
-        class="big"
+        class="big planet-mini"
       ></div>
 
 
@@ -158,8 +177,6 @@
 
     <div class="grid">
 
-      <!-- المحتوى -->
-
       <div class="card">
 
         <h2>
@@ -170,8 +187,6 @@
 
       </div>
 
-
-      <!-- الترتيب -->
 
       <div class="card">
 
@@ -190,7 +205,7 @@
 
 
   <!-- =========================
-       لوحة التحكم
+       لوحة الإدارة
   ========================== -->
 
   <section
@@ -231,11 +246,16 @@
           إضافة عضو
         </h3>
 
+        <p class="sub-text">
+          الإدارة هي التي تحدد اسم العضو وفريقه
+        </p>
+
 
         <input
           id="newMemberName"
           type="text"
           placeholder="اسم العضو"
+          autocomplete="off"
         >
 
 
@@ -268,7 +288,6 @@
           أعضاء الفرق
         </h3>
 
-
         <div id="members">
           لا يوجد أعضاء
         </div>
@@ -284,7 +303,6 @@
         <h3>
           نقاط الفرق
         </h3>
-
 
         <div id="scores"></div>
 
@@ -334,7 +352,7 @@
 
 
 
-      <!-- إدارة الفرق -->
+      <!-- الفرق -->
 
       <div class="card">
 
@@ -342,7 +360,10 @@
           الفرق
         </h3>
 
-        <div id="adminTeams"></div>
+        <div
+          id="adminTeams"
+          class="admin-teams"
+        ></div>
 
       </div>
 
@@ -404,12 +425,17 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
-<!-- QR Code -->
+<!-- QR generator -->
 
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 
 
-<!-- كود الموقع -->
+<!-- QR camera scanner -->
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+
+<!-- App -->
 
 <script src="app.js"></script>
 
