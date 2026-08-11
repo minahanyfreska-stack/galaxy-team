@@ -29,7 +29,7 @@
 <main>
 
   <!-- =========================
-       الصفحة الرئيسية
+       صفحة الدخول
   ========================== -->
 
   <section id="join" class="page">
@@ -45,7 +45,7 @@
       <h2>رحلتنا لا تنتهي</h2>
 
       <p>
-        عالم واحد • فرق متعددة • رحلة بلا حدود
+        فريق واحد • هدف واحد • مستقبل بلا حدود
       </p>
 
     </div>
@@ -56,7 +56,7 @@
       <h2>دخول الأعضاء</h2>
 
       <p class="sub-text">
-        أدخل كود الدخول أو امسح QR Code بالكاميرا
+        استخدم كود الدخول أو امسح QR Code
       </p>
 
 
@@ -76,16 +76,11 @@
       </button>
 
 
-      <div class="login-divider">
-        <span>أو</span>
-      </div>
-
-
       <button
         id="scanQRBtn"
         class="scan-button"
       >
-        📷 مسح QR بالكاميرا
+        📷 الدخول بالكاميرا
       </button>
 
 
@@ -94,8 +89,39 @@
         class="qr-scanner hidden"
       ></div>
 
-
       <p id="scanMsg"></p>
+
+
+      <div class="login-divider">
+        <span>أو</span>
+      </div>
+
+
+      <h3>
+        تسجيل عضو جديد
+      </h3>
+
+
+      <input
+        id="name"
+        type="text"
+        placeholder="اكتب اسمك"
+        autocomplete="name"
+      >
+
+
+      <div
+        id="teams"
+        class="teams"
+      ></div>
+
+
+      <button
+        id="joinBtn"
+        class="primary"
+      >
+        تسجيل ودخول
+      </button>
 
 
       <p id="msg"></p>
@@ -114,13 +140,13 @@
     class="page hidden"
   >
 
-    <div class="member-profile">
+    <div class="member-head">
 
-      <div class="member-photo-wrap">
+      <div class="member-photo-box">
 
         <img
           id="memberPhoto"
-          class="member-photo"
+          class="member-main-photo"
           src=""
           alt="صورة العضو"
         >
@@ -134,12 +160,9 @@
           أهلاً بك في INFINITY
         </small>
 
-        <h1 id="memberName"></h1>
+        <h2 id="memberName"></h2>
 
-        <div
-          id="memberTeam"
-          class="member-team"
-        ></div>
+        <p id="memberTeam"></p>
 
       </div>
 
@@ -152,6 +175,7 @@
 
 
     <div class="grid">
+
 
       <div class="card">
 
@@ -174,13 +198,14 @@
 
       </div>
 
+
     </div>
 
   </section>
 
 
   <!-- =========================
-       الإدارة
+       لوحة التحكم
   ========================== -->
 
   <section
@@ -238,8 +263,9 @@
         </select>
 
 
-        <label class="upload-label">
-          صورة العضو
+        <label class="file-label">
+
+          📷 صورة العضو
 
           <input
             id="newMemberPhoto"
@@ -324,9 +350,9 @@
         </select>
 
 
-        <label class="upload-label">
+        <label class="file-label">
 
-          صورة المنشور
+          🖼️ صورة المنشور
 
           <input
             id="postImage"
@@ -347,7 +373,7 @@
       </div>
 
 
-      <!-- الفرق -->
+      <!-- إدارة الفرق -->
 
       <div class="card">
 
@@ -356,6 +382,21 @@
         </h3>
 
         <div id="adminTeams"></div>
+
+      </div>
+
+
+      <!-- المنشورات -->
+
+      <div class="card">
+
+        <h3>
+          إدارة المنشورات
+        </h3>
+
+        <div id="adminPosts">
+          لا توجد منشورات
+        </div>
 
       </div>
 
@@ -410,19 +451,19 @@
 </div>
 
 
-<!-- Supabase -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-<!-- QR Generator -->
+<!-- QR Code -->
 
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 
 
-<!-- QR Camera -->
+<!-- Camera QR -->
 
-<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+
+<!-- Supabase -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <script src="app.js"></script>
