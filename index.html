@@ -8,6 +8,9 @@
   <title>INFINITY</title>
 
   <link rel="stylesheet" href="style.css">
+
+  <!-- QR Scanner -->
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 </head>
 
 <body>
@@ -18,23 +21,20 @@
     <small>رحلتنا لا تنتهي</small>
   </div>
 
-  <button id="adminOpen" class="admin-button">
-    لوحة التحكم
-  </button>
+  <button id="adminOpen">لوحة التحكم</button>
 </header>
-
 
 <main>
 
-  <!-- الصفحة الخارجية -->
+  <!-- =========================
+       الصفحة الرئيسية
+  ========================== -->
 
   <section id="join" class="page">
 
     <div class="hero">
 
-      <span class="badge">
-        أهلاً بك في عالم INFINITY
-      </span>
+      <span class="badge">WELCOME TO INFINITY</span>
 
       <h1>INFINITY</h1>
 
@@ -46,37 +46,13 @@
 
     </div>
 
-
     <div class="card join-card">
 
-      <div class="login-title">
-
-        <span class="section-line"></span>
-
-        <h2>دخول الأعضاء</h2>
-
-        <span class="section-line"></span>
-
-      </div>
+      <h2>دخول الأعضاء</h2>
 
       <p class="sub-text">
-        امسح رمز الدخول الخاص بك بالكاميرا
+        استخدم كود الدخول أو امسح QR Code
       </p>
-
-
-      <button
-        id="scanQRBtn"
-        class="scan-button"
-      >
-        <span class="camera-icon">▣</span>
-        مسح QR بالكاميرا
-      </button>
-
-
-      <div class="login-divider">
-        <span>أو</span>
-      </div>
-
 
       <input
         id="accessCode"
@@ -85,14 +61,35 @@
         autocomplete="off"
       >
 
-
-      <button
-        id="codeLoginBtn"
-        class="primary"
-      >
+      <button id="codeLoginBtn" class="primary">
         دخول بالكود
       </button>
 
+      <button id="scanBtn" class="scan-btn">
+        📷 الدخول بالكاميرا
+      </button>
+
+      <div id="scannerBox" class="scanner-box hidden">
+
+        <div id="reader"></div>
+
+        <button id="stopScan">
+          إغلاق الكاميرا
+        </button>
+
+      </div>
+
+      <div class="login-divider">
+        <span>أو</span>
+      </div>
+
+      <h3>اختر فريقك</h3>
+
+      <div id="teams" class="teams"></div>
+
+      <button id="joinBtn" class="primary">
+        تسجيل ودخول
+      </button>
 
       <p id="msg"></p>
 
@@ -101,53 +98,27 @@
   </section>
 
 
-  <!-- صفحة العضو -->
+  <!-- =========================
+       صفحة العضو
+  ========================== -->
 
-  <section
-    id="member"
-    class="page hidden"
-  >
+  <section id="member" class="page hidden">
 
-    <div class="member-profile card">
+    <div class="member-head">
 
-      <div class="member-avatar-wrap">
-
-        <img
-          id="memberAvatar"
-          class="member-avatar"
-          src=""
-          alt="صورة العضو"
-        >
-
-        <div
-          id="memberAvatarFallback"
-          class="member-avatar-fallback"
-        >
-          IN
-        </div>
-
+      <div class="member-avatar">
+        <img id="memberPhoto" src="" alt="صورة العضو">
       </div>
 
+      <div>
 
-      <div class="member-info">
+        <small>أهلاً بك في INFINITY</small>
 
-        <small>
-          عضو في INFINITY
-        </small>
+        <h1 id="memberName"></h1>
 
-        <h1 id="memberName">
-          -
-        </h1>
-
-        <div
-          id="memberTeam"
-          class="member-team"
-        >
-          -
-        </div>
+        <p id="memberTeam"></p>
 
       </div>
-
 
       <button id="logout">
         تسجيل خروج
@@ -155,27 +126,19 @@
 
     </div>
 
-
     <div class="grid">
 
       <div class="card">
 
-        <div class="card-title">
-          <span></span>
-          <h2>المحتوى الحالي</h2>
-        </div>
+        <h2>المحتوى الحالي</h2>
 
         <div id="posts"></div>
 
       </div>
 
-
       <div class="card">
 
-        <div class="card-title">
-          <span></span>
-          <h2>ترتيب الفرق</h2>
-        </div>
+        <h2>ترتيب الفرق</h2>
 
         <div id="ranking"></div>
 
@@ -186,24 +149,19 @@
   </section>
 
 
-  <!-- لوحة الإدارة -->
+  <!-- =========================
+       الإدارة
+  ========================== -->
 
-  <section
-    id="admin"
-    class="page hidden"
-  >
+  <section id="admin" class="page hidden">
 
     <div class="admin-head">
 
       <div>
 
-        <span class="badge">
-          ADMIN
-        </span>
+        <span class="badge">ADMIN</span>
 
-        <h2>
-          لوحة تحكم INFINITY
-        </h2>
+        <h2>لوحة تحكم INFINITY</h2>
 
       </div>
 
@@ -221,11 +179,7 @@
 
       <div class="card">
 
-        <div class="card-title">
-          <span></span>
-          <h3>إضافة عضو</h3>
-        </div>
-
+        <h3>إضافة عضو</h3>
 
         <input
           id="newMemberName"
@@ -233,36 +187,19 @@
           placeholder="اسم العضو"
         >
 
+        <input
+          id="newMemberPhoto"
+          type="file"
+          accept="image/*"
+        >
 
         <select id="newMemberTeam">
-          <option value="">
-            اختر الفريق
-          </option>
+          <option value="">اختر الفريق</option>
         </select>
 
-
-        <label class="file-label">
-
-          <span>
-            صورة العضو
-          </span>
-
-          <input
-            id="newMemberAvatar"
-            type="file"
-            accept="image/*"
-          >
-
-        </label>
-
-
-        <button
-          id="addMemberBtn"
-          class="primary"
-        >
+        <button id="addMemberBtn" class="primary">
           إضافة العضو وإنشاء الكود
         </button>
-
 
         <div id="newMemberResult"></div>
 
@@ -273,10 +210,7 @@
 
       <div class="card">
 
-        <div class="card-title">
-          <span></span>
-          <h3>أعضاء الفرق</h3>
-        </div>
+        <h3>أعضاء الفرق</h3>
 
         <div id="members">
           لا يوجد أعضاء
@@ -289,25 +223,18 @@
 
       <div class="card">
 
-        <div class="card-title">
-          <span></span>
-          <h3>نقاط الفرق</h3>
-        </div>
+        <h3>نقاط الفرق</h3>
 
         <div id="scores"></div>
 
       </div>
 
 
-      <!-- نشر محتوى -->
+      <!-- المنشورات -->
 
       <div class="card">
 
-        <div class="card-title">
-          <span></span>
-          <h3>نشر محتوى</h3>
-        </div>
-
+        <h3>نشر محتوى</h3>
 
         <input
           id="postTitle"
@@ -315,55 +242,35 @@
           placeholder="عنوان المنشور"
         >
 
-
         <textarea
           id="postBody"
           placeholder="اكتب التفاصيل"
         ></textarea>
 
+        <input
+          id="postImage"
+          type="file"
+          accept="image/*"
+        >
 
         <select id="postTeam">
-
           <option value="all">
             كل الفرق
           </option>
-
         </select>
 
-
-        <label class="file-label">
-
-          <span>
-            صورة المنشور
-          </span>
-
-          <input
-            id="postImage"
-            type="file"
-            accept="image/*"
-          >
-
-        </label>
-
-
-        <button
-          id="postBtn"
-          class="primary"
-        >
+        <button id="postBtn" class="primary">
           نشر الآن
         </button>
 
       </div>
 
 
-      <!-- إدارة الفرق -->
+      <!-- الفرق -->
 
       <div class="card">
 
-        <div class="card-title">
-          <span></span>
-          <h3>الفرق</h3>
-        </div>
+        <h3>الفرق</h3>
 
         <div id="adminTeams"></div>
 
@@ -376,18 +283,15 @@
 </main>
 
 
-<!-- نافذة الإدارة -->
+<!-- =========================
+     Admin Login
+========================== -->
 
-<div
-  id="loginModal"
-  class="modal hidden"
->
+<div id="loginModal" class="modal hidden">
 
-  <div class="card modal-card">
+  <div class="card">
 
-    <h2>
-      دخول الإدارة
-    </h2>
+    <h2>دخول الإدارة</h2>
 
     <input
       id="adminPass"
@@ -396,10 +300,7 @@
       autocomplete="off"
     >
 
-    <button
-      id="loginBtn"
-      class="primary"
-    >
+    <button id="loginBtn" class="primary">
       دخول
     </button>
 
@@ -414,56 +315,15 @@
 </div>
 
 
-<!-- ماسح QR -->
-
-<div
-  id="qrModal"
-  class="modal hidden"
->
-
-  <div class="card qr-card">
-
-    <button
-      id="closeQRScanner"
-      class="close-button"
-    >
-      ×
-    </button>
-
-    <h2>
-      مسح كود الدخول
-    </h2>
-
-    <p>
-      وجّه الكاميرا نحو QR الخاص بك
-    </p>
-
-    <div id="qr-reader"></div>
-
-    <p
-      id="qrMessage"
-      class="qr-message"
-    ></p>
-
-  </div>
-
-</div>
-
-
 <!-- Supabase -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
-<!-- QR Scanner -->
-
-<script src="https://unpkg.com/html5-qrcode"></script>
-
-
-<!-- QR Generator -->
+<!-- QR Code -->
 
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 
+<!-- App -->
 
 <script src="app.js"></script>
 
