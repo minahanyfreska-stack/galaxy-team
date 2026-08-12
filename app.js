@@ -171,20 +171,20 @@ function renderTeams() {
    DATABASE TEAMS
 ========================= */
 
-async function getTeams() {
+let teamsCache = null;
 
+async function getTeams() {
   if (teamsCache) {
     return teamsCache;
   }
 
-  const { data, error } =
-    await sb
-      .from("teams")
-      .select("id,name,score")
-      .order("id");
+  const { data, error } = await sb
+    .from("teams")
+    .select("id, name, score")
+    .order("id");
 
   if (error) {
-    console.error(error);
+    console.error("Teams loading error:", error);
     return [];
   }
 
@@ -192,7 +192,6 @@ async function getTeams() {
 
   return teamsCache;
 }
-
 
 /* =========================
    ADMIN TEAM SELECTS
