@@ -1,6 +1,10 @@
 /* =====================================================
-   INFINITY SPACE MISSION
-   APP.JS — OPTIMIZED VERSION
+   INFINITY - GALAXY TEAMS
+   OPTIMIZED APP.JS
+===================================================== */
+
+/* =====================================================
+   SUPABASE
 ===================================================== */
 
 const SUPABASE_URL =
@@ -14,6 +18,7 @@ const sb = window.supabase.createClient(
   SUPABASE_KEY
 );
 
+
 /* =====================================================
    PLANETS
 ===================================================== */
@@ -26,6 +31,7 @@ const T = [
     image:
       "https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg"
   },
+
   {
     id: "saturn",
     name: "زحل",
@@ -33,6 +39,7 @@ const T = [
     image:
       "https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg"
   },
+
   {
     id: "neptune",
     name: "نبتون",
@@ -40,6 +47,7 @@ const T = [
     image:
       "https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full.jpg"
   },
+
   {
     id: "uranus",
     name: "أورانوس",
@@ -49,8 +57,9 @@ const T = [
   }
 ];
 
+
 /* =====================================================
-   STATE
+   VARIABLES
 ===================================================== */
 
 let member = null;
@@ -60,14 +69,10 @@ let scanner = null;
 let teamsCache = null;
 let teamsCacheTime = 0;
 
-let postsCache = null;
-let postsCacheTime = 0;
+const TEAM_CACHE_TIME = 30000;
 
-let refreshTimer = null;
-let busy = false;
-
-const CACHE_TIME = 30000;
 const ADMIN_PASSWORD = "1234";
+
 
 /* =====================================================
    SHORTCUT
@@ -77,98 +82,61 @@ function $(id) {
   return document.getElementById(id);
 }
 
+
 /* =====================================================
-   ESCAPE
+   ESCAPE HTML
 ===================================================== */
 
 function esc(value) {
+
   return String(value ?? "").replace(
     /[&<>"']/g,
-    c => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-    }[c])
+    function (c) {
+
+      return {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[c];
+
+    }
   );
 }
+
 
 /* =====================================================
-   TEAM HELPERS
+   PLANET HELPERS
 ===================================================== */
 
-function getLocalTeam(id) {
-  return T.find(
-    t => String(t.id) === String(id)
-  );
-}
-
-function findLocalTeamByName(name) {
-  if (!name) return null;
-
-  const value = String(name).trim();
+function getPlanet(id) {
 
   return T.find(
-    t =>
-      t.name === value ||
-      t.english.toLowerCase() ===
-        value.toLowerCase()
+    team =>
+      String(team.id) === String(id)
   ) || null;
 }
 
-/* =====================================================
-   CACHE
-===================================================== */
 
-function clearTeamsCache() {
-  teamsCache = null;
-  teamsCacheTime = 0;
-}
+function findPlanetByName(name) {
 
-function clearPostsCache() {
-  postsCache = null;
-  postsCacheTime = 0;
-}
-
-/* =====================================================
-   LOAD TEAMS
-===================================================== */
-
-async function getTeams(force = false) {
-
-  const now = Date.now();
-
-  if (
-    !force &&
-    teamsCache &&
-    now - teamsCacheTime < CACHE_TIME
-  ) {
-    return teamsCache;
+  if (!name) {
+    return null;
   }
 
-  const {
-    data,
-    error
-  } = await sb
-    .from("teams")
-    .select("id,name,score")
-    .order("id");
+  const value =
+    String(name)
+      .trim()
+      .toLowerCase();
 
-  if (error) {
-    console.error(
-      "Teams error:",
-      error
-    );
-
-    return teamsCache || [];
-  }
-
-  teamsCache = data || [];
-  teamsCacheTime = now;
-
-  return teamsCache;
+  return T.find(
+    team =>
+      team.name.toLowerCase() === value ||
+      team.english.toLowerCase() === value
+  ) || null;
 }
+
 
 /* =====================================================
    GENERATE CODE
@@ -182,69 +150,265 @@ function generateCode() {
   let code = "INF-";
 
   for (let i = 0; i < 6; i++) {
+
     code +=
       chars[
         Math.floor(
-          Math.random() *
-          chars.length
+          Math.random() * chars.length
         )
       ];
+
   }
 
   return code;
 }
 
+
 /* =====================================================
-   SHOW JOIN
+   PAGE CONTROL
 ===================================================== */
 
 function showJoin() {
 
-  $("member")?.classList.add("hidden");
-  $("admin")?.classList.add("hidden");
   $("join")?.classList.remove("hidden");
+
+  $("member")?.classList.add("hidden");
+
+  $("admin")?.classList.add("hidden");
 }
 
+
+function showMemberPage() {
+
+  $("join")?.classList.add("hidden");
+
+  $("member")?.classList.remove("hidden");
+
+  $("admin")?.classList.add("hidden");
+}
+
+
+function showAdminPage() {
+
+  $("join")?.classList.add("hidden");
+
+  $("member")?.classList.add("hidden");
+
+  $("admin")?.classList.remove("hidden");
+}
+
+
 /* =====================================================
-   RENDER TEAMS
+   RENDER PLANETS
 ===================================================== */
 
 function renderTeams() {
 
   const box = $("teams");
 
-  if (!box) return;
+  if (!box) {
 
-  box.innerHTML = T.map(team => `
-    <div
-      class="team"
-      data-team="${esc(team.id)}"
-    >
+    console.error(
+      "INFINITY: #teams not found"
+    );
 
-      <img
-        src="${esc(team.image)}"
-        alt="${esc(team.name)}"
-        loading="lazy"
-        decoding="async"
-      >
+    return;
+  }
 
-      <div class="team-info">
+  box.innerHTML =
+    T.map(
+      team => `
 
-        <span>PLANET</span>
+        <div
+          class="team"
+          data-team="${esc(team.id)}"
+        >
 
-        <strong>
-          ${esc(team.name)}
-        </strong>
+          <div class="planet-wrap">
 
-        <small>
-          ${esc(team.english)}
-        </small>
+            <img
+              class="planet-image"
+              src="${team.image}"
+              alt="${esc(team.name)}"
+              loading="eager"
+              decoding="async"
+              onerror="this.onerror=null;this.style.opacity='.2'"
+            >
 
-      </div>
+          </div>
 
-    </div>
-  `).join("");
+          <div class="team-info">
+
+            <span>
+              PLANET
+            </span>
+
+            <strong>
+              ${esc(team.name)}
+            </strong>
+
+            <small>
+              ${esc(team.english)}
+            </small>
+
+          </div>
+
+        </div>
+
+      `
+    ).join("");
+
+  console.log(
+    "INFINITY: planets rendered"
+  );
 }
+
+
+/* =====================================================
+   TEAM CACHE
+===================================================== */
+
+async function getTeams(force = false) {
+
+  const now = Date.now();
+
+  if (
+    !force &&
+    teamsCache &&
+    now - teamsCacheTime <
+      TEAM_CACHE_TIME
+  ) {
+
+    return teamsCache;
+  }
+
+  try {
+
+    const {
+      data,
+      error
+    } = await sb
+      .from("teams")
+      .select(
+        "id,name,score"
+      )
+      .order("id");
+
+    if (error) {
+
+      console.error(
+        "Teams loading error:",
+        error
+      );
+
+      return teamsCache || [];
+    }
+
+    teamsCache =
+      data || [];
+
+    teamsCacheTime =
+      now;
+
+    return teamsCache;
+
+  } catch (error) {
+
+    console.error(error);
+
+    return teamsCache || [];
+  }
+}
+
+
+/* =====================================================
+   ADMIN LOGIN
+===================================================== */
+
+function openAdmin() {
+
+  const modal =
+    $("loginModal");
+
+  if (!modal) {
+
+    console.error(
+      "INFINITY: loginModal not found"
+    );
+
+    return;
+  }
+
+  modal.classList.remove(
+    "hidden"
+  );
+
+  if ($("adminPass")) {
+
+    $("adminPass").value = "";
+
+    setTimeout(
+      () =>
+        $("adminPass").focus(),
+      100
+    );
+  }
+
+  if ($("loginMsg")) {
+
+    $("loginMsg").textContent =
+      "";
+  }
+}
+
+
+function closeAdmin() {
+
+  $("loginModal")
+    ?.classList.add(
+      "hidden"
+    );
+}
+
+
+async function loginAdmin() {
+
+  const password =
+    $("adminPass")?.value || "";
+
+  if (
+    password !==
+    ADMIN_PASSWORD
+  ) {
+
+    if ($("loginMsg")) {
+
+      $("loginMsg").textContent =
+        "كلمة المرور غير صحيحة.";
+    }
+
+    return;
+  }
+
+  admin = true;
+
+  closeAdmin();
+
+  showAdminPage();
+
+  await loadAdminTeamSelects();
+
+  await refreshAdmin();
+}
+
+
+function adminLogout() {
+
+  admin = false;
+
+  showJoin();
+}
+
 
 /* =====================================================
    ADMIN TEAM SELECTS
@@ -258,20 +422,22 @@ async function loadAdminTeamSelects() {
   const postSelect =
     $("postTeam");
 
-  if (!memberSelect) return;
-
   const teams =
     await getTeams();
 
   if (!teams.length) {
 
-    memberSelect.innerHTML = `
-      <option value="">
-        لا توجد فرق
-      </option>
-    `;
+    if (memberSelect) {
+
+      memberSelect.innerHTML = `
+        <option value="">
+          لا توجد فرق
+        </option>
+      `;
+    }
 
     if (postSelect) {
+
       postSelect.innerHTML = `
         <option value="all">
           كل الفرق
@@ -282,17 +448,22 @@ async function loadAdminTeamSelects() {
     return;
   }
 
-  memberSelect.innerHTML = `
-    <option value="">
-      اختر الفريق
-    </option>
+  if (memberSelect) {
 
-    ${teams.map(team => `
-      <option value="${team.id}">
-        ${esc(team.name)}
+    memberSelect.innerHTML = `
+      <option value="">
+        اختر الفريق
       </option>
-    `).join("")}
-  `;
+
+      ${teams.map(
+        team => `
+          <option value="${team.id}">
+            ${esc(team.name)}
+          </option>
+        `
+      ).join("")}
+    `;
+  }
 
   if (postSelect) {
 
@@ -301,26 +472,30 @@ async function loadAdminTeamSelects() {
         كل الفرق
       </option>
 
-      ${teams.map(team => `
-        <option value="${team.id}">
-          ${esc(team.name)}
-        </option>
-      `).join("")}
+      ${teams.map(
+        team => `
+          <option value="${team.id}">
+            ${esc(team.name)}
+          </option>
+        `
+      ).join("")}
     `;
   }
 }
 
+
 /* =====================================================
-   LOGIN
+   LOGIN MEMBER
 ===================================================== */
 
 async function loginWithCode() {
 
-  if (busy) return;
+  const input =
+    $("accessCode");
 
-  const input = $("accessCode");
-
-  if (!input) return;
+  if (!input) {
+    return;
+  }
 
   const code =
     input.value
@@ -328,17 +503,21 @@ async function loginWithCode() {
       .toUpperCase();
 
   if (!code) {
-    $("msg").textContent =
-      "اكتب كود الدخول.";
+
+    if ($("msg")) {
+
+      $("msg").textContent =
+        "اكتب كود الدخول.";
+    }
+
     return;
   }
 
-  busy = true;
+  if ($("msg")) {
 
-  $("codeLoginBtn")?.setAttribute(
-    "disabled",
-    "true"
-  );
+    $("msg").textContent =
+      "جاري تسجيل الدخول...";
+  }
 
   try {
 
@@ -354,7 +533,6 @@ async function loginWithCode() {
         access_code,
         photo_url,
         teams (
-          id,
           name
         )
       `)
@@ -364,7 +542,14 @@ async function loginWithCode() {
       )
       .maybeSingle();
 
-    if (error) throw error;
+    if (error) {
+
+      console.error(error);
+
+      $("msg").textContent =
+        "حدث خطأ أثناء الاتصال.";
+      return;
+    }
 
     if (!data) {
 
@@ -374,14 +559,36 @@ async function loginWithCode() {
       return;
     }
 
+    const team =
+      findPlanetByName(
+        data.teams?.name
+      );
+
+    if (!team) {
+
+      $("msg").textContent =
+        "فريق العضو غير موجود.";
+
+      return;
+    }
+
     member = {
-      id: data.id,
-      name: data.name,
-      teamId: data.team_id,
-      teamName:
-        data.teams?.name || "",
+
+      id:
+        data.id,
+
+      name:
+        data.name,
+
+      team:
+        team.id,
+
+      teamDbId:
+        data.team_id,
+
       accessCode:
         data.access_code,
+
       photoUrl:
         data.photo_url || ""
     };
@@ -391,7 +598,11 @@ async function loginWithCode() {
       String(data.id)
     );
 
-    $("msg").textContent = "";
+    if ($("msg")) {
+
+      $("msg").textContent =
+        "";
+    }
 
     await showMember();
 
@@ -399,19 +610,14 @@ async function loginWithCode() {
 
     console.error(error);
 
-    $("msg").textContent =
-      "حدث خطأ: " +
-      error.message;
+    if ($("msg")) {
 
-  } finally {
-
-    busy = false;
-
-    $("codeLoginBtn")?.removeAttribute(
-      "disabled"
-    );
+      $("msg").textContent =
+        "حدث خطأ أثناء تسجيل الدخول.";
+    }
   }
 }
+
 
 /* =====================================================
    SHOW MEMBER
@@ -419,26 +625,30 @@ async function loginWithCode() {
 
 async function showMember() {
 
-  if (!member) return;
+  if (!member) {
+    return;
+  }
 
-  $("join")?.classList.add("hidden");
-  $("admin")?.classList.add("hidden");
-  $("member")?.classList.remove("hidden");
+  showMemberPage();
+
+  const planet =
+    getPlanet(
+      member.team
+    );
 
   if ($("memberName")) {
+
     $("memberName").textContent =
-      member.name;
+      member.name || "";
   }
 
   if ($("memberTeam")) {
-    $("memberTeam").textContent =
-      `فريق ${member.teamName}`;
-  }
 
-  const team =
-    findLocalTeamByName(
-      member.teamName
-    );
+    $("memberTeam").textContent =
+      planet
+        ? `فريق ${planet.name} • ${planet.english}`
+        : "";
+  }
 
   const photo =
     $("memberPhoto");
@@ -447,104 +657,102 @@ async function showMember() {
 
     photo.src =
       member.photoUrl ||
-      team?.image ||
+      planet?.image ||
       "";
 
-    photo.loading = "lazy";
+    photo.onerror =
+      function () {
+
+        if (
+          planet &&
+          this.src !== planet.image
+        ) {
+
+          this.src =
+            planet.image;
+        }
+      };
   }
 
   await refreshMember();
 }
 
-/* =====================================================
-   LOAD POSTS
-===================================================== */
-
-async function getPosts(force = false) {
-
-  const now = Date.now();
-
-  if (
-    !force &&
-    postsCache &&
-    now - postsCacheTime < CACHE_TIME
-  ) {
-    return postsCache;
-  }
-
-  const {
-    data,
-    error
-  } = await sb
-    .from("posts")
-    .select(`
-      id,
-      title,
-      body,
-      image_url,
-      team_id,
-      created_at
-    `)
-    .order(
-      "created_at",
-      {
-        ascending: false
-      }
-    )
-    .limit(50);
-
-  if (error) {
-
-    console.error(
-      "Posts error:",
-      error
-    );
-
-    return postsCache || [];
-  }
-
-  postsCache = data || [];
-  postsCacheTime = now;
-
-  return postsCache;
-}
 
 /* =====================================================
-   MEMBER REFRESH
+   REFRESH MEMBER
 ===================================================== */
 
 async function refreshMember() {
 
-  if (!member) return;
+  if (!member) {
+    return;
+  }
 
   try {
 
+    const [
+      teamsResult,
+      postsResult
+    ] =
+      await Promise.all([
+
+        sb
+          .from("teams")
+          .select(
+            "id,name,score"
+          )
+          .order("id"),
+
+        sb
+          .from("posts")
+          .select(
+            "id,title,body,image_url,team_id,created_at"
+          )
+          .order(
+            "created_at",
+            {
+              ascending: false
+            }
+          )
+          .limit(100)
+
+      ]);
+
+    if (teamsResult.error) {
+      throw teamsResult.error;
+    }
+
+    if (postsResult.error) {
+      throw postsResult.error;
+    }
+
     const teams =
-      await getTeams();
+      teamsResult.data || [];
 
     const posts =
-      await getPosts();
+      postsResult.data || [];
 
-    const currentTeam =
-      teams.find(
-        t =>
-          Number(t.id) ===
-          Number(member.teamId)
-      );
+    const currentTeamId =
+      Number(member.teamDbId);
 
     const visiblePosts =
-      posts.filter(post => {
+      posts.filter(
+        post => {
 
-        if (
-          post.team_id === null ||
-          post.team_id === undefined
-        ) {
-          return true;
+          if (
+            post.team_id === null ||
+            post.team_id === undefined
+          ) {
+
+            return true;
+          }
+
+          return (
+            Number(post.team_id) ===
+            currentTeamId
+          );
         }
-
-        return Number(post.team_id) ===
-          Number(member.teamId);
-      });
+      );
 
     renderMemberPosts(
       visiblePosts
@@ -564,18 +772,28 @@ async function refreshMember() {
       "Member refresh:",
       error
     );
+
+    if ($("posts")) {
+
+      $("posts").innerHTML =
+        "<p>تعذر تحميل المنشورات.</p>";
+    }
   }
 }
 
+
 /* =====================================================
-   RENDER POSTS
+   RENDER MEMBER POSTS
 ===================================================== */
 
 function renderMemberPosts(posts) {
 
-  const box = $("posts");
+  const box =
+    $("posts");
 
-  if (!box) return;
+  if (!box) {
+    return;
+  }
 
   if (!posts.length) {
 
@@ -591,6 +809,7 @@ function renderMemberPosts(posts) {
     ).join("");
 }
 
+
 /* =====================================================
    MEMBER POST
 ===================================================== */
@@ -598,6 +817,7 @@ function renderMemberPosts(posts) {
 function renderMemberPost(post) {
 
   return `
+
     <article
       class="post"
       id="post-${post.id}"
@@ -615,7 +835,10 @@ function renderMemberPost(post) {
 
       <p>
         ${esc(post.body)
-          .replace(/\n/g, "<br>")}
+          .replace(
+            /\n/g,
+            "<br>"
+          )}
       </p>
 
       ${
@@ -624,9 +847,8 @@ function renderMemberPost(post) {
             <img
               class="post-image"
               src="${esc(post.image_url)}"
-              loading="lazy"
-              decoding="async"
               alt="صورة المنشور"
+              loading="lazy"
             >
           `
           : ""
@@ -635,7 +857,7 @@ function renderMemberPost(post) {
       <div class="replies">
 
         <h4>
-          الردود
+          💬 الردود
         </h4>
 
         <div
@@ -650,6 +872,7 @@ function renderMemberPost(post) {
           <textarea
             id="reply-input-${post.id}"
             placeholder="اكتب ردك هنا..."
+            rows="3"
           ></textarea>
 
           <button
@@ -664,8 +887,10 @@ function renderMemberPost(post) {
       </div>
 
     </article>
+
   `;
 }
+
 
 /* =====================================================
    LOAD REPLIES
@@ -673,11 +898,13 @@ function renderMemberPost(post) {
 
 async function loadRepliesForPosts(posts) {
 
-  if (!posts.length) return;
+  if (!posts.length) {
+    return;
+  }
 
   const ids =
     posts.map(
-      p => p.id
+      post => post.id
     );
 
   try {
@@ -707,66 +934,103 @@ async function loadRepliesForPosts(posts) {
         {
           ascending: true
         }
-      )
-      .limit(300);
+      );
 
-    if (error) throw error;
+    if (error) {
 
-    posts.forEach(post => {
+      console.error(
+        "Replies loading:",
+        error
+      );
 
-      const box =
-        $(
-          `replies-${post.id}`
-        );
+      posts.forEach(
+        post => {
 
-      if (!box) return;
+          const box =
+            $(
+              `replies-${post.id}`
+            );
 
-      const replies =
-        (data || []).filter(
-          reply =>
-            Number(reply.post_id) ===
-            Number(post.id)
-        );
+          if (box) {
 
-      if (!replies.length) {
+            box.innerHTML =
+              "<small>تعذر تحميل الردود.</small>";
+          }
+        }
+      );
+
+      return;
+    }
+
+    posts.forEach(
+      post => {
+
+        const box =
+          $(
+            `replies-${post.id}`
+          );
+
+        if (!box) {
+          return;
+        }
+
+        const replies =
+          (data || []).filter(
+            reply =>
+              Number(
+                reply.post_id
+              ) ===
+              Number(post.id)
+          );
+
+        if (!replies.length) {
+
+          box.innerHTML =
+            "<small>لا توجد ردود حتى الآن.</small>";
+
+          return;
+        }
 
         box.innerHTML =
-          "<small>لا توجد ردود حتى الآن.</small>";
+          replies.map(
+            reply => `
 
-        return;
+              <div
+                class="reply"
+                id="reply-${reply.id}"
+              >
+
+                <b>
+                  ${esc(
+                    reply.members?.name ||
+                    "عضو"
+                  )}
+                </b>
+
+                <small>
+                  ${new Date(
+                    reply.created_at
+                  ).toLocaleString(
+                    "ar-EG"
+                  )}
+                </small>
+
+                <p>
+                  ${esc(
+                    reply.body
+                  ).replace(
+                    /\n/g,
+                    "<br>"
+                  )}
+                </p>
+
+              </div>
+
+            `
+          ).join("");
+
       }
-
-      box.innerHTML =
-        replies.map(
-          reply => `
-            <div class="reply">
-
-              <b>
-                ${esc(
-                  reply.members?.name ||
-                  "عضو"
-                )}
-              </b>
-
-              <small>
-                ${new Date(
-                  reply.created_at
-                ).toLocaleString("ar-EG")}
-              </small>
-
-              <p>
-                ${esc(
-                  reply.body
-                ).replace(
-                  /\n/g,
-                  "<br>"
-                )}
-              </p>
-
-            </div>
-          `
-        ).join("");
-    });
+    );
 
   } catch (error) {
 
@@ -776,6 +1040,7 @@ async function loadRepliesForPosts(posts) {
     );
   }
 }
+
 
 /* =====================================================
    SEND REPLY
@@ -797,7 +1062,14 @@ async function sendReply(postId) {
       `reply-input-${postId}`
     );
 
-  if (!input) return;
+  if (!input) {
+
+    alert(
+      "خانة الرد غير موجودة."
+    );
+
+    return;
+  }
 
   const body =
     input.value.trim();
@@ -812,13 +1084,17 @@ async function sendReply(postId) {
   }
 
   const button =
-    input.parentElement
-      ?.querySelector(
-        "button"
-      );
+    input.parentElement?.querySelector(
+      "button"
+    );
 
   if (button) {
-    button.disabled = true;
+
+    button.disabled =
+      true;
+
+    button.textContent =
+      "جاري الإرسال...";
   }
 
   try {
@@ -828,14 +1104,21 @@ async function sendReply(postId) {
     } = await sb
       .from("replies")
       .insert({
+
         post_id:
           Number(postId),
+
         member_id:
           Number(member.id),
-        body
+
+        body:
+          body
+
       });
 
-    if (error) throw error;
+    if (error) {
+      throw error;
+    }
 
     input.value = "";
 
@@ -843,7 +1126,10 @@ async function sendReply(postId) {
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "Send reply:",
+      error
+    );
 
     alert(
       "لم يتم إرسال الرد: " +
@@ -853,10 +1139,16 @@ async function sendReply(postId) {
   } finally {
 
     if (button) {
-      button.disabled = false;
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "إرسال الرد";
     }
   }
 }
+
 
 /* =====================================================
    RANKING
@@ -867,7 +1159,9 @@ function renderRanking(teams) {
   const box =
     $("ranking");
 
-  if (!box) return;
+  if (!box) {
+    return;
+  }
 
   const ranking =
     [...teams].sort(
@@ -878,393 +1172,46 @@ function renderRanking(teams) {
 
   box.innerHTML =
     ranking.map(
-      (team, index) => `
-        <div class="rank">
+      (team, index) => {
 
-          <span>
-            #${index + 1}
-            🪐
-            ${esc(team.name)}
-          </span>
+        const planet =
+          findPlanetByName(
+            team.name
+          );
 
-          <b>
-            ${Number(team.score || 0)}
-            نقطة
-          </b>
+        return `
 
-        </div>
-      `
-    ).join("");
-}
+          <div class="rank">
 
-/* =====================================================
-   ADMIN LOGIN
-===================================================== */
+            <span>
 
-async function loginAdmin() {
+              #${index + 1}
 
-  const password =
-    $("adminPass")?.value || "";
+              ${
+                planet
+                  ? `🪐 ${esc(team.name)}`
+                  : esc(team.name)
+              }
 
-  if (
-    password !==
-    ADMIN_PASSWORD
-  ) {
+            </span>
 
-    $("loginMsg").textContent =
-      "كلمة المرور غير صحيحة.";
-
-    return;
-  }
-
-  admin = true;
-
-  $("loginModal")
-    ?.classList.add("hidden");
-
-  $("join")
-    ?.classList.add("hidden");
-
-  $("member")
-    ?.classList.add("hidden");
-
-  $("admin")
-    ?.classList.remove("hidden");
-
-  await loadAdminTeamSelects();
-  await refreshAdmin();
-}
-
-/* =====================================================
-   OPEN ADMIN
-===================================================== */
-
-function openAdmin() {
-
-  $("loginModal")
-    ?.classList.remove("hidden");
-
-  if ($("adminPass")) {
-    $("adminPass").value = "";
-  }
-
-  if ($("loginMsg")) {
-    $("loginMsg").textContent = "";
-  }
-}
-
-function closeAdmin() {
-
-  $("loginModal")
-    ?.classList.add("hidden");
-}
-
-function adminLogout() {
-
-  admin = false;
-
-  $("admin")
-    ?.classList.add("hidden");
-
-  showJoin();
-}
-
-/* =====================================================
-   REFRESH ADMIN
-===================================================== */
-
-async function refreshAdmin() {
-
-  try {
-
-    const teams =
-      await getTeams(true);
-
-    await loadAdminTeamSelects();
-
-    const {
-      data: members,
-      error
-    } = await sb
-      .from("members")
-      .select(`
-        id,
-        name,
-        team_id,
-        access_code,
-        score,
-        photo_url,
-        teams (
-          name
-        )
-      `)
-      .order(
-        "id",
-        {
-          ascending: false
-        }
-      )
-      .limit(200);
-
-    if (error) throw error;
-
-    renderAdminMembers(
-      members || []
-    );
-
-    renderAdminScores(
-      teams
-    );
-
-    await refreshAdminPosts();
-
-  } catch (error) {
-
-    console.error(
-      "Admin error:",
-      error
-    );
-
-    alert(
-      "خطأ في لوحة التحكم: " +
-      error.message
-    );
-  }
-}
-
-/* =====================================================
-   ADMIN MEMBERS
-===================================================== */
-
-function renderAdminMembers(
-  members
-) {
-
-  const box =
-    $("members");
-
-  if (!box) return;
-
-  if (!members.length) {
-
-    box.innerHTML =
-      "لا يوجد أعضاء.";
-
-    return;
-  }
-
-  box.innerHTML =
-    members.map(
-      m => `
-        <div class="member">
-
-          <div class="admin-member-left">
-
-            ${
-              m.photo_url
-                ? `
-                  <img
-                    class="admin-member-photo"
-                    src="${esc(
-                      m.photo_url
-                    )}"
-                    loading="lazy"
-                    alt="صورة العضو"
-                  >
-                `
-                : `
-                  <div
-                    class="admin-member-photo"
-                  ></div>
-                `
-            }
-
-            <div>
-
-              <b>
-                ${esc(m.name)}
-              </b>
-
-              <br>
-
-              <small>
-                ${esc(
-                  m.teams?.name ||
-                  "بدون فريق"
-                )}
-              </small>
-
-              <br>
-
-              <small>
-                🔐
-                ${esc(
-                  m.access_code ||
-                  "بدون كود"
-                )}
-              </small>
-
-            </div>
-
-          </div>
-
-          <div
-            class="admin-member-buttons"
-          >
-
-            <button
-              onclick="showMemberQR('${esc(
-                m.access_code || ""
-              )}')"
-            >
-              QR
-            </button>
-
-            <button
-              onclick="changeMemberPhoto(${m.id})"
-            >
-              صورة
-            </button>
-
-            <button
-              class="delete-btn"
-              onclick="deleteMember(${m.id})"
-            >
-              حذف
-            </button>
-
-          </div>
-
-        </div>
-      `
-    ).join("");
-}
-
-/* =====================================================
-   ADMIN SCORES
-===================================================== */
-
-function renderAdminScores(
-  teams
-) {
-
-  const box =
-    $("scores");
-
-  if (!box) return;
-
-  box.innerHTML =
-    teams.map(
-      team => `
-        <div class="score">
-
-          <span>
-            ${esc(team.name)}
-            :
             <b>
               ${Number(
                 team.score || 0
               )}
+              نقطة
             </b>
-          </span>
 
-          <button
-            onclick="changeScore(${team.id},5)"
-          >
-            +5
-          </button>
+          </div>
 
-          <button
-            onclick="changeScore(${team.id},10)"
-          >
-            +10
-          </button>
-
-          <button
-            onclick="changeScore(${team.id},-5)"
-          >
-            -5
-          </button>
-
-          <button
-            onclick="changeScore(${team.id},-10)"
-          >
-            -10
-          </button>
-
-        </div>
-      `
+        `;
+      }
     ).join("");
 }
 
-/* =====================================================
-   CHANGE SCORE
-===================================================== */
-
-async function changeScore(
-  teamId,
-  amount
-) {
-
-  try {
-
-    const {
-      data,
-      error
-    } = await sb
-      .from("teams")
-      .select("score")
-      .eq(
-        "id",
-        teamId
-      )
-      .single();
-
-    if (error) throw error;
-
-    const newScore =
-      Number(data.score || 0) +
-      Number(amount);
-
-    const {
-      error:
-        updateError
-    } = await sb
-      .from("teams")
-      .update({
-        score:
-          newScore
-      })
-      .eq(
-        "id",
-        teamId
-      );
-
-    if (updateError) {
-      throw updateError;
-    }
-
-    clearTeamsCache();
-
-    await refreshAdmin();
-
-    if (member) {
-      await refreshMember();
-    }
-
-  } catch (error) {
-
-    console.error(error);
-
-    alert(
-      "لم يتم تعديل النقاط: " +
-      error.message
-    );
-  }
-}
 
 /* =====================================================
-   STORAGE
+   UPLOAD IMAGE
 ===================================================== */
 
 async function uploadImage(
@@ -1272,7 +1219,30 @@ async function uploadImage(
   folder
 ) {
 
-  if (!file) return null;
+  if (!file) {
+    return null;
+  }
+
+  if (
+    !file.type.startsWith(
+      "image/"
+    )
+  ) {
+
+    throw new Error(
+      "الملف يجب أن يكون صورة."
+    );
+  }
+
+  const maxSize =
+    8 * 1024 * 1024;
+
+  if (file.size > maxSize) {
+
+    throw new Error(
+      "حجم الصورة أكبر من 8MB."
+    );
+  }
 
   const extension =
     file.name
@@ -1280,13 +1250,13 @@ async function uploadImage(
       .pop()
       .toLowerCase();
 
-  const filename =
+  const fileName =
     `${Date.now()}-${Math.random()
       .toString(36)
-      .slice(2)}.${extension}`;
+      .substring(2, 10)}.${extension}`;
 
   const path =
-    `${folder}/${filename}`;
+    `${folder}/${fileName}`;
 
   const {
     error
@@ -1297,10 +1267,8 @@ async function uploadImage(
       path,
       file,
       {
-        cacheControl:
-          "3600",
-        upsert:
-          false
+        cacheControl: "3600",
+        upsert: false
       }
     );
 
@@ -1320,13 +1288,62 @@ async function uploadImage(
   return data.publicUrl;
 }
 
+
+/* =====================================================
+   DELETE STORAGE IMAGE
+===================================================== */
+
+async function deleteStorageImage(
+  url
+) {
+
+  if (!url) {
+    return;
+  }
+
+  try {
+
+    const marker =
+      "/storage/v1/object/public/site-images/";
+
+    const index =
+      url.indexOf(
+        marker
+      );
+
+    if (index === -1) {
+      return;
+    }
+
+    const path =
+      decodeURIComponent(
+        url.substring(
+          index + marker.length
+        )
+      );
+
+    await sb
+      .storage
+      .from("site-images")
+      .remove([
+        path
+      ]);
+
+  } catch (error) {
+
+    console.warn(
+      "Storage delete:",
+      error
+    );
+  }
+}
+
+
 /* =====================================================
    ADD MEMBER
 ===================================================== */
 
 async function addMember() {
-
-  if (busy) return;
 
   const name =
     $("newMemberName")
@@ -1359,41 +1376,71 @@ async function addMember() {
     return;
   }
 
-  busy = true;
-
   const button =
     $("addMemberBtn");
 
   if (button) {
-    button.disabled = true;
+
+    button.disabled =
+      true;
+
+    button.textContent =
+      "جاري الإضافة...";
   }
 
   try {
 
-    let code;
+    let accessCode =
+      generateCode();
 
-    for (;;) {
+    let unique = false;
 
-      code =
-        generateCode();
+    for (
+      let attempt = 0;
+      attempt < 10 &&
+      !unique;
+      attempt++
+    ) {
 
       const {
-        data
+        data,
+        error
       } = await sb
         .from("members")
         .select("id")
         .eq(
           "access_code",
-          code
+          accessCode
         )
         .limit(1);
 
-      if (!data?.length) {
-        break;
+      if (error) {
+        throw error;
+      }
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+        unique = true;
+
+      } else {
+
+        accessCode =
+          generateCode();
       }
     }
 
-    let photoUrl = null;
+    if (!unique) {
+
+      throw new Error(
+        "تعذر إنشاء كود فريد."
+      );
+    }
+
+    let photoUrl =
+      null;
 
     if (file) {
 
@@ -1410,31 +1457,62 @@ async function addMember() {
     } = await sb
       .from("members")
       .insert({
-        name,
+
+        name:
+          name,
+
         team_id:
           Number(teamId),
+
         access_code:
-          code,
+          accessCode,
+
         score:
           0,
+
         photo_url:
           photoUrl
+
       })
-      .select()
+      .select(
+        "id,name,team_id,access_code,photo_url"
+      )
       .single();
 
-    if (error) throw error;
+    if (error) {
 
-    $("newMemberName").value = "";
-    $("newMemberTeam").value = "";
+      if (photoUrl) {
+
+        await deleteStorageImage(
+          photoUrl
+        );
+      }
+
+      throw error;
+    }
+
+    if ($("newMemberName")) {
+
+      $("newMemberName").value =
+        "";
+    }
+
+    if ($("newMemberTeam")) {
+
+      $("newMemberTeam").value =
+        "";
+    }
 
     if ($("newMemberPhoto")) {
-      $("newMemberPhoto").value = "";
+
+      $("newMemberPhoto").value =
+        "";
     }
 
     if ($("newMemberResult")) {
 
       $("newMemberResult").innerHTML = `
+
         <div class="login-result">
 
           <h3>
@@ -1457,6 +1535,7 @@ async function addMember() {
           <div id="adminQR"></div>
 
         </div>
+
       `;
     }
 
@@ -1464,15 +1543,18 @@ async function addMember() {
       data.access_code
     );
 
+    await refreshAdmin();
+
     alert(
       "تم إضافة العضو بنجاح ✅"
     );
 
-    await refreshAdmin();
-
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "Add member:",
+      error
+    );
 
     alert(
       "لم يتم إضافة العضو: " +
@@ -1481,21 +1563,23 @@ async function addMember() {
 
   } finally {
 
-    busy = false;
-
     if (button) {
-      button.disabled = false;
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "إضافة العضو";
     }
   }
 }
+
 
 /* =====================================================
    PUBLISH POST
 ===================================================== */
 
 async function publishPost() {
-
-  if (busy) return;
 
   const title =
     $("postTitle")
@@ -1524,11 +1608,34 @@ async function publishPost() {
     return;
   }
 
-  busy = true;
+  const button =
+    $("postBtn");
+
+  if (button) {
+
+    button.disabled =
+      true;
+
+    button.textContent =
+      "جاري النشر...";
+  }
 
   try {
 
-    let imageUrl = null;
+    let teamId =
+      null;
+
+    if (
+      selectedTeam &&
+      selectedTeam !== "all"
+    ) {
+
+      teamId =
+        Number(selectedTeam);
+    }
+
+    let imageUrl =
+      null;
 
     if (file) {
 
@@ -1544,33 +1651,49 @@ async function publishPost() {
     } = await sb
       .from("posts")
       .insert({
-        title,
-        body,
+
+        title:
+          title,
+
+        body:
+          body,
+
         team_id:
-          selectedTeam &&
-          selectedTeam !== "all"
-            ? Number(
-                selectedTeam
-              )
-            : null,
+          teamId,
+
         image_url:
           imageUrl
+
       });
 
-    if (error) throw error;
+    if (error) {
 
-    clearPostsCache();
+      if (imageUrl) {
 
-    $("postTitle").value = "";
-    $("postBody").value = "";
+        await deleteStorageImage(
+          imageUrl
+        );
+      }
 
-    if ($("postImage")) {
-      $("postImage").value = "";
+      throw error;
     }
 
-    await refreshAdmin();
+    $("postTitle").value =
+      "";
+
+    $("postBody").value =
+      "";
+
+    if ($("postImage")) {
+
+      $("postImage").value =
+        "";
+    }
+
+    await refreshAdminPosts();
 
     if (member) {
+
       await refreshMember();
     }
 
@@ -1580,7 +1703,10 @@ async function publishPost() {
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "Publish:",
+      error
+    );
 
     alert(
       "لم يتم النشر: " +
@@ -1589,9 +1715,285 @@ async function publishPost() {
 
   } finally {
 
-    busy = false;
+    if (button) {
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "نشر 🚀";
+    }
   }
 }
+
+
+/* =====================================================
+   ADMIN REFRESH
+===================================================== */
+
+async function refreshAdmin() {
+
+  if (!admin) {
+    return;
+  }
+
+  try {
+
+    const teams =
+      await getTeams(
+        true
+      );
+
+    await loadAdminTeamSelects();
+
+    renderAdminScores(
+      teams
+    );
+
+    await Promise.all([
+      refreshAdminMembers(),
+      refreshAdminPosts()
+    ]);
+
+  } catch (error) {
+
+    console.error(
+      "Admin refresh:",
+      error
+    );
+
+    alert(
+      "خطأ في لوحة التحكم: " +
+      error.message
+    );
+  }
+}
+
+
+/* =====================================================
+   ADMIN MEMBERS
+===================================================== */
+
+async function refreshAdminMembers() {
+
+  const box =
+    $("members");
+
+  if (!box) {
+    return;
+  }
+
+  try {
+
+    const {
+      data,
+      error
+    } = await sb
+      .from("members")
+      .select(`
+        id,
+        name,
+        team_id,
+        access_code,
+        score,
+        photo_url,
+        teams (
+          name
+        )
+      `)
+      .order(
+        "id",
+        {
+          ascending: false
+        }
+      );
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data?.length) {
+
+      box.innerHTML =
+        "لا يوجد أعضاء.";
+
+      return;
+    }
+
+    box.innerHTML =
+      data.map(
+        memberData => `
+
+          <div class="member">
+
+            <div class="admin-member-left">
+
+              ${
+                memberData.photo_url
+
+                  ? `
+                    <img
+                      class="admin-member-photo"
+                      src="${esc(
+                        memberData.photo_url
+                      )}"
+                      alt="صورة العضو"
+                    >
+                  `
+
+                  : `
+                    <div
+                      class="admin-member-photo"
+                    ></div>
+                  `
+              }
+
+              <div>
+
+                <b>
+                  ${esc(
+                    memberData.name
+                  )}
+                </b>
+
+                <br>
+
+                <small>
+                  ${esc(
+                    memberData.teams?.name ||
+                    "بدون فريق"
+                  )}
+                </small>
+
+                <br>
+
+                <small>
+                  🔐
+                  ${esc(
+                    memberData.access_code ||
+                    "بدون كود"
+                  )}
+                </small>
+
+              </div>
+
+            </div>
+
+            <div class="admin-member-buttons">
+
+              <button
+                type="button"
+                onclick="showMemberQR('${esc(
+                  memberData.access_code || ""
+                )}')"
+              >
+                QR
+              </button>
+
+              <button
+                type="button"
+                onclick="changeMemberPhoto(${memberData.id})"
+              >
+                صورة
+              </button>
+
+              <button
+                type="button"
+                class="delete-btn"
+                onclick="deleteMember(${memberData.id})"
+              >
+                حذف
+              </button>
+
+            </div>
+
+          </div>
+
+        `
+      ).join("");
+
+  } catch (error) {
+
+    console.error(
+      "Members:",
+      error
+    );
+
+    box.innerHTML =
+      "تعذر تحميل الأعضاء.";
+  }
+}
+
+
+/* =====================================================
+   ADMIN SCORES
+===================================================== */
+
+function renderAdminScores(
+  teams
+) {
+
+  const box =
+    $("scores");
+
+  if (!box) {
+    return;
+  }
+
+  box.innerHTML =
+    teams.map(
+      team => `
+
+        <div class="score">
+
+          <span>
+
+            ${esc(team.name)}
+
+            :
+
+            <b>
+              ${Number(
+                team.score || 0
+              )}
+            </b>
+
+          </span>
+
+          <button
+            type="button"
+            onclick="changeScore(${team.id},5)"
+          >
+            +5
+          </button>
+
+          <button
+            type="button"
+            onclick="changeScore(${team.id},10)"
+          >
+            +10
+          </button>
+
+          <button
+            type="button"
+            onclick="changeScore(${team.id},-5)"
+          >
+            -5
+          </button>
+
+          <button
+            type="button"
+            onclick="changeScore(${team.id},-10)"
+          >
+            -10
+          </button>
+
+        </div>
+
+      `
+    ).join("");
+}
+
 
 /* =====================================================
    ADMIN POSTS
@@ -1602,7 +2004,9 @@ async function refreshAdminPosts() {
   const box =
     $("adminPosts");
 
-  if (!box) return;
+  if (!box) {
+    return;
+  }
 
   try {
 
@@ -1615,9 +2019,9 @@ async function refreshAdminPosts() {
         id,
         title,
         body,
+        team_id,
         image_url,
         created_at,
-        team_id,
         teams (
           name
         )
@@ -1630,7 +2034,9 @@ async function refreshAdminPosts() {
       )
       .limit(100);
 
-    if (error) throw error;
+    if (error) {
+      throw error;
+    }
 
     if (!data?.length) {
 
@@ -1643,6 +2049,7 @@ async function refreshAdminPosts() {
     box.innerHTML =
       data.map(
         post => `
+
           <div
             class="admin-post"
             id="admin-post-${post.id}"
@@ -1657,9 +2064,20 @@ async function refreshAdminPosts() {
             </p>
 
             <small>
+              الفريق:
               ${esc(
                 post.teams?.name ||
                 "كل الفرق"
+              )}
+            </small>
+
+            <br>
+
+            <small>
+              ${new Date(
+                post.created_at
+              ).toLocaleString(
+                "ar-EG"
               )}
             </small>
 
@@ -1671,9 +2089,8 @@ async function refreshAdminPosts() {
                     src="${esc(
                       post.image_url
                     )}"
-                    loading="lazy"
-                    decoding="async"
                     alt="صورة المنشور"
+                    loading="lazy"
                   >
                 `
                 : ""
@@ -1682,6 +2099,7 @@ async function refreshAdminPosts() {
             <br>
 
             <button
+              type="button"
               class="delete-btn"
               onclick="deletePost(${post.id})"
             >
@@ -1689,17 +2107,96 @@ async function refreshAdminPosts() {
             </button>
 
           </div>
+
         `
       ).join("");
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "Admin posts:",
+      error
+    );
 
     box.innerHTML =
       "تعذر تحميل المنشورات.";
   }
 }
+
+
+/* =====================================================
+   CHANGE SCORE
+===================================================== */
+
+async function changeScore(
+  teamId,
+  amount
+) {
+
+  try {
+
+    const {
+      data,
+      error
+    } = await sb
+      .from("teams")
+      .select("score")
+      .eq(
+        "id",
+        teamId
+      )
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    const newScore =
+      Number(
+        data.score || 0
+      ) +
+      Number(amount);
+
+    const {
+      error: updateError
+    } = await sb
+      .from("teams")
+      .update({
+        score:
+          newScore
+      })
+      .eq(
+        "id",
+        teamId
+      );
+
+    if (updateError) {
+      throw updateError;
+    }
+
+    teamsCache = null;
+
+    await refreshAdmin();
+
+    if (member) {
+
+      await refreshMember();
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Score:",
+      error
+    );
+
+    alert(
+      "لم يتم تعديل النقاط: " +
+      error.message
+    );
+  }
+}
+
 
 /* =====================================================
    DELETE MEMBER
@@ -1711,9 +2208,29 @@ async function deleteMember(id) {
     !confirm(
       "هل أنت متأكد من حذف العضو؟"
     )
-  ) return;
+  ) {
+    return;
+  }
 
   try {
+
+    const {
+      data,
+      error: getError
+    } = await sb
+      .from("members")
+      .select(
+        "photo_url"
+      )
+      .eq(
+        "id",
+        id
+      )
+      .single();
+
+    if (getError) {
+      throw getError;
+    }
 
     const {
       error
@@ -1725,17 +2242,38 @@ async function deleteMember(id) {
         id
       );
 
-    if (error) throw error;
+    if (error) {
+      throw error;
+    }
+
+    if (data?.photo_url) {
+
+      await deleteStorageImage(
+        data.photo_url
+      );
+    }
+
+    await refreshAdminMembers();
+
+    if (
+      member &&
+      Number(member.id) ===
+      Number(id)
+    ) {
+
+      logout();
+    }
 
     alert(
       "تم حذف العضو ✅"
     );
 
-    await refreshAdmin();
-
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "Delete member:",
+      error
+    );
 
     alert(
       "لم يتم حذف العضو: " +
@@ -1744,76 +2282,6 @@ async function deleteMember(id) {
   }
 }
 
-/* =====================================================
-   DELETE POST
-===================================================== */
-
-async function deletePost(
-  postId
-) {
-
-  if (
-    !confirm(
-      "هل أنت متأكد من حذف المنشور؟"
-    )
-  ) return;
-
-  try {
-
-    const {
-      error:
-        replyError
-    } = await sb
-      .from("replies")
-      .delete()
-      .eq(
-        "post_id",
-        postId
-      );
-
-    if (
-      replyError
-    ) {
-      console.warn(
-        "Reply delete:",
-        replyError
-      );
-    }
-
-    const {
-      error
-    } = await sb
-      .from("posts")
-      .delete()
-      .eq(
-        "id",
-        postId
-      );
-
-    if (error) throw error;
-
-    clearPostsCache();
-
-    alert(
-      "تم حذف المنشور ✅"
-    );
-
-    await refreshAdminPosts();
-
-    if (member) {
-      await refreshMember();
-    }
-
-  } catch (error) {
-
-    console.error(error);
-
-    alert(
-      "لم يتم حذف المنشور: " +
-      error.message
-    );
-  }
-}
 
 /* =====================================================
    CHANGE MEMBER PHOTO
@@ -1828,18 +2296,41 @@ async function changeMemberPhoto(
       "input"
     );
 
-  input.type = "file";
-  input.accept = "image/*";
+  input.type =
+    "file";
+
+  input.accept =
+    "image/*";
 
   input.onchange =
-    async () => {
+    async function () {
 
       const file =
         input.files?.[0];
 
-      if (!file) return;
+      if (!file) {
+        return;
+      }
 
       try {
+
+        const {
+          data: oldMember,
+          error: oldError
+        } = await sb
+          .from("members")
+          .select(
+            "photo_url"
+          )
+          .eq(
+            "id",
+            id
+          )
+          .single();
+
+        if (oldError) {
+          throw oldError;
+        }
 
         const photoUrl =
           await uploadImage(
@@ -1860,17 +2351,48 @@ async function changeMemberPhoto(
             id
           );
 
-        if (error) throw error;
+        if (error) {
+
+          await deleteStorageImage(
+            photoUrl
+          );
+
+          throw error;
+        }
+
+        if (
+          oldMember?.photo_url
+        ) {
+
+          await deleteStorageImage(
+            oldMember.photo_url
+          );
+        }
+
+        await refreshAdminMembers();
+
+        if (
+          member &&
+          Number(member.id) ===
+          Number(id)
+        ) {
+
+          member.photoUrl =
+            photoUrl;
+
+          await showMember();
+        }
 
         alert(
           "تم تغيير الصورة ✅"
         );
 
-        await refreshAdmin();
-
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          "Change photo:",
+          error
+        );
 
         alert(
           "لم يتم تغيير الصورة: " +
@@ -1882,8 +2404,108 @@ async function changeMemberPhoto(
   input.click();
 }
 
+
 /* =====================================================
-   QR
+   DELETE POST
+===================================================== */
+
+async function deletePost(
+  postId
+) {
+
+  if (
+    !confirm(
+      "هل أنت متأكد من حذف المنشور؟"
+    )
+  ) {
+    return;
+  }
+
+  try {
+
+    const {
+      data: post,
+      error: postError
+    } = await sb
+      .from("posts")
+      .select(
+        "id,image_url"
+      )
+      .eq(
+        "id",
+        postId
+      )
+      .single();
+
+    if (postError) {
+      throw postError;
+    }
+
+    const {
+      error: repliesError
+    } = await sb
+      .from("replies")
+      .delete()
+      .eq(
+        "post_id",
+        postId
+      );
+
+    if (repliesError) {
+      throw repliesError;
+    }
+
+    const {
+      error
+    } = await sb
+      .from("posts")
+      .delete()
+      .eq(
+        "id",
+        postId
+      );
+
+    if (error) {
+      throw error;
+    }
+
+    if (
+      post?.image_url
+    ) {
+
+      await deleteStorageImage(
+        post.image_url
+      );
+    }
+
+    await refreshAdminPosts();
+
+    if (member) {
+
+      await refreshMember();
+    }
+
+    alert(
+      "تم حذف المنشور ✅"
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Delete post:",
+      error
+    );
+
+    alert(
+      "لم يتم حذف المنشور: " +
+      error.message
+    );
+  }
+}
+
+
+/* =====================================================
+   QR CREATE
 ===================================================== */
 
 function createAdminQR(
@@ -1896,25 +2518,33 @@ function createAdminQR(
   if (
     !box ||
     typeof QRCode ===
-      "undefined"
+    "undefined"
   ) {
     return;
   }
 
-  box.innerHTML = "";
+  box.innerHTML =
+    "";
 
   new QRCode(
     box,
     {
       text:
         code,
+
       width:
         180,
+
       height:
         180
     }
   );
 }
+
+
+/* =====================================================
+   SHOW MEMBER QR
+===================================================== */
 
 function showMemberQR(
   code
@@ -1923,7 +2553,19 @@ function showMemberQR(
   if (!code) {
 
     alert(
-      "لا يوجد كود."
+      "العضو ليس لديه كود."
+    );
+
+    return;
+  }
+
+  if (
+    typeof QRCode ===
+    "undefined"
+  ) {
+
+    alert(
+      "QR Code غير متاح."
     );
 
     return;
@@ -1934,22 +2576,33 @@ function showMemberQR(
       "div"
     );
 
-  overlay.style.cssText = `
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.9);
-    display:grid;
-    place-items:center;
-    z-index:99999;
-  `;
+  overlay.style.position =
+    "fixed";
+
+  overlay.style.inset =
+    "0";
+
+  overlay.style.background =
+    "rgba(0,0,0,.9)";
+
+  overlay.style.display =
+    "grid";
+
+  overlay.style.placeItems =
+    "center";
+
+  overlay.style.zIndex =
+    "99999";
 
   overlay.innerHTML = `
+
     <div
       style="
         background:#101827;
         padding:30px;
         border-radius:25px;
         text-align:center;
+        color:white;
       "
     >
 
@@ -1963,11 +2616,15 @@ function showMemberQR(
         ${esc(code)}
       </p>
 
-      <button id="closeQR">
+      <button
+        id="closeQR"
+        type="button"
+      >
         إغلاق
       </button>
 
     </div>
+
   `;
 
   document.body.appendChild(
@@ -1981,8 +2638,10 @@ function showMemberQR(
     {
       text:
         code,
+
       width:
         220,
+
       height:
         220
     }
@@ -1991,8 +2650,22 @@ function showMemberQR(
   overlay.querySelector(
     "#closeQR"
   ).onclick =
-    () => overlay.remove();
+    () =>
+      overlay.remove();
+
+  overlay.onclick =
+    event => {
+
+      if (
+        event.target ===
+        overlay
+      ) {
+
+        overlay.remove();
+      }
+    };
 }
+
 
 /* =====================================================
    QR SCANNER
@@ -2003,17 +2676,8 @@ async function startQRScanner() {
   const box =
     $("qrScanner");
 
-  if (!box) return;
-
-  box.classList.remove(
-    "hidden"
-  );
-
-  if (scanner) {
-
-    try {
-      await scanner.stop();
-    } catch {}
+  if (!box) {
+    return;
   }
 
   if (
@@ -2021,38 +2685,76 @@ async function startQRScanner() {
     "undefined"
   ) {
 
-    $("scanMsg").textContent =
-      "ماسح QR غير متاح.";
+    if ($("scanMsg")) {
+
+      $("scanMsg").textContent =
+        "ماسح QR غير متاح.";
+    }
 
     return;
   }
 
-  scanner =
-    new Html5Qrcode(
-      "qrScanner"
-    );
+  box.classList.remove(
+    "hidden"
+  );
+
+  if ($("scanMsg")) {
+
+    $("scanMsg").textContent =
+      "وجّه الكاميرا إلى QR Code.";
+  }
 
   try {
 
+    if (scanner) {
+
+      try {
+        await scanner.stop();
+      } catch {}
+
+      try {
+        scanner.clear();
+      } catch {}
+    }
+
+    scanner =
+      new Html5Qrcode(
+        "qrScanner"
+      );
+
     await scanner.start(
+
       {
         facingMode:
           "environment"
       },
+
       {
         fps:
           10,
+
         qrbox: {
           width:
             250,
+
           height:
             250
         }
       },
-      async code => {
 
-        $("accessCode").value =
-          code;
+      async decodedText => {
+
+        if ($("accessCode")) {
+
+          $("accessCode").value =
+            decodedText;
+        }
+
+        if ($("scanMsg")) {
+
+          $("scanMsg").textContent =
+            "تم قراءة الكود ✅";
+        }
 
         try {
           await scanner.stop();
@@ -2063,21 +2765,31 @@ async function startQRScanner() {
         );
 
         await loginWithCode();
+
       },
+
       () => {}
+
     );
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "QR scanner:",
+      error
+    );
 
-    $("scanMsg").textContent =
-      "تعذر تشغيل الكاميرا.";
+    if ($("scanMsg")) {
+
+      $("scanMsg").textContent =
+        "تعذر تشغيل الكاميرا.";
+    }
   }
 }
 
+
 /* =====================================================
-   LOGOUT
+   LOGOUT MEMBER
 ===================================================== */
 
 function logout() {
@@ -2088,10 +2800,27 @@ function logout() {
 
   member = null;
 
-  clearPostsCache();
+  if ($("accessCode")) {
+
+    $("accessCode").value =
+      "";
+  }
+
+  if ($("msg")) {
+
+    $("msg").textContent =
+      "";
+  }
+
+  if ($("scanMsg")) {
+
+    $("scanMsg").textContent =
+      "";
+  }
 
   showJoin();
 }
+
 
 /* =====================================================
    RESTORE MEMBER
@@ -2099,12 +2828,14 @@ function logout() {
 
 async function restoreSavedMember() {
 
-  const id =
+  const savedId =
     localStorage.getItem(
       "memberId"
     );
 
-  if (!id) return;
+  if (!savedId) {
+    return;
+  }
 
   try {
 
@@ -2120,17 +2851,33 @@ async function restoreSavedMember() {
         access_code,
         photo_url,
         teams (
-          id,
           name
         )
       `)
       .eq(
         "id",
-        id
+        savedId
       )
       .maybeSingle();
 
-    if (error || !data) {
+    if (
+      error ||
+      !data
+    ) {
+
+      localStorage.removeItem(
+        "memberId"
+      );
+
+      return;
+    }
+
+    const planet =
+      findPlanetByName(
+        data.teams?.name
+      );
+
+    if (!planet) {
 
       localStorage.removeItem(
         "memberId"
@@ -2140,18 +2887,25 @@ async function restoreSavedMember() {
     }
 
     member = {
+
       id:
         data.id,
+
       name:
         data.name,
-      teamId:
+
+      team:
+        planet.id,
+
+      teamDbId:
         data.team_id,
-      teamName:
-        data.teams?.name || "",
+
       accessCode:
         data.access_code,
+
       photoUrl:
         data.photo_url || ""
+
     };
 
     await showMember();
@@ -2159,98 +2913,216 @@ async function restoreSavedMember() {
   } catch (error) {
 
     console.error(
-      "Restore error:",
+      "Restore member:",
       error
     );
   }
 }
 
+
 /* =====================================================
    EVENTS
 ===================================================== */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
+function setupEvents() {
 
-    renderTeams();
+  /* MEMBER LOGIN */
 
-    showJoin();
+  $("codeLoginBtn")
+    ?.addEventListener(
+      "click",
+      loginWithCode
+    );
 
-    $("codeLoginBtn")
-      ?.addEventListener(
-        "click",
-        loginWithCode
-      );
+  $("accessCode")
+    ?.addEventListener(
+      "keydown",
+      event => {
 
-    $("scanQRBtn")
-      ?.addEventListener(
-        "click",
-        startQRScanner
-      );
+        if (
+          event.key ===
+          "Enter"
+        ) {
 
-    $("adminOpen")
-      ?.addEventListener(
-        "click",
-        openAdmin
-      );
-
-    $("closeModal")
-      ?.addEventListener(
-        "click",
-        closeAdmin
-      );
-
-    $("loginBtn")
-      ?.addEventListener(
-        "click",
-        loginAdmin
-      );
-
-    $("adminLogout")
-      ?.addEventListener(
-        "click",
-        adminLogout
-      );
-
-    $("postBtn")
-      ?.addEventListener(
-        "click",
-        publishPost
-      );
-
-    $("addMemberBtn")
-      ?.addEventListener(
-        "click",
-        addMember
-      );
-
-    $("logout")
-      ?.addEventListener(
-        "click",
-        logout
-      );
-
-    $("accessCode")
-      ?.addEventListener(
-        "keydown",
-        e => {
-          if (e.key === "Enter") {
-            loginWithCode();
-          }
+          loginWithCode();
         }
-      );
+      }
+    );
 
-    $("adminPass")
-      ?.addEventListener(
-        "keydown",
-        e => {
-          if (e.key === "Enter") {
-            loginAdmin();
-          }
+
+  /* QR */
+
+  $("scanQRBtn")
+    ?.addEventListener(
+      "click",
+      startQRScanner
+    );
+
+
+  /* ADMIN */
+
+  $("adminOpen")
+    ?.addEventListener(
+      "click",
+      openAdmin
+    );
+
+  $("closeModal")
+    ?.addEventListener(
+      "click",
+      closeAdmin
+    );
+
+  $("loginBtn")
+    ?.addEventListener(
+      "click",
+      loginAdmin
+    );
+
+  $("adminLogout")
+    ?.addEventListener(
+      "click",
+      adminLogout
+    );
+
+
+  $("adminPass")
+    ?.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key ===
+          "Enter"
+        ) {
+
+          loginAdmin();
         }
-      );
+      }
+    );
 
-    restoreSavedMember();
-  }
-);
+
+  /* ADMIN ACTIONS */
+
+  $("addMemberBtn")
+    ?.addEventListener(
+      "click",
+      addMember
+    );
+
+  $("postBtn")
+    ?.addEventListener(
+      "click",
+      publishPost
+    );
+
+
+  /* MEMBER LOGOUT */
+
+  $("logout")
+    ?.addEventListener(
+      "click",
+      logout
+    );
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+async function init() {
+
+  console.log(
+    "INFINITY: initializing..."
+  );
+
+  renderTeams();
+
+  setupEvents();
+
+  showJoin();
+
+  await restoreSavedMember();
+
+  console.log(
+    "INFINITY: ready"
+  );
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+if (
+  document.readyState ===
+  "loading"
+) {
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    init,
+    {
+      once: true
+    }
+  );
+
+} else {
+
+  init();
+}
+
+
+/* =====================================================
+   GLOBAL FUNCTIONS
+   Required for inline onclick
+===================================================== */
+
+window.sendReply =
+  sendReply;
+
+window.deletePost =
+  deletePost;
+
+window.deleteMember =
+  deleteMember;
+
+window.changeScore =
+  changeScore;
+
+window.changeMemberPhoto =
+  changeMemberPhoto;
+
+window.showMemberQR =
+  showMemberQR;
+
+window.createAdminQR =
+  createAdminQR;
+
+window.loginWithCode =
+  loginWithCode;
+
+window.loginAdmin =
+  loginAdmin;
+
+window.openAdmin =
+  openAdmin;
+
+window.closeAdmin =
+  closeAdmin;
+
+window.logout =
+  logout;
+
+window.adminLogout =
+  adminLogout;
+
+window.addMember =
+  addMember;
+
+window.publishPost =
+  publishPost;
+
+window.startQRScanner =
+  startQRScanner;
