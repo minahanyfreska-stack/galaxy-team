@@ -11,12 +11,12 @@ const SUPABASE_URL =
   "https://jbdjhdbbmfowdwmejdtw.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_zF7z4wuwluqfPDfAH0-7qg_";
+  "sb_publishable_zF7z4wuwluqfPDfAH0-7qg_8-tjtrSr";
 
 const sb = window.supabase.createClient(
   SUPABASE_URL,
-  SUPABASE_KEY,
-  );
+  SUPABASE_KEY
+);
     auth: {
       persistSession: false,
       autoRefreshToken: false
